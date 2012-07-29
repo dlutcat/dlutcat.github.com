@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Octopress | My Octopress Blog]]></title>
+  <link href="http://dlutcat.github.com/blog/categories/octopress/atom.xml" rel="self"/>
+  <link href="http://dlutcat.github.com/"/>
+  <updated>2012-07-29T23:53:02+08:00</updated>
+  <id>http://dlutcat.github.com/</id>
+  <author>
+    <name><![CDATA[Your Name]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[My First Octopress Blog]]></title>
+    <link href="http://dlutcat.github.com/blog/2012/07/29/my-first-octopress-blog/"/>
+    <updated>2012-07-29T23:38:00+08:00</updated>
+    <id>http://dlutcat.github.com/blog/2012/07/29/my-first-octopress-blog</id>
+    <content type="html"><![CDATA[<p>首次使用<code>Octopress</code>，不知道怎么样，先用着看看吧。</p>
+
+<h4>测试代码摘要</h4>
+
+<p>``` python test script
+class Test(object):</p>
+
+<pre><code>def __init__(self, name):
+    self.name = name
+</code></pre>
+
+<p>```</p>
+]]></content>
+  </entry>
+  
+</feed>
