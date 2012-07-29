@@ -3,11 +3,11 @@
 <html>
 <head>
 	<meta charset="utf-8">
-	<title>Blog Archives - 简单的Coder</title>
+	<title>中文日志支持怎么样 - 简单的Coder</title>
 	<meta name="author" content="dlutcat">
 
 	
-	<meta name="description" content=" 2012 中文日志支持怎么样 Jul 29 My First Octopress Blog Jul 29 Github, Octopress ">
+	<meta name="description" content="很牛的嘛，中文都转换成拼音了。 来一段Gist class Tree def Tree.create(&amp;block) Tree.new.instance_eval(&amp;block) end def method_missing(methodname, *args, &amp; &hellip;">
 	
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
@@ -87,42 +87,64 @@
 </script>
 
 	
-	<div id="content" class="inner">
+	<div id="content" class="inner"><article class="post">
+	<h1 class="title">中文日志支持怎么样</h1>
+	<div class="entry-content"><p>很牛的嘛，中文都转换成拼音了。</p>
+
+<h3>来一段<code>Gist</code></h3>
+
+<div><script src='https://gist.github.com/6001.js?file='></script>
+<noscript><pre><code>class Tree
+  def Tree.create(&amp;block)
+    Tree.new.instance_eval(&amp;block)
+  end
+  def method_missing(methodname, *args, &amp;block)
+    @root = TreeNode.new(methodname.to_s)
+    @root.instance_eval(&amp;block) if block_given?
+    @root
+  end
+end</code></pre></noscript></div>
+
+
+<h3>测试超链接样式</h3>
+
+<p><a href="http://kantuban.com">看图班</a></p>
+</div>
+
+
+<div class="meta">
+	<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-07-29T23:46:00+08:00" pubdate data-updated="true">Jul 29<span>th</span>, 2012</time></div>
+	<div class="tags">
+
+</div>
 	
+</div></article>
 
-
+	<div class="share">
+	<div class="addthis_toolbox addthis_default_style ">
 	
 	
-	<section class="archives"><h1 class="year">2012</h1>
-
-<article>
-	<h1 class="title"><a href="/blog/2012/07/29/zhong-wen-ri-zhi-zhi-chi-zen-yao-yang/">中文日志支持怎么样</a></h1>
-	<div class="meta">
-		<span class="date">Jul 29</span>
-		<span class="tags">
-
-</span>
-	    
+	<a class="addthis_button_tweet"></a>
+	
+	
+	<a class="addthis_counter addthis_pill_style"></a>
 	</div>
-</article>
-
-	
-
-
-<article>
-	<h1 class="title"><a href="/blog/2012/07/29/my-first-octopress-blog/">My First Octopress Blog</a></h1>
-	<div class="meta">
-		<span class="date">Jul 29</span>
-		<span class="tags">
+  <script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid="></script>
+</div>
 
 
-	<a class='category' href='/blog/categories/github/'>Github</a>, <a class='category' href='/blog/categories/octopress/'>Octopress</a>
-
-
-</span>
-	    
-	</div>
-</article>
 </div>
 	<footer id="footer" class="inner">Copyright &copy; 2012
 

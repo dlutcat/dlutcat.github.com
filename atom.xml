@@ -1,23 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[My Octopress Blog]]></title>
+  <title><![CDATA[简单的Coder]]></title>
   <link href="http://dlutcat.github.com/atom.xml" rel="self"/>
   <link href="http://dlutcat.github.com/"/>
-  <updated>2012-07-29T23:53:02+08:00</updated>
+  <updated>2012-07-30T00:21:19+08:00</updated>
   <id>http://dlutcat.github.com/</id>
   <author>
-    <name><![CDATA[Your Name]]></name>
-    
+    <name><![CDATA[dlutcat]]></name>
+    <email><![CDATA[pat.inside@gmail.com]]></email>
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
   
   <entry>
-    <title type="html"><![CDATA[中文日志支持怎么样？]]></title>
-    <link href="http://dlutcat.github.com/blog/2012/07/29/zhong-wen-ri-zhi-zhi-chi-zen-yao-yang-%3F/"/>
+    <title type="html"><![CDATA[中文日志支持怎么样]]></title>
+    <link href="http://dlutcat.github.com/blog/2012/07/29/zhong-wen-ri-zhi-zhi-chi-zen-yao-yang/"/>
     <updated>2012-07-29T23:46:00+08:00</updated>
-    <id>http://dlutcat.github.com/blog/2012/07/29/zhong-wen-ri-zhi-zhi-chi-zen-yao-yang-?</id>
+    <id>http://dlutcat.github.com/blog/2012/07/29/zhong-wen-ri-zhi-zhi-chi-zen-yao-yang</id>
     <content type="html"><![CDATA[<p>很牛的嘛，中文都转换成拼音了。</p>
 
 <h3>来一段<code>Gist</code></h3>
@@ -35,7 +35,9 @@
 end</code></pre></noscript></div>
 
 
+<h3>测试超链接样式</h3>
 
+<p><a href="http://kantuban.com">看图班</a></p>
 ]]></content>
   </entry>
   
