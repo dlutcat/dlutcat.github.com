@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[Category: Python | 简单的Coder]]></title>
-  <link href="http://dlutcat.github.com/blog/categories/python/atom.xml" rel="self"/>
+  <title><![CDATA[Category: thread | 简单的Coder]]></title>
+  <link href="http://dlutcat.github.com/blog/categories/thread/atom.xml" rel="self"/>
   <link href="http://dlutcat.github.com/"/>
   <updated>2012-08-06T00:38:01+08:00</updated>
   <id>http://dlutcat.github.com/</id>
@@ -417,93 +417,6 @@
 </span><span class='line'>    <span class="n">server</span><span class="p">(</span><span class="mi">4444</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
 </span></code></pre></td></tr></table></div></figure></notextile></div>
 批注：研究中。</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Python性能分析指南]]></title>
-    <link href="http://dlutcat.github.com/blog/2012/07/30/pythonxing-neng-fen-xi-zhi-nan/"/>
-    <updated>2012-07-30T16:53:00+08:00</updated>
-    <id>http://dlutcat.github.com/blog/2012/07/30/pythonxing-neng-fen-xi-zhi-nan</id>
-    <content type="html"><![CDATA[<h2>主题</h2>
-
-<p>介绍几种用于Python程序性能分析的工具和方法。</p>
-
-<h2>思路</h2>
-
-<p>一般情况下，要分析一段代码的性能，可以从下面几个问题入手：</p>
-
-<ol>
-<li><strong>目前执行效率如何？</strong></li>
-<li><strong>效率瓶颈在哪里？</strong></li>
-<li><strong>占用了多少内存？</strong></li>
-<li><strong>内存消耗在哪里？</strong></li>
-</ol>
-
-
-<p>下面我们用几个工具来一一解答这些疑问。</p>
-
-<h2>Unix命令行工具: <code>time</code></h2>
-
-<p><code>time</code>是几乎所有*nix系统自带的一个工具，我们可以用它来对程序进行初步的分析：</p>
-
-<p>```
-$ time python yourprogram.py</p>
-
-<p>real    0m1.028s
-user    0m0.001s
-sys     0m0.003s
-```</p>
-
-<p>输出的三条数据的具体含义可以参考这里：<a href="http://stackoverflow.com/questions/556405/what-do-real-user-and-sys-mean-in-the-output-of-time1">What do 'real', 'user' and 'sys' mean in the output of time(1)?</a>。这里给出简单的说明：</p>
-
-<ul>
-<li><code>real</code> - 时钟时间。从程序开始到结束流逝的时间(actual elapsed time)，包括其他进程占用的时间，比如IO等待时间。</li>
-<li><code>user</code> - 内核之外（用户空间）该进程占用时间(cpu time)。</li>
-<li><code>sys</code> - 该进程的内核执行时间(cpu time)</li>
-</ul>
-
-
-<p>如果发现<code>sys</code>和<code>user</code>的时间之和远小于<code>real</code>就说明我们的程序很有可能在IO等待上花费了大量时间。</p>
-
-<h2>自定义Timer类</h2>
-
-<p><div><script src='https://gist.github.com/3205931.js?file='></script>
-<noscript><pre><code>import time
-
-class Timer(object):
-    def __init__(self, verbose=False):
-        self.verbose = verbose
-
-    def __enter__(self):
-        self.start = time.time()
-        return self
-
-    def __exit__(self, *args):
-        self.end = time.time()
-        self.secs = self.end - self.start
-        self.msecs = self.secs * 1000  # millisecs
-        if self.verbose:
-            print 'elapsed time: %f ms' % self.msecs
-
-###################
-
-from timer import Timer
-from redis import Redis
-rdb = Redis()
-
-with Timer() as t:
-    rdb.lpush(&quot;foo&quot;, &quot;bar&quot;)
-print &quot;=&gt; elasped lpush: %s s&quot; % t.secs
-
-with Timer as t:
-    rdb.lpop(&quot;foo&quot;)
-print &quot;=&gt; elasped lpop: %s s&quot; % t.secs</code></pre></noscript></div>
-</p>
-
-<p>可以把时间输出到一个性能日志文件，比如profile.log，方便以后分析我们程序的性能瓶颈。</p>
-
-<h2>行执行时间分析：<a href="http://packages.python.org/line_profiler/"><code>line_profiler</code></a></h2>
 ]]></content>
   </entry>
   
