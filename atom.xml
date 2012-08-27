@@ -4,7 +4,7 @@
   <title><![CDATA[简单的Coder]]></title>
   <link href="http://dlutcat.github.com/atom.xml" rel="self"/>
   <link href="http://dlutcat.github.com/"/>
-  <updated>2012-08-06T00:38:01+08:00</updated>
+  <updated>2012-08-27T20:26:23+08:00</updated>
   <id>http://dlutcat.github.com/</id>
   <author>
     <name><![CDATA[dlutcat]]></name>
@@ -12,6 +12,134 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[跟踪Python嵌套函数调用]]></title>
+    <link href="http://dlutcat.github.com/blog/2012/08/27/gen-zong-pythonqian-tao-han-shu-diao-yong/"/>
+    <updated>2012-08-27T20:05:00+08:00</updated>
+    <id>http://dlutcat.github.com/blog/2012/08/27/gen-zong-pythonqian-tao-han-shu-diao-yong</id>
+    <content type="html"><![CDATA[<p>今天在浏览Google Reader的时候发现一个好用的工具函数，用来跟踪嵌套调用函数方便debug。<br/>
+原文：<a href="http://eli.thegreenplace.net/2012/08/22/easy-tracing-of-nested-function-calls-in-python/">Easy tracing of nested function calls in Python</a></p>
+
+<p>其实是一个装饰器类：</p>
+
+<div><script src='https://gist.github.com/3487991.js?file='></script>
+<noscript><pre><code>import sys
+from functools import wraps
+
+class TraceCalls(object):
+    &quot;&quot;&quot; Use as a decorator on functions that should be traced. Several
+        functions can be decorated - they will all be indented according
+        to their call depth.
+    &quot;&quot;&quot;
+    def __init__(self, stream=sys.stdout, indent_step=2, show_ret=False):
+        self.stream = stream
+        self.indent_step = indent_step
+        self.show_ret = show_ret
+
+        # This is a class attribute since we want to share the indentation
+        # level between different traced functions, in case they call
+        # each other.
+        TraceCalls.cur_indent = 0
+
+    def __call__(self, fn):
+        @wraps(fn)
+        def wrapper(*args, **kwargs):
+            indent = ' ' * TraceCalls.cur_indent
+            argstr = ', '.join(
+                [repr(a) for a in args] +
+                [&quot;%s=%s&quot; % (a, repr(b)) for a, b in kwargs.items()])
+            self.stream.write('%s%s(%s)\n' % (indent, fn.__name__, argstr))
+
+            TraceCalls.cur_indent += self.indent_step
+            ret = fn(*args, **kwargs)
+            TraceCalls.cur_indent -= self.indent_step
+
+            if self.show_ret:
+                self.stream.write('%s--&gt; %s\n' % (indent, ret))
+            return ret
+        return wrapper
+
+
+#=================== Test Case 1
+
+@TraceCalls()
+def iseven(n):
+    return True if n == 0 else isodd(n - 1)
+
+@TraceCalls()
+def isodd(n):
+    return False if n == 0 else iseven(n - 1)
+
+print(iseven(7))
+
+
+&quot;&quot;&quot; Output:
+iseven(7)
+  isodd(6)
+    iseven(5)
+      isodd(4)
+        iseven(3)
+          isodd(2)
+            iseven(1)
+              isodd(0)
+False
+&quot;&quot;&quot;
+
+#=================== Test Case 2
+
+@TraceCalls(indent_step=4, show_ret=True)
+def flatten(lst):
+    if isinstance(lst, list):
+        return sum((flatten(item) for item in lst), [])
+    else:
+        return [lst]
+
+list(flatten([1, 2, [3, [4, 5], 6, [7, [9], 12]], 4, [6, 9]]))
+
+&quot;&quot;&quot;
+flatten([1, 2, [3, [4, 5], 6, [7, [9], 12]], 4, [6, 9]])
+    flatten(1)
+    --&gt; [1]
+    flatten(2)
+    --&gt; [2]
+    flatten([3, [4, 5], 6, [7, [9], 12]])
+        flatten(3)
+        --&gt; [3]
+        flatten([4, 5])
+            flatten(4)
+            --&gt; [4]
+            flatten(5)
+            --&gt; [5]
+        --&gt; [4, 5]
+        flatten(6)
+        --&gt; [6]
+        flatten([7, [9], 12])
+            flatten(7)
+            --&gt; [7]
+            flatten([9])
+                flatten(9)
+                --&gt; [9]
+            --&gt; [9]
+            flatten(12)
+            --&gt; [12]
+        --&gt; [7, 9, 12]
+    --&gt; [3, 4, 5, 6, 7, 9, 12]
+    flatten(4)
+    --&gt; [4]
+    flatten([6, 9])
+        flatten(6)
+        --&gt; [6]
+        flatten(9)
+        --&gt; [9]
+    --&gt; [6, 9]
+--&gt; [1, 2, 3, 4, 5, 6, 7, 9, 12, 4, 6, 9]
+&quot;&quot;&quot;</code></pre></noscript></div>
+
+
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Python线程和gevent简易服务器实现对比]]></title>
