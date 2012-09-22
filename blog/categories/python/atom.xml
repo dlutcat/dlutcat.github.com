@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Python | 简单的Coder]]></title>
   <link href="http://dlutcat.github.com/blog/categories/python/atom.xml" rel="self"/>
   <link href="http://dlutcat.github.com/"/>
-  <updated>2012-09-18T21:27:07+08:00</updated>
+  <updated>2012-09-22T16:10:31+08:00</updated>
   <id>http://dlutcat.github.com/</id>
   <author>
     <name><![CDATA[dlutcat]]></name>
@@ -12,6 +12,45 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[为什么Python函数定义中关键字参数不推荐设置mutable的默认值？]]></title>
+    <link href="http://dlutcat.github.com/blog/2012/09/22/wei-shi-yao-pythonhan-shu-ding-yi-zhong-guan-jian-zi-can-shu-bu-tui-jian-she-zhi-mutablede-mo-ren-zhi/"/>
+    <updated>2012-09-22T15:55:00+08:00</updated>
+    <id>http://dlutcat.github.com/blog/2012/09/22/wei-shi-yao-pythonhan-shu-ding-yi-zhong-guan-jian-zi-can-shu-bu-tui-jian-she-zhi-mutablede-mo-ren-zhi</id>
+    <content type="html"><![CDATA[<p>很多关于Python的<a href="http://www.google.com.hk/search?q=python+best+practices&amp;aq=0&amp;oq=python+best+prac&amp;sugexp=chrome,mod=10&amp;sourceid=chrome&amp;ie=UTF-8">Best Practice</a>中都会提到，在函数定义的时候，关键词参数的默认值不要设置成mutable的类型，比如list, dict。那么具体原因是什么呢？之前一直没有去思考，直到膝盖中了一箭。
+先看下面的例子：</p>
+
+<p>``` python</p>
+
+<pre><code>def example(items=[]):
+    items.append("test")
+    return items
+</code></pre>
+
+<p>```</p>
+
+<p>调用<code>example()</code>会返回什么呢？第二次，第三次调用又会返回什么呢？</p>
+
+<p>``` bash</p>
+
+<pre><code>&gt;&gt;&gt; example()
+['test']
+
+&gt;&gt;&gt; example()
+['test', 'test']
+
+&gt;&gt;&gt; example()
+['test', 'test', 'test']
+</code></pre>
+
+<p>```</p>
+
+<p>是不是觉得结果有些意外？是的，这就是Python函数的定义机制：</p>
+
+<blockquote><p>在生命周期中，函数的声明语句只会执行一次，就是在源码被解释器解释的时候，而不是在被调用的时候。</p></blockquote>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[跟踪Python嵌套函数调用]]></title>

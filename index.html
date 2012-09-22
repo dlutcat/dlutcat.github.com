@@ -7,7 +7,11 @@
 	<meta name="author" content="dlutcat">
 
 	
-	<meta name="description" content="用惯了自己的电脑，我喜欢在公司也自带电脑，由于家里和公司的网络环境不同，而且因为某些原因都需要手动设置IP, Subnet, Router和DNS，这样每天晚上回家和早上上班手动设置会很麻烦，就研究了一下Mac下自动设置。在Mac下面有一个命令networksetup，用man查看，它有很多参数 &hellip;">
+	<meta name="description" content="很多关于Python的Best Practice中都会提到，在函数定义的时候，关键词参数的默认值不要设置成mutable的类型，比如list, dict。那么具体原因是什么呢？之前一直没有去思考，直到膝盖中了一箭。
+先看下面的例子： 1
+2
+3
+def example(items=[]): &hellip;">
 	
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
@@ -88,6 +92,76 @@
 
 	
 	<div id="content" class="inner">
+
+
+    <article class="post">
+	<h1 class="title"><a href="/blog/2012/09/22/wei-shi-yao-pythonhan-shu-ding-yi-zhong-guan-jian-zi-can-shu-bu-tui-jian-she-zhi-mutablede-mo-ren-zhi/">为什么Python函数定义中关键字参数不推荐设置mutable的默认值？</a></h1>
+	<div class="entry-content">
+		<p>很多关于Python的<a href="http://www.google.com.hk/search?q=python+best+practices&amp;aq=0&amp;oq=python+best+prac&amp;sugexp=chrome,mod=10&amp;sourceid=chrome&amp;ie=UTF-8">Best Practice</a>中都会提到，在函数定义的时候，关键词参数的默认值不要设置成mutable的类型，比如list, dict。那么具体原因是什么呢？之前一直没有去思考，直到膝盖中了一箭。
+先看下面的例子：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="k">def</span> <span class="nf">example</span><span class="p">(</span><span class="n">items</span><span class="o">=</span><span class="p">[]):</span>
+</span><span class='line'>    <span class="n">items</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s">&quot;test&quot;</span><span class="p">)</span>
+</span><span class='line'>    <span class="k">return</span> <span class="n">items</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>调用<code>example()</code>会返回什么呢？第二次，第三次调用又会返回什么呢？</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>&gt;&gt;&gt; example<span class="o">()</span>
+</span><span class='line'><span class="o">[</span><span class="s1">&#39;test&#39;</span><span class="o">]</span>
+</span><span class='line'>
+</span><span class='line'>&gt;&gt;&gt; example<span class="o">()</span>
+</span><span class='line'><span class="o">[</span><span class="s1">&#39;test&#39;</span>, <span class="s1">&#39;test&#39;</span><span class="o">]</span>
+</span><span class='line'>
+</span><span class='line'>&gt;&gt;&gt; example<span class="o">()</span>
+</span><span class='line'><span class="o">[</span><span class="s1">&#39;test&#39;</span>, <span class="s1">&#39;test&#39;</span>, <span class="s1">&#39;test&#39;</span><span class="o">]</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>是不是觉得结果有些意外？是的，这就是Python函数的定义机制：</p>
+
+<blockquote><p>在生命周期中，函数的声明语句只会执行一次，就是在源码被解释器解释的时候，而不是在被调用的时候。</p></blockquote>
+
+		
+		
+	</div>
+
+
+<div class="meta">
+	<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-09-22T15:55:00+08:00" pubdate data-updated="true">Sep 22<span>nd</span>, 2012</time></div>
+	<div class="tags">
+
+
+	<a class='category' href='/blog/categories/python/'>Python</a>
+
+
+</div>
+	
+</div></article>
 
 
     <article class="post">
