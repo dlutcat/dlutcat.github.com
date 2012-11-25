@@ -3,11 +3,11 @@
 <html>
 <head>
 	<meta charset="utf-8">
-	<title>Category: Python - 简单的Coder</title>
+	<title>简单的Coder</title>
 	<meta name="author" content="dlutcat">
 
 	
-	<meta name="description" content="Category: Python">
+	<meta name="description" content="很牛的嘛，中文都转换成拼音了。 来一段Gist class Tree def Tree.create(&amp;block) Tree.new.instance_eval(&amp;block) end def method_missing(methodname, *args, &amp; &hellip;">
 	
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
@@ -88,100 +88,114 @@
 
 	
 	<div id="content" class="inner">
-	
 
 
-	
-	
-	<section class="archives"><h1 class="year">2012</h1>
+    <article class="post">
+	<h1 class="title"><a href="/blog/2012/07/29/zhong-wen-ri-zhi-zhi-chi-zen-yao-yang/">中文日志支持怎么样</a></h1>
+	<div class="entry-content">
+		<p>很牛的嘛，中文都转换成拼音了。</p>
 
-<article>
-	<h1 class="title"><a href="/blog/2012/11/25/duo-fu-wu-qi-guan-li-zhi-fabric/">多服务器管理之Fabric</a></h1>
-	<div class="meta">
-		<span class="date">Nov 25</span>
-		<span class="tags">
+<h3>来一段<code>Gist</code></h3>
+
+<div><script src='https://gist.github.com/6001.js?file='></script>
+<noscript><pre><code>class Tree
+  def Tree.create(&amp;block)
+    Tree.new.instance_eval(&amp;block)
+  end
+  def method_missing(methodname, *args, &amp;block)
+    @root = TreeNode.new(methodname.to_s)
+    @root.instance_eval(&amp;block) if block_given?
+    @root
+  end
+end</code></pre></noscript></div>
 
 
-	<a class='category' href='/blog/categories/fabric/'>Fabric</a>, <a class='category' href='/blog/categories/python/'>Python</a>
+<h3>测试超链接样式</h3>
 
+<p><a href="http://kantuban.com">看图班</a></p>
 
-</span>
-	    
+		
+		
 	</div>
-</article>
 
+
+<div class="meta">
+	<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-07-29T23:46:00+08:00" pubdate data-updated="true">Jul 29<span>th</span>, 2012</time></div>
+	<div class="tags">
+
+</div>
 	
+</div></article>
 
 
-<article>
-	<h1 class="title"><a href="/blog/2012/09/22/wei-shi-yao-pythonhan-shu-ding-yi-zhong-guan-jian-zi-can-shu-bu-tui-jian-she-zhi-mutablede-mo-ren-zhi/">为什么Python函数定义中关键字参数不推荐设置mutable的默认值？</a></h1>
-	<div class="meta">
-		<span class="date">Sep 22</span>
-		<span class="tags">
+    <article class="post">
+	<h1 class="title"><a href="/blog/2012/07/29/my-first-octopress-blog/">My First Octopress Blog</a></h1>
+	<div class="entry-content">
+		<p>首次使用<code>Octopress</code>，不知道怎么样，先用着看看吧。</p>
+
+<h4>测试代码摘要</h4>
+
+<figure class='code'><figcaption><span>test script</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="k">class</span> <span class="nc">Test</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+</span><span class='line'>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+</span><span class='line'>        <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
+</span></code></pre></td></tr></table></div></figure>
 
 
-	<a class='category' href='/blog/categories/python/'>Python</a>
+<p>testdd</p>
 
+<p><img src="http://img.hb.aicdn.com/5319ce74d44bc3c59ea05fd47aebfff9a867563c238eb-dlJu4F_fw554" title="Git Flow" alt="git flow" /></p>
 
-</span>
-	    
+		
+		
 	</div>
-</article>
 
+
+<div class="meta">
+	<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-07-29T23:38:00+08:00" pubdate data-updated="true">Jul 29<span>th</span>, 2012</time></div>
+	<div class="tags">
+
+
+	<a class='category' href='/blog/categories/github/'>Github</a>, <a class='category' href='/blog/categories/octopress/'>Octopress</a>
+
+
+</div>
 	
+</div></article>
 
-
-<article>
-	<h1 class="title"><a href="/blog/2012/08/27/gen-zong-pythonqian-tao-han-shu-diao-yong/">跟踪Python嵌套函数调用</a></h1>
-	<div class="meta">
-		<span class="date">Aug 27</span>
-		<span class="tags">
-
-
-	<a class='category' href='/blog/categories/python/'>Python</a>
-
-
-</span>
-	    
-	</div>
-</article>
-
-	
-
-
-<article>
-	<h1 class="title"><a href="/blog/2012/08/05/pythonxian-cheng-he-geventjian-yi-fu-wu-qi-shi-xian-dui-bi/">Python线程和gevent简易服务器实现对比</a></h1>
-	<div class="meta">
-		<span class="date">Aug  5</span>
-		<span class="tags">
-
-
-	<a class='category' href='/blog/categories/python/'>Python</a>, <a class='category' href='/blog/categories/gevent/'>gevent</a>, <a class='category' href='/blog/categories/thread/'>thread</a>
-
-
-</span>
-	    
-	</div>
-</article>
-
-	
-
-
-<article>
-	<h1 class="title"><a href="/blog/2012/07/30/pythonxing-neng-fen-xi-zhi-nan/">Python性能分析指南</a></h1>
-	<div class="meta">
-		<span class="date">Jul 30</span>
-		<span class="tags">
-
-
-	<a class='category' href='/blog/categories/python/'>Python</a>
-
-
-</span>
-	    
-	</div>
-</article>
-
+<nav id="pagenavi">
+    
+        <a href="/blog/page/2/" class="prev">Prev</a>
+    
+    
+    <div class="center"><a href="/blog/archives">所有日志</a></div>
+</nav>
 </div>
 	<footer id="footer" class="inner">Copyright &copy; 2012
 
