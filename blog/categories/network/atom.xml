@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Network | 简单的Coder]]></title>
   <link href="http://dlutcat.github.com/blog/categories/network/atom.xml" rel="self"/>
   <link href="http://dlutcat.github.com/"/>
-  <updated>2012-12-17T23:25:36+08:00</updated>
+  <updated>2013-02-08T22:39:40+08:00</updated>
   <id>http://dlutcat.github.com/</id>
   <author>
     <name><![CDATA[dlutcat]]></name>
@@ -101,7 +101,7 @@ Tenda c8:3a:35:f4:ad:28 -48  6,+1    Y  CN WPA2(PSK/AES/AES)
 
 <p>这样，我们就可以写一个小脚本，自动检查网络环境并且自动切换了，我的脚本如下：</p>
 
-<p><div><script src='https://gist.github.com/3743043.js?file='></script>
+<p><div><script src='https://gist.github.com/3743043.js'></script>
 <noscript><pre><code>#!/bin/sh
 
 # happyhouse is my home wifi name

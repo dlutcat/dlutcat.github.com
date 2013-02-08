@@ -1,99 +1,165 @@
 
-<!DOCTYPE HTML>
-<html>
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
-	<meta charset="utf-8">
-	<title>简单的Coder</title>
-	<meta name="author" content="dlutcat">
+  <meta charset="utf-8">
+  <title>简单的Coder</title>
+  <meta name="author" content="dlutcat">
 
-	
-	<meta name="description" content="用惯了自己的电脑，我喜欢在公司也自带电脑，由于家里和公司的网络环境不同，而且因为某些原因都需要手动设置IP, Subnet, Router和DNS，这样每天晚上回家和早上上班手动设置会很麻烦，就研究了一下Mac下自动设置。在Mac下面有一个命令networksetup，用man查看，它有很多参数 &hellip;">
-	
-	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  <meta name="description" content="很多关于Python的Best Practice中都会提到，在函数定义的时候，关键词参数的默认值不要设置成mutable的类型，比如list, dict。那么具体原因是什么呢？之前一直没有去思考，直到膝盖中了一箭。
+先看下面的例子： 1
+2
+3
+def example(items=[]): &hellip;">
+  
 
-	<link href="/atom.xml" rel="alternate" title="简单的Coder" type="application/atom+xml">
-	<link rel="canonical" href="">
-	<link href="/favicon.png" rel="shortcut icon">
-	<link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
-	<!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
-	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
-	
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://dlutcat.github.com/blog/page/2/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="简单的Coder" type="application/atom+xml">
+  
+  
+
 </head>
 
-<body>
-	<header id="header" class="inner"><h1><a href="/">简单的Coder</a></h1>
-<nav id="main-nav"><ul class="main">
-	<li><a href="/">日志</a></li>
-	<li><a href="/blog/archives">归档</a></li>
-</ul>
-</nav>
-<nav id="mobile-nav">
-	<div class="alignleft menu">
-		<a class="button">Menu</a>
-		<div class="container"><ul class="main">
-	<li><a href="/">日志</a></li>
-	<li><a href="/blog/archives">归档</a></li>
-</ul>
-</div>
-	</div>
-	<div class="alignright search">
-		<a class="button"></a>
-		<div class="container">
-			<form action="http://google.com/search" method="get">
-				<input type="text" name="q" results="0">
-				<input type="hidden" name="q" value="site:dlutcat.github.com">
-			</form>
-		</div>
-	</div>
-</nav>
-<nav id="sub-nav" class="alignright">
-	<div class="social">
-		
-		
-		
-		<a class="twitter" href="http://twitter.com/dlutcat" title="Twitter">Twitter</a>
-		
-		
-		<a class="github" href="https://github.com/dlutcat" title="GitHub">GitHub</a>
-		
-		
-		
-		
-		
-		<a class="rss" href="/atom.xml" title="RSS">RSS</a>
-		
-	</div>
-	<form class="search" action="http://google.com/search" method="get">
-		<input class="alignright" type="text" name="q" results="0">
-		<input type="hidden" name="q" value="site:dlutcat.github.com">
-	</form>
-</nav>
-
+<body   >
+  <header role="banner">
 </header>
-	
-		
-<div id="banner" class="inner">
-	<div class="container">
-		<ul class="feed"></ul>
-	</div>
-	<small><a href="http://twitter.com/dlutcat">dlutcat</a> @ <a href="http://twitter.com">Twitter</a></small>
-	<div class="loading">Loading...</div>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:dlutcat.github.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main">
+	<li><a href="/">日志</a></li>
+	<li><a href="/blog/archives">归档</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div class="blog-index">
+  
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2012/09/22/wei-shi-yao-pythonhan-shu-ding-yi-zhong-guan-jian-zi-can-shu-bu-tui-jian-she-zhi-mutablede-mo-ren-zhi/">为什么Python函数定义中关键字参数不推荐设置mutable的默认值？</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-09-22T15:55:00+08:00" pubdate data-updated="true">Sep 22<span>nd</span>, 2012</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>很多关于Python的<a href="http://www.google.com.hk/search?q=python+best+practices&amp;aq=0&amp;oq=python+best+prac&amp;sugexp=chrome,mod=10&amp;sourceid=chrome&amp;ie=UTF-8">Best Practice</a>中都会提到，在函数定义的时候，关键词参数的默认值不要设置成mutable的类型，比如list, dict。那么具体原因是什么呢？之前一直没有去思考，直到膝盖中了一箭。
+先看下面的例子：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="k">def</span> <span class="nf">example</span><span class="p">(</span><span class="n">items</span><span class="o">=</span><span class="p">[]):</span>
+</span><span class='line'>    <span class="n">items</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s">&quot;test&quot;</span><span class="p">)</span>
+</span><span class='line'>    <span class="k">return</span> <span class="n">items</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>调用<code>example()</code>会返回什么呢？第二次，第三次调用又会返回什么呢？</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>&gt;&gt;&gt; example<span class="o">()</span>
+</span><span class='line'><span class="o">[</span><span class="s1">&#39;test&#39;</span><span class="o">]</span>
+</span><span class='line'>
+</span><span class='line'>&gt;&gt;&gt; example<span class="o">()</span>
+</span><span class='line'><span class="o">[</span><span class="s1">&#39;test&#39;</span>, <span class="s1">&#39;test&#39;</span><span class="o">]</span>
+</span><span class='line'>
+</span><span class='line'>&gt;&gt;&gt; example<span class="o">()</span>
+</span><span class='line'><span class="o">[</span><span class="s1">&#39;test&#39;</span>, <span class="s1">&#39;test&#39;</span>, <span class="s1">&#39;test&#39;</span><span class="o">]</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>是不是觉得结果有些意外？是的，这就是Python函数的定义机制：</p>
+
+<blockquote><p>在生命周期中，函数的声明语句只会执行一次，就是在源码被解释器解释的时候，而不是在被调用的时候。</p></blockquote>
 </div>
-<script src="/javascripts/twitter.js"></script>
-<script type="text/javascript">
-	(function($){
-		$('#banner').getTwitterFeed('dlutcat', 4, false);
-	})(jQuery);
-</script>
-
-	
-	<div id="content" class="inner">
+  
+  
 
 
-    <article class="post">
-	<h1 class="title"><a href="/blog/2012/09/18/macxia-de-wang-luo-ipzi-dong-qie-huan/">Mac下的网络IP自动切换</a></h1>
-	<div class="entry-content">
-		<p>用惯了自己的电脑，我喜欢在公司也自带电脑，由于家里和公司的网络环境不同，而且因为某些原因都需要手动设置IP, Subnet, Router和DNS，这样每天晚上回家和早上上班手动设置会很麻烦，就研究了一下Mac下自动设置。在Mac下面有一个命令<code>networksetup</code>，用man查看，它有很多参数，我们这里要用到以下这些参数：</p>
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2012/09/18/macxia-de-wang-luo-ipzi-dong-qie-huan/">Mac下的网络IP自动切换</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-09-18T20:45:00+08:00" pubdate data-updated="true">Sep 18<span>th</span>, 2012</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>用惯了自己的电脑，我喜欢在公司也自带电脑，由于家里和公司的网络环境不同，而且因为某些原因都需要手动设置IP, Subnet, Router和DNS，这样每天晚上回家和早上上班手动设置会很麻烦，就研究了一下Mac下自动设置。在Mac下面有一个命令<code>networksetup</code>，用man查看，它有很多参数，我们这里要用到以下这些参数：</p>
 
 <h4>查看本机地网络设备</h4>
 
@@ -223,7 +289,7 @@
 
 <p>这样，我们就可以写一个小脚本，自动检查网络环境并且自动切换了，我的脚本如下：</p>
 
-<div><script src='https://gist.github.com/3743043.js?file='></script>
+<div><script src='https://gist.github.com/3743043.js'></script>
 <noscript><pre><code>#!/bin/sh
 
 # happyhouse is my home wifi name
@@ -282,14 +348,23 @@ fi
 
 
 <p>这样就大功告成了！</p>
+</div>
+  
+  
 
-		
-		
-	</div>
 
-
-<div class="meta">
-	<div class="date">
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2012/08/27/gen-zong-pythonqian-tao-han-shu-diao-yong/">跟踪Python嵌套函数调用</a></h1>
+    
+    
+      <p class="meta">
+        
 
 
 
@@ -301,27 +376,19 @@ fi
   
 
 
-<time datetime="2012-09-18T20:45:00+08:00" pubdate data-updated="true">Sep 18<span>th</span>, 2012</time></div>
-	<div class="tags">
+<time datetime="2012-08-27T20:05:00+08:00" pubdate data-updated="true">Aug 27<span>th</span>, 2012</time>
+        
+      </p>
+    
+  </header>
 
 
-	<a class='category' href='/blog/categories/mac/'>Mac</a>, <a class='category' href='/blog/categories/network/'>Network</a>
-
-
-</div>
-	
-</div></article>
-
-
-    <article class="post">
-	<h1 class="title"><a href="/blog/2012/08/27/gen-zong-pythonqian-tao-han-shu-diao-yong/">跟踪Python嵌套函数调用</a></h1>
-	<div class="entry-content">
-		<p>今天在浏览Google Reader的时候发现一个好用的工具函数，用来跟踪嵌套调用函数方便debug。<br/>
+  <div class="entry-content"><p>今天在浏览Google Reader的时候发现一个好用的工具函数，用来跟踪嵌套调用函数方便debug。<br/>
 原文：<a href="http://eli.thegreenplace.net/2012/08/22/easy-tracing-of-nested-function-calls-in-python/">Easy tracing of nested function calls in Python</a></p>
 
 <p>其实是一个装饰器类：</p>
 
-<div><script src='https://gist.github.com/3487991.js?file='></script>
+<div><script src='https://gist.github.com/3487991.js'></script>
 <noscript><pre><code>import sys
 from functools import wraps
 
@@ -436,503 +503,114 @@ flatten([1, 2, [3, [4, 5], 6, [7, [9], 12]], 4, [6, 9]])
 
 
 
-
-		
-		
-	</div>
-
-
-<div class="meta">
-	<div class="date">
+</div>
+  
+  
 
 
+    </article>
+  
+  <div class="pagination">
+    
+      <a class="prev" href="/blog/page/3/">&larr; Older</a>
+    
+    <a href="/blog/archives">Blog Archives</a>
+    
+    <a class="next" href="/">Newer &rarr;</a>
+    
+  </div>
+</div>
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2013/02/08/linuxzhong-duan-chang-yong-ji-qiao-zong-jie-wei-xin-linuxtipsgui-dang/">Linux终端常用技巧总结-微信LinuxTips归档</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/12/17/chi-kai-xiao-yuan-jin-ru-she-hui-xu-yao-ming-bai-de-ji-jian-shi-qing/">离开校园进入社会需要明白的几件事情</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/11/25/duo-fu-wu-qi-guan-li-zhi-fabric/">多服务器管理之Fabric</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/09/22/wei-shi-yao-pythonhan-shu-ding-yi-zhong-guan-jian-zi-can-shu-bu-tui-jian-she-zhi-mutablede-mo-ren-zhi/">为什么Python函数定义中关键字参数不推荐设置mutable的默认值？</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/09/18/macxia-de-wang-luo-ipzi-dong-qie-huan/">Mac下的网络IP自动切换</a>
+      </li>
+    
+  </ul>
+</section>
 
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating&#8230;</li>
+  </ul>
+  
+  <a href="https://github.com/dlutcat">@dlutcat</a> on GitHub
+  
+  <script type="text/javascript">
+    $.domReady(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'dlutcat',
+            count: 0,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+<section>
+  <h1>Latest Tweets</h1>
+  <ul id="tweets">
+    <li class="loading">Status updating&#8230;</li>
+  </ul>
+  <script type="text/javascript">
+    $.domReady(function(){
+      getTwitterFeed("dlutcat", 4, false);
+    });
+  </script>
+  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
+  
+    <a href="http://twitter.com/dlutcat" class="twitter-follow-button" data-show-count="false">Follow @dlutcat</a>
+  
+</section>
 
 
 
 
 
   
+</aside>
 
-
-<time datetime="2012-08-27T20:05:00+08:00" pubdate data-updated="true">Aug 27<span>th</span>, 2012</time></div>
-	<div class="tags">
-
-
-	<a class='category' href='/blog/categories/python/'>Python</a>
-
-
-</div>
-	
-</div></article>
-
-
-    <article class="post">
-	<h1 class="title"><a href="/blog/2012/08/05/pythonxian-cheng-he-geventjian-yi-fu-wu-qi-shi-xian-dui-bi/">Python线程和gevent简易服务器实现对比</a></h1>
-	<div class="entry-content">
-		<h3>记前</h3>
-
-<p>最近项目上线，终于迎来了一个双休日，宅在家里眼瞅着肚子上的赘肉一圈一圈，实在不敢相信当年我是那个“怎么吃都不长肉”的瘦身少年。瘦子没法理解胖子的痛，瘦子终于有了同感。于是乎，待到晚上9点半开始了跑步，拉力器，仰卧起坐等一系列瘦身塑形锻炼。大汗淋漓地冲了一个澡，爽！</p>
-
-<h3>正文</h3>
-
-<p>用Python也有两年了，很少在生产中用到线程来设计程序，最近看到两篇不错的文章，准备自己记录一下。原文在这里：</p>
-
-<ul>
-<li><a href="http://blog.pythonisito.com/2012/07/introduction-to-gevent.html">Introduction to Gevent</a></li>
-<li><a href="http://blog.pythonisito.com/2012/07/gevent-threads-and-benchmarks.html">Gevent, Threads, and Benchmarks</a></li>
-</ul>
-
-
-<h3>插曲</h3>
-
-<p>MD，写到这里接到老大地bug报告，修完了一个SB地Bug回来继续。</p>
-
-<h3>单进程单线程服务器(无实用价值)</h3>
-
-<figure class='code'><figcaption><span> (webserver_single_thread.py)</span> <a href='/downloads/code/webserver_single_thread.py'>download</a></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-<span class='line-number'>22</span>
-<span class='line-number'>23</span>
-<span class='line-number'>24</span>
-<span class='line-number'>25</span>
-<span class='line-number'>26</span>
-<span class='line-number'>27</span>
-<span class='line-number'>28</span>
-<span class='line-number'>29</span>
-<span class='line-number'>30</span>
-<span class='line-number'>31</span>
-</pre></td><td class='code'><pre><code class='py'><span class='line'><span class="c">#!/usr/bin/env python</span>
-</span><span class='line'><span class="c"># -*- coding: utf-8 -*-</span>
-</span><span class='line'>
-</span><span class='line'><span class="kn">import</span> <span class="nn">sys</span>
-</span><span class='line'><span class="kn">import</span> <span class="nn">socket</span>
-</span><span class='line'><span class="kn">import</span> <span class="nn">time</span>
-</span><span class='line'>
-</span><span class='line'><span class="k">def</span> <span class="nf">sequential</span><span class="p">(</span><span class="n">port</span><span class="p">):</span>
-</span><span class='line'>    <span class="n">s</span> <span class="o">=</span> <span class="n">socket</span><span class="o">.</span><span class="n">socket</span><span class="p">()</span>
-</span><span class='line'>    <span class="n">s</span><span class="o">.</span><span class="n">bind</span><span class="p">((</span><span class="s">&#39;0.0.0.0&#39;</span><span class="p">,</span> <span class="n">port</span><span class="p">))</span>
-</span><span class='line'>    <span class="n">s</span><span class="o">.</span><span class="n">listen</span><span class="p">(</span><span class="mi">500</span><span class="p">)</span>
-</span><span class='line'>    <span class="k">while</span> <span class="bp">True</span><span class="p">:</span>
-</span><span class='line'>        <span class="n">cli</span><span class="p">,</span> <span class="n">addr</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">accept</span><span class="p">()</span>
-</span><span class='line'>        <span class="n">handle_request</span><span class="p">(</span><span class="n">cli</span><span class="p">,</span> <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">)</span>
-</span><span class='line'>
-</span><span class='line'><span class="k">def</span> <span class="nf">handle_request</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">sleep</span><span class="p">):</span>
-</span><span class='line'>    <span class="k">try</span><span class="p">:</span>
-</span><span class='line'>        <span class="n">s</span><span class="o">.</span><span class="n">recv</span><span class="p">(</span><span class="mi">1024</span><span class="p">)</span>
-</span><span class='line'>        <span class="n">sleep</span><span class="p">(</span><span class="mf">0.1</span><span class="p">)</span>
-</span><span class='line'>        <span class="n">s</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="s">&#39;&#39;&#39;http/1.0 200 OK</span>
-</span><span class='line'><span class="s">                  Hello World! &#39;&#39;&#39;</span><span class="p">)</span>
-</span><span class='line'>        <span class="n">s</span><span class="o">.</span><span class="n">shutdown</span><span class="p">(</span><span class="n">socket</span><span class="o">.</span><span class="n">SHUT_WR</span><span class="p">)</span>
-</span><span class='line'>        <span class="k">print</span> <span class="s">&#39;.&#39;</span><span class="p">,</span>
-</span><span class='line'>    <span class="k">except</span> <span class="ne">Exception</span><span class="p">,</span> <span class="n">ex</span><span class="p">:</span>
-</span><span class='line'>        <span class="k">print</span> <span class="n">ex</span>
-</span><span class='line'>    <span class="k">finally</span><span class="p">:</span>
-</span><span class='line'>        <span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">flush</span><span class="p">()</span>
-</span><span class='line'>        <span class="n">s</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
-</span><span class='line'>
-</span><span class='line'><span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">&#39;__main__&#39;</span><span class="p">:</span>
-</span><span class='line'>    <span class="n">sequential</span><span class="p">(</span><span class="mi">4444</span><span class="p">)</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>
-批注：没有人会用单线程做服务器，除非你是像我现在一样用来练习。</p>
-
-<h3>单进程多线程服务器(无实用价值)</h3>
-
-<figure class='code'><figcaption><span> (webserver_multi_threads.py)</span> <a href='/downloads/code/webserver_multi_threads.py'>download</a></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-<span class='line-number'>22</span>
-<span class='line-number'>23</span>
-<span class='line-number'>24</span>
-<span class='line-number'>25</span>
-<span class='line-number'>26</span>
-<span class='line-number'>27</span>
-<span class='line-number'>28</span>
-<span class='line-number'>29</span>
-<span class='line-number'>30</span>
-<span class='line-number'>31</span>
-<span class='line-number'>32</span>
-<span class='line-number'>33</span>
-<span class='line-number'>34</span>
-</pre></td><td class='code'><pre><code class='py'><span class='line'><span class="c">#!/usr/bin/env python</span>
-</span><span class='line'><span class="c"># -*- coding: utf-8 -*-</span>
-</span><span class='line'>
-</span><span class='line'><span class="kn">import</span> <span class="nn">sys</span>
-</span><span class='line'><span class="kn">import</span> <span class="nn">socket</span>
-</span><span class='line'><span class="kn">import</span> <span class="nn">time</span>
-</span><span class='line'><span class="kn">import</span> <span class="nn">threading</span>
-</span><span class='line'>
-</span><span class='line'><span class="k">def</span> <span class="nf">threads</span><span class="p">(</span><span class="n">port</span><span class="p">):</span>
-</span><span class='line'>    <span class="n">s</span> <span class="o">=</span> <span class="n">socket</span><span class="o">.</span><span class="n">socket</span><span class="p">()</span>
-</span><span class='line'>    <span class="n">s</span><span class="o">.</span><span class="n">bind</span><span class="p">((</span><span class="s">&#39;0.0.0.0&#39;</span><span class="p">,</span> <span class="n">port</span><span class="p">))</span>
-</span><span class='line'>    <span class="n">s</span><span class="o">.</span><span class="n">listen</span><span class="p">(</span><span class="mi">500</span><span class="p">)</span>
-</span><span class='line'>    <span class="k">while</span> <span class="bp">True</span><span class="p">:</span>
-</span><span class='line'>        <span class="n">cli</span><span class="p">,</span> <span class="n">addr</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">accept</span><span class="p">()</span>
-</span><span class='line'>        <span class="n">t</span> <span class="o">=</span> <span class="n">threading</span><span class="o">.</span><span class="n">Thread</span><span class="p">(</span><span class="n">target</span><span class="o">=</span><span class="n">handle_request</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="n">cli</span><span class="p">,</span> <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">))</span>
-</span><span class='line'>        <span class="n">t</span><span class="o">.</span><span class="n">daemon</span> <span class="o">=</span> <span class="bp">True</span>
-</span><span class='line'>        <span class="n">t</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
-</span><span class='line'>
-</span><span class='line'><span class="k">def</span> <span class="nf">handle_request</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">sleep</span><span class="p">):</span>
-</span><span class='line'>    <span class="k">try</span><span class="p">:</span>
-</span><span class='line'>        <span class="n">s</span><span class="o">.</span><span class="n">recv</span><span class="p">(</span><span class="mi">1024</span><span class="p">)</span>
-</span><span class='line'>        <span class="n">sleep</span><span class="p">(</span><span class="mf">0.1</span><span class="p">)</span>
-</span><span class='line'>        <span class="n">s</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="s">&#39;&#39;&#39;http/1.0 200 OK</span>
-</span><span class='line'><span class="s">                  Hello World! &#39;&#39;&#39;</span><span class="p">)</span>
-</span><span class='line'>        <span class="n">s</span><span class="o">.</span><span class="n">shutdown</span><span class="p">(</span><span class="n">socket</span><span class="o">.</span><span class="n">SHUT_WR</span><span class="p">)</span>
-</span><span class='line'>        <span class="k">print</span> <span class="s">&#39;.&#39;</span><span class="p">,</span>
-</span><span class='line'>    <span class="k">except</span> <span class="ne">Exception</span><span class="p">,</span> <span class="n">ex</span><span class="p">:</span>
-</span><span class='line'>        <span class="k">print</span> <span class="n">ex</span>
-</span><span class='line'>    <span class="k">finally</span><span class="p">:</span>
-</span><span class='line'>        <span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">flush</span><span class="p">()</span>
-</span><span class='line'>        <span class="n">s</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
-</span><span class='line'>
-</span><span class='line'><span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">&#39;__main__&#39;</span><span class="p">:</span>
-</span><span class='line'>    <span class="n">threads</span><span class="p">(</span><span class="mi">4444</span><span class="p">)</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>批注：多线程之间的切换也是很耗资源的事情，所以就有了下面的线程池。</p>
-
-<h3>单进程线程池服务器(无实用价值)</h3>
-
-<figure class='code'><figcaption><span> (webserver_thread_pool.py)</span> <a href='/downloads/code/webserver_thread_pool.py'>download</a></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-<span class='line-number'>22</span>
-<span class='line-number'>23</span>
-<span class='line-number'>24</span>
-<span class='line-number'>25</span>
-<span class='line-number'>26</span>
-<span class='line-number'>27</span>
-<span class='line-number'>28</span>
-<span class='line-number'>29</span>
-<span class='line-number'>30</span>
-<span class='line-number'>31</span>
-<span class='line-number'>32</span>
-<span class='line-number'>33</span>
-<span class='line-number'>34</span>
-<span class='line-number'>35</span>
-<span class='line-number'>36</span>
-<span class='line-number'>37</span>
-<span class='line-number'>38</span>
-<span class='line-number'>39</span>
-<span class='line-number'>40</span>
-<span class='line-number'>41</span>
-<span class='line-number'>42</span>
-<span class='line-number'>43</span>
-</pre></td><td class='code'><pre><code class='py'><span class='line'><span class="c">#!/usr/bin/env python</span>
-</span><span class='line'><span class="c"># -*- coding: utf-8 -*-</span>
-</span><span class='line'>
-</span><span class='line'><span class="kn">import</span> <span class="nn">sys</span>
-</span><span class='line'><span class="kn">import</span> <span class="nn">socket</span>
-</span><span class='line'><span class="kn">import</span> <span class="nn">time</span>
-</span><span class='line'><span class="kn">import</span> <span class="nn">threading</span>
-</span><span class='line'><span class="kn">import</span> <span class="nn">Queue</span>
-</span><span class='line'>
-</span><span class='line'><span class="k">def</span> <span class="nf">server</span><span class="p">(</span><span class="n">port</span><span class="p">,</span> <span class="n">N</span><span class="p">):</span>
-</span><span class='line'>    <span class="n">s</span> <span class="o">=</span> <span class="n">socket</span><span class="o">.</span><span class="n">socket</span><span class="p">()</span>
-</span><span class='line'>    <span class="n">s</span><span class="o">.</span><span class="n">bind</span><span class="p">((</span><span class="s">&#39;0.0.0.0&#39;</span><span class="p">,</span> <span class="n">port</span><span class="p">))</span>
-</span><span class='line'>    <span class="n">s</span><span class="o">.</span><span class="n">listen</span><span class="p">(</span><span class="mi">500</span><span class="p">)</span>
-</span><span class='line'>    <span class="n">q</span> <span class="o">=</span> <span class="n">Queue</span><span class="o">.</span><span class="n">Queue</span><span class="p">()</span>
-</span><span class='line'>    <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">N</span><span class="p">):</span>
-</span><span class='line'>        <span class="n">t</span> <span class="o">=</span> <span class="n">threading</span><span class="o">.</span><span class="n">Thread</span><span class="p">(</span><span class="n">target</span><span class="o">=</span><span class="n">thread_worker</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="n">q</span><span class="p">,</span> <span class="p">))</span>
-</span><span class='line'>        <span class="n">t</span><span class="o">.</span><span class="n">daemon</span> <span class="o">=</span> <span class="bp">True</span>
-</span><span class='line'>        <span class="n">t</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
-</span><span class='line'>    <span class="k">print</span> <span class="s">&#39;Ready and waiting with </span><span class="si">%d</span><span class="s"> threads on port </span><span class="si">%d</span><span class="s">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">N</span><span class="p">,</span> <span class="n">port</span><span class="p">)</span>
-</span><span class='line'>    <span class="k">while</span> <span class="bp">True</span><span class="p">:</span>
-</span><span class='line'>        <span class="n">cli</span><span class="p">,</span> <span class="n">addr</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">accept</span><span class="p">()</span>
-</span><span class='line'>        <span class="n">q</span><span class="o">.</span><span class="n">put</span><span class="p">(</span><span class="n">cli</span><span class="p">)</span>
-</span><span class='line'>
-</span><span class='line'><span class="k">def</span> <span class="nf">thread_worker</span><span class="p">(</span><span class="n">q</span><span class="p">):</span>
-</span><span class='line'>    <span class="n">sock</span> <span class="o">=</span> <span class="n">q</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
-</span><span class='line'>    <span class="n">handle_request</span><span class="p">(</span><span class="n">sock</span><span class="p">,</span> <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">)</span>
-</span><span class='line'>
-</span><span class='line'><span class="k">def</span> <span class="nf">handle_request</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">sleep</span><span class="p">):</span>
-</span><span class='line'>    <span class="k">try</span><span class="p">:</span>
-</span><span class='line'>        <span class="n">s</span><span class="o">.</span><span class="n">recv</span><span class="p">(</span><span class="mi">1024</span><span class="p">)</span>
-</span><span class='line'>        <span class="n">sleep</span><span class="p">(</span><span class="mf">0.1</span><span class="p">)</span>
-</span><span class='line'>        <span class="n">s</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="s">&#39;&#39;&#39;http/1.0 200 OK</span>
-</span><span class='line'><span class="s">                  Hello World! &#39;&#39;&#39;</span><span class="p">)</span>
-</span><span class='line'>        <span class="n">s</span><span class="o">.</span><span class="n">shutdown</span><span class="p">(</span><span class="n">socket</span><span class="o">.</span><span class="n">SHUT_WR</span><span class="p">)</span>
-</span><span class='line'>        <span class="k">print</span> <span class="s">&#39;.&#39;</span><span class="p">,</span>
-</span><span class='line'>    <span class="k">except</span> <span class="ne">Exception</span><span class="p">,</span> <span class="n">ex</span><span class="p">:</span>
-</span><span class='line'>        <span class="k">print</span> <span class="n">ex</span>
-</span><span class='line'>    <span class="k">finally</span><span class="p">:</span>
-</span><span class='line'>        <span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">flush</span><span class="p">()</span>
-</span><span class='line'>        <span class="n">s</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
-</span><span class='line'>
-</span><span class='line'><span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">&#39;__main__&#39;</span><span class="p">:</span>
-</span><span class='line'>    <span class="n">server</span><span class="p">(</span><span class="mi">4444</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>批注：受到Python的GIL的制约。</p>
-
-<h3>单进程gevent服务器(无实用价值)</h3>
-
-<figure class='code'><figcaption><span> (webserver_gevent.py)</span> <a href='/downloads/code/webserver_gevent.py'>download</a></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-<span class='line-number'>22</span>
-<span class='line-number'>23</span>
-<span class='line-number'>24</span>
-<span class='line-number'>25</span>
-<span class='line-number'>26</span>
-<span class='line-number'>27</span>
-<span class='line-number'>28</span>
-<span class='line-number'>29</span>
-<span class='line-number'>30</span>
-<span class='line-number'>31</span>
-<span class='line-number'>32</span>
-<span class='line-number'>33</span>
-</pre></td><td class='code'><pre><code class='py'><span class='line'><span class="c">#!/usr/bin/env python</span>
-</span><span class='line'><span class="c"># -*- coding: utf-8 -*-</span>
-</span><span class='line'>
-</span><span class='line'><span class="kn">import</span> <span class="nn">sys</span>
-</span><span class='line'><span class="kn">import</span> <span class="nn">socket</span>
-</span><span class='line'><span class="kn">import</span> <span class="nn">time</span>
-</span><span class='line'><span class="kn">import</span> <span class="nn">gevent</span>
-</span><span class='line'><span class="kn">from</span> <span class="nn">gevent</span> <span class="kn">import</span> <span class="n">socket</span>
-</span><span class='line'>
-</span><span class='line'><span class="k">def</span> <span class="nf">server</span><span class="p">(</span><span class="n">port</span><span class="p">):</span>
-</span><span class='line'>    <span class="n">s</span> <span class="o">=</span> <span class="n">socket</span><span class="o">.</span><span class="n">socket</span><span class="p">()</span>
-</span><span class='line'>    <span class="n">s</span><span class="o">.</span><span class="n">bind</span><span class="p">((</span><span class="s">&#39;0.0.0.0&#39;</span><span class="p">,</span> <span class="n">port</span><span class="p">))</span>
-</span><span class='line'>    <span class="n">s</span><span class="o">.</span><span class="n">listen</span><span class="p">(</span><span class="mi">500</span><span class="p">)</span>
-</span><span class='line'>    <span class="k">while</span> <span class="bp">True</span><span class="p">:</span>
-</span><span class='line'>        <span class="n">cli</span><span class="p">,</span> <span class="n">addr</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">accept</span><span class="p">()</span>
-</span><span class='line'>        <span class="n">gevent</span><span class="o">.</span><span class="n">spawn</span><span class="p">(</span><span class="n">handle_request</span><span class="p">,</span> <span class="n">cli</span><span class="p">,</span> <span class="n">gevent</span><span class="o">.</span><span class="n">sleep</span><span class="p">)</span>
-</span><span class='line'>
-</span><span class='line'><span class="k">def</span> <span class="nf">handle_request</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">sleep</span><span class="p">):</span>
-</span><span class='line'>    <span class="k">try</span><span class="p">:</span>
-</span><span class='line'>        <span class="n">s</span><span class="o">.</span><span class="n">recv</span><span class="p">(</span><span class="mi">1024</span><span class="p">)</span>
-</span><span class='line'>        <span class="n">sleep</span><span class="p">(</span><span class="mf">0.1</span><span class="p">)</span>
-</span><span class='line'>        <span class="n">s</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="s">&#39;&#39;&#39;http/1.0 200 OK</span>
-</span><span class='line'><span class="s">                  Hello World! &#39;&#39;&#39;</span><span class="p">)</span>
-</span><span class='line'>        <span class="n">s</span><span class="o">.</span><span class="n">shutdown</span><span class="p">(</span><span class="n">socket</span><span class="o">.</span><span class="n">SHUT_WR</span><span class="p">)</span>
-</span><span class='line'>        <span class="k">print</span> <span class="s">&#39;.&#39;</span><span class="p">,</span>
-</span><span class='line'>    <span class="k">except</span> <span class="ne">Exception</span><span class="p">,</span> <span class="n">ex</span><span class="p">:</span>
-</span><span class='line'>        <span class="k">print</span> <span class="n">ex</span>
-</span><span class='line'>    <span class="k">finally</span><span class="p">:</span>
-</span><span class='line'>        <span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">flush</span><span class="p">()</span>
-</span><span class='line'>        <span class="n">s</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
-</span><span class='line'>
-</span><span class='line'><span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">&#39;__main__&#39;</span><span class="p">:</span>
-</span><span class='line'>    <span class="n">server</span><span class="p">(</span><span class="mi">4444</span><span class="p">)</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>批注：研究中。</p>
-
-<h3>gevent协程池服务器(无实用价值)</h3>
-
-<figure class='code'><figcaption><span> (webserver_gevent_pool.py)</span> <a href='/downloads/code/webserver_gevent_pool.py'>download</a></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-<span class='line-number'>22</span>
-<span class='line-number'>23</span>
-<span class='line-number'>24</span>
-<span class='line-number'>25</span>
-<span class='line-number'>26</span>
-<span class='line-number'>27</span>
-<span class='line-number'>28</span>
-<span class='line-number'>29</span>
-<span class='line-number'>30</span>
-<span class='line-number'>31</span>
-<span class='line-number'>32</span>
-<span class='line-number'>33</span>
-<span class='line-number'>34</span>
-<span class='line-number'>35</span>
-</pre></td><td class='code'><pre><code class='py'><span class='line'><span class="c">#!/usr/bin/env python</span>
-</span><span class='line'><span class="c"># -*- coding: utf-8 -*-</span>
-</span><span class='line'>
-</span><span class='line'><span class="kn">import</span> <span class="nn">sys</span>
-</span><span class='line'><span class="kn">import</span> <span class="nn">socket</span>
-</span><span class='line'><span class="kn">import</span> <span class="nn">time</span>
-</span><span class='line'><span class="kn">import</span> <span class="nn">gevent</span>
-</span><span class='line'><span class="kn">from</span> <span class="nn">gevent</span> <span class="kn">import</span> <span class="n">socket</span><span class="p">,</span> <span class="n">sleep</span>
-</span><span class='line'><span class="kn">from</span> <span class="nn">gevent.pool</span> <span class="kn">import</span> <span class="n">Pool</span>
-</span><span class='line'>
-</span><span class='line'><span class="k">def</span> <span class="nf">server</span><span class="p">(</span><span class="n">port</span><span class="p">,</span> <span class="n">N</span><span class="p">):</span>
-</span><span class='line'>    <span class="n">pool</span> <span class="o">=</span> <span class="n">Pool</span><span class="p">(</span><span class="n">N</span><span class="p">)</span>
-</span><span class='line'>    <span class="n">s</span> <span class="o">=</span> <span class="n">socket</span><span class="o">.</span><span class="n">socket</span><span class="p">()</span>
-</span><span class='line'>    <span class="n">s</span><span class="o">.</span><span class="n">bind</span><span class="p">((</span><span class="s">&#39;0.0.0.0&#39;</span><span class="p">,</span> <span class="n">port</span><span class="p">))</span>
-</span><span class='line'>    <span class="n">s</span><span class="o">.</span><span class="n">listen</span><span class="p">(</span><span class="mi">500</span><span class="p">)</span>
-</span><span class='line'>    <span class="k">while</span> <span class="bp">True</span><span class="p">:</span>
-</span><span class='line'>        <span class="n">cli</span><span class="p">,</span> <span class="n">addr</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">accept</span><span class="p">()</span>
-</span><span class='line'>        <span class="n">pool</span><span class="o">.</span><span class="n">spawn</span><span class="p">(</span><span class="n">handle_request</span><span class="p">,</span> <span class="n">cli</span><span class="p">,</span> <span class="n">gevent</span><span class="o">.</span><span class="n">sleep</span><span class="p">)</span>
-</span><span class='line'>
-</span><span class='line'><span class="k">def</span> <span class="nf">handle_request</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">sleep</span><span class="p">):</span>
-</span><span class='line'>    <span class="k">try</span><span class="p">:</span>
-</span><span class='line'>        <span class="n">s</span><span class="o">.</span><span class="n">recv</span><span class="p">(</span><span class="mi">1024</span><span class="p">)</span>
-</span><span class='line'>        <span class="n">sleep</span><span class="p">(</span><span class="mf">0.1</span><span class="p">)</span>
-</span><span class='line'>        <span class="n">s</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="s">&#39;&#39;&#39;http/1.0 200 OK</span>
-</span><span class='line'><span class="s">                  Hello World! &#39;&#39;&#39;</span><span class="p">)</span>
-</span><span class='line'>        <span class="n">s</span><span class="o">.</span><span class="n">shutdown</span><span class="p">(</span><span class="n">socket</span><span class="o">.</span><span class="n">SHUT_WR</span><span class="p">)</span>
-</span><span class='line'>        <span class="k">print</span> <span class="s">&#39;.&#39;</span><span class="p">,</span>
-</span><span class='line'>    <span class="k">except</span> <span class="ne">Exception</span><span class="p">,</span> <span class="n">ex</span><span class="p">:</span>
-</span><span class='line'>        <span class="k">print</span> <span class="n">ex</span>
-</span><span class='line'>    <span class="k">finally</span><span class="p">:</span>
-</span><span class='line'>        <span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">flush</span><span class="p">()</span>
-</span><span class='line'>        <span class="n">s</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
-</span><span class='line'>
-</span><span class='line'><span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">&#39;__main__&#39;</span><span class="p">:</span>
-</span><span class='line'>    <span class="n">server</span><span class="p">(</span><span class="mi">4444</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>批注：研究中。</p>
-
-		
-		
-	</div>
-
-
-<div class="meta">
-	<div class="date">
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-08-05T23:12:00+08:00" pubdate data-updated="true">Aug 5<span>th</span>, 2012</time></div>
-	<div class="tags">
-
-
-	<a class='category' href='/blog/categories/python/'>Python</a>, <a class='category' href='/blog/categories/gevent/'>gevent</a>, <a class='category' href='/blog/categories/thread/'>thread</a>
-
-
-</div>
-	
-</div></article>
-
-<nav id="pagenavi">
-    
-        <a href="/" class="prev">Prev</a>
-    
-    
-        <a href="/blog/page/3/" class="next">Next</a>
-    
-    <div class="center"><a href="/blog/archives">所有日志</a></div>
-</nav>
-</div>
-	<footer id="footer" class="inner">Copyright &copy; 2012
+    </div>
+  </div>
+  <footer role="contentinfo">Copyright &copy; 2013
 
     dlutcat
 
-</footer>
-	<script src="/javascripts/slash.js"></script>
-<script src="/javascripts/jquery.fancybox.pack.js"></script>
-<script type="text/javascript">
-(function($){
-	$('.fancybox').fancybox();
-})(jQuery);
-</script> <!-- Delete or comment this line to disable Fancybox -->
 
+</footer>
+  
 
 <script type="text/javascript">
       var disqus_shortname = 'simple-coder';
@@ -947,6 +625,21 @@ flatten([1, 2, [3, [4, 5], 6, [7, [9], 12]], 4, [6, 9]])
     }());
 </script>
 
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
 
 
 

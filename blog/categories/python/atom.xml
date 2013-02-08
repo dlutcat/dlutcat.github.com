@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Python | 简单的Coder]]></title>
   <link href="http://dlutcat.github.com/blog/categories/python/atom.xml" rel="self"/>
   <link href="http://dlutcat.github.com/"/>
-  <updated>2012-12-17T23:25:36+08:00</updated>
+  <updated>2013-02-08T22:39:40+08:00</updated>
   <id>http://dlutcat.github.com/</id>
   <author>
     <name><![CDATA[dlutcat]]></name>
@@ -208,7 +208,7 @@ env.roles = ['product']
 原文：<a href="http://eli.thegreenplace.net/2012/08/22/easy-tracing-of-nested-function-calls-in-python/">Easy tracing of nested function calls in Python</a></p>
 
 <p>其实是一个装饰器类：<br/>
-<div><script src='https://gist.github.com/3487991.js?file='></script>
+<div><script src='https://gist.github.com/3487991.js'></script>
 <noscript><pre><code>import sys
 from functools import wraps
 
@@ -779,7 +779,7 @@ sys     0m0.003s
 
 <h2>自定义Timer类</h2>
 
-<p><div><script src='https://gist.github.com/3205931.js?file='></script>
+<p><div><script src='https://gist.github.com/3205931.js'></script>
 <noscript><pre><code>import time
 
 class Timer(object):

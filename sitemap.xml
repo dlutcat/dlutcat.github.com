@@ -2,58 +2,68 @@
 <urlset xmlns='http://www.sitemaps.org/schemas/sitemap/0.9'>
     <url>
         <loc>http://dlutcat.github.com/blog/2012/07/29/my-first-octopress-blog/</loc>
-        <lastmod>2012-08-06T09:50:25+08:00</lastmod>
+        <lastmod>2013-02-08T22:39:20+08:00</lastmod>
     </url>
     <url>
         <loc>
             http://dlutcat.github.com/blog/2012/07/29/zhong-wen-ri-zhi-zhi-chi-zen-yao-yang/
         </loc>
-        <lastmod>2012-08-06T09:50:25+08:00</lastmod>
+        <lastmod>2013-02-08T22:39:20+08:00</lastmod>
     </url>
     <url>
         <loc>http://dlutcat.github.com/blog/2012/07/30/pythonxing-neng-fen-xi-zhi-nan/</loc>
-        <lastmod>2012-08-06T09:50:25+08:00</lastmod>
+        <lastmod>2013-02-08T22:39:20+08:00</lastmod>
     </url>
     <url>
         <loc>
             http://dlutcat.github.com/blog/2012/08/05/pythonxian-cheng-he-geventjian-yi-fu-wu-qi-shi-xian-dui-bi/
         </loc>
-        <lastmod>2012-08-06T09:50:25+08:00</lastmod>
+        <lastmod>2013-02-08T22:39:20+08:00</lastmod>
     </url>
     <url>
         <loc>
             http://dlutcat.github.com/blog/2012/08/27/gen-zong-pythonqian-tao-han-shu-diao-yong/
         </loc>
-        <lastmod>2012-08-27T20:25:46+08:00</lastmod>
+        <lastmod>2013-02-08T22:39:20+08:00</lastmod>
     </url>
     <url>
         <loc>
             http://dlutcat.github.com/blog/2012/09/18/macxia-de-wang-luo-ipzi-dong-qie-huan/
         </loc>
-        <lastmod>2012-09-18T21:26:54+08:00</lastmod>
+        <lastmod>2013-02-08T22:39:20+08:00</lastmod>
     </url>
     <url>
         <loc>
             http://dlutcat.github.com/blog/2012/09/22/wei-shi-yao-pythonhan-shu-ding-yi-zhong-guan-jian-zi-can-shu-bu-tui-jian-she-zhi-mutablede-mo-ren-zhi/
         </loc>
-        <lastmod>2012-09-22T16:09:10+08:00</lastmod>
+        <lastmod>2013-02-08T22:39:20+08:00</lastmod>
     </url>
     <url>
         <loc>http://dlutcat.github.com/blog/2012/11/25/duo-fu-wu-qi-guan-li-zhi-fabric/</loc>
-        <lastmod>2012-11-25T16:44:59+08:00</lastmod>
+        <lastmod>2013-02-08T22:39:20+08:00</lastmod>
     </url>
     <url>
         <loc>
             http://dlutcat.github.com/blog/2012/12/17/chi-kai-xiao-yuan-jin-ru-she-hui-xu-yao-ming-bai-de-ji-jian-shi-qing/
         </loc>
-        <lastmod>2012-12-17T23:25:36+08:00</lastmod>
+        <lastmod>2013-02-08T22:39:20+08:00</lastmod>
+    </url>
+    <url>
+        <loc>
+            http://dlutcat.github.com/blog/2013/02/08/linuxzhong-duan-chang-yong-ji-qiao-zong-jie-wei-xin-linuxtipsgui-dang/
+        </loc>
+        <lastmod>2013-02-08T22:39:20+08:00</lastmod>
     </url>
     <url>
         <loc>http://dlutcat.github.com/blog/archives/</loc>
-        <lastmod>2012-12-17T23:25:36+08:00</lastmod>
+        <lastmod>2013-02-08T22:39:20+08:00</lastmod>
     </url>
     <url>
         <loc>http://dlutcat.github.com/</loc>
-        <lastmod>2012-12-17T23:25:36+08:00</lastmod>
+        <lastmod>2013-02-08T22:39:20+08:00</lastmod>
+    </url>
+    <url>
+        <loc>http://dlutcat.github.com/robots.txt</loc>
+        <lastmod>2013-02-08T22:39:20+08:00</lastmod>
     </url>
 </urlset>
