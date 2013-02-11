@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Mac | 简单的Coder]]></title>
+  <link href="http://dlutcat.github.com/blog/categories/mac/atom.xml" rel="self"/>
+  <link href="http://dlutcat.github.com/"/>
+  <updated>2013-02-11T22:37:36+08:00</updated>
+  <id>http://dlutcat.github.com/</id>
+  <author>
+    <name><![CDATA[dlutcat]]></name>
+    <email><![CDATA[pat.inside@gmail.com]]></email>
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Mac下的网络IP自动切换]]></title>
+    <link href="http://dlutcat.github.com/blog/2012/09/18/macxia-de-wang-luo-ipzi-dong-qie-huan/"/>
+    <updated>2012-09-18T20:45:00+08:00</updated>
+    <id>http://dlutcat.github.com/blog/2012/09/18/macxia-de-wang-luo-ipzi-dong-qie-huan</id>
+    <content type="html"><![CDATA[<p>用惯了自己的电脑，我喜欢在公司也自带电脑，由于家里和公司的网络环境不同，而且因为某些原因都需要手动设置IP, Subnet, Router和DNS，这样每天晚上回家和早上上班手动设置会很麻烦，就研究了一下Mac下自动设置。在Mac下面有一个命令<code>networksetup</code>，用man查看，它有很多参数，我们这里要用到以下这些参数：</p>
+
+<h4>查看本机地网络设备</h4>
+
+<p>```bash
+$ networksetup -listallnetworkservices</p>
+
+<p>An asterisk (*) denotes that a network service is disabled.
+Bluetooth DUN
+Ethernet
+PPPoE Service
+FireWire
+Wi-Fi
+```</p>
+
+<h4>查看指定网络设备地状态</h4>
+
+<p>例如，查看Wi-Fi的详细状态：</p>
+
+<p>```bash
+$ networksetup -getinfo Wi-Fi</p>
+
+<p>Manual Configuration
+IP address: 192.168.0.129
+Subnet mask: 255.255.255.0
+Router: 192.168.0.1
+IPv6: Automatic
+IPv6 IP address: none
+IPv6 Router: none
+Wi-Fi ID: e6:ce:8e:10:a6:af
+```</p>
+
+<h4>设置手动IP, Subnet, Router</h4>
+
+<p>例如，把IP设置成<code>192.168.2.129</code>, Router设置为<code>192.168.2.1</code>:</p>
+
+<p>```bash</p>
+
+<p>$ networksetup -setmanual Wi-Fi 192.168.2.129 255.255.255.0 192.168.2.1</p>
+
+<p>$ networksetup -getinfo Wi-Fi</p>
+
+<p>Manual Configuration
+IP address: 192.168.2.129
+Subnet mask: 255.255.255.0
+Router: 192.168.2.1
+IPv6: Automatic
+IPv6 IP address: none
+IPv6 Router: none
+Wi-Fi ID: e6:ce:8e:10:a6:af
+```</p>
+
+<h4>查看和设置DNS</h4>
+
+<p>例如，把DNS从<code>192.169.0.1</code>设置为<code>192.168.2.1</code>:
+```bash
+$ networksetup -getdnsservers Wi-Fi</p>
+
+<p>192.168.0.1</p>
+
+<p>$ networksetup -setdnsservers wi-fi 192.168.2.1</p>
+
+<p>$ networksetup -getdnsservers Wi-Fi</p>
+
+<p>192.168.2.1
+```</p>
+
+<h4>实现家里和办公室网络自动切换</h4>
+
+<p>有了以上的命令我们可以在CLI环境下切换了，甚至可以写成切换脚本，比GUI中设置要方便多了。如果想要更懒一点，需要自动切换网络怎么做呢？没问题，我们也可以搞定。思路就是检查当前的wifi热点，如果是家里的就自动设置成家里的配置，反之，设置成办公室地。<br/>
+自动检查wifi热点，我们放在开机启动项来做。 从网上找来这么一个方法，可以在CLI环境下调用<code>airport</code>来扫描wifi热点:
+```bash
+$ sudo ln -s /System/Library/PrivateFrameworks/Apple80211.framework/Versions/Current/Resources/airport /usr/bin/airport</p>
+
+<p>$ airport -s</p>
+
+<p>SSID BSSID             RSSI CHANNEL HT CC SECURITY (auth/unicast/group)
+CMCC 30:49:3b:07:15:66 -76  1       N  US NONE
+Tenda c8:3a:35:f4:ad:28 -48  6,+1    Y  CN WPA2(PSK/AES/AES)
+```</p>
+
+<p>这样，我们就可以写一个小脚本，自动检查网络环境并且自动切换了，我的脚本如下：</p>
+
+<p><div><script src='https://gist.github.com/3743043.js'></script>
+<noscript><pre><code>#!/bin/sh
+
+# happyhouse is my home wifi name
+happyhouse=`airport -s | grep happyhouse | wc -l`
+
+if [ &quot;${happyhouse//[[:space:]]}&quot; = '1' ]; then
+	networksetup -setmanual wi-fi 192.168.2.129 255.255.255.0 192.168.2.1
+	networksetup -setdnsservers wi-fi 192.168.2.1
+fi
+
+if [ &quot;${happyhouse//[[:space:]]}&quot; = '0' ]; then
+	networksetup -setmanual wi-fi 192.168.0.129 255.255.255.0 192.168.0.1
+	networksetup -setdnsservers wi-fi 192.168.0.1
+fi
+
+#networksetup -getinfo wi-fi</code></pre></noscript></div>
+</p>
+
+<h4>把脚本加入自动启动</h4>
+
+<p>Mac的自动启动脚本plist需要存放在：<code>/Library/LaunchDaemons</code></p>
+
+<p>``` xml pat.netswitch.plist
+&lt;?xml version="1.0" encoding="UTF-8"?>
+&lt;!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict></p>
+
+<pre><code>&lt;key&gt;Label&lt;/key&gt;
+&lt;string&gt;pat.netswitch.plist&lt;/string&gt;
+&lt;key&gt;ProgramArguments&lt;/key&gt;
+&lt;array&gt;
+    &lt;string&gt;/Users/patto/bin/netswitch&lt;/string&gt;
+&lt;/array&gt;
+&lt;key&gt;KeepAlive&lt;/key&gt;
+&lt;false/&gt;
+&lt;key&gt;RunAtLoad&lt;/key&gt;
+&lt;true/&gt;
+</code></pre>
+
+<p></dict>
+</plist>
+```</p>
+
+<p>这样就大功告成了！</p>
+]]></content>
+  </entry>
+  
+</feed>

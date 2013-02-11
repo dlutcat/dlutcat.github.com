@@ -1,0 +1,328 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Python性能分析指南 - 简单的Coder</title>
+  <meta name="author" content="dlutcat">
+
+  
+  <meta name="description" content="主题 介绍几种用于Python程序性能分析的工具和方法。 思路 一般情况下，要分析一段代码的性能，可以从下面几个问题入手： 目前执行效率如何？
+效率瓶颈在哪里？
+占用了多少内存？
+内存消耗在哪里？ 下面我们用几个工具来一一解答这些疑问。 Unix命令行工具: time time是几乎所有* &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://dlutcat.github.com/blog/2012/07/30/pythonxing-neng-fen-xi-zhi-nan/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="简单的Coder" type="application/atom+xml">
+  
+  
+
+</head>
+
+<body   >
+  <header role="banner">
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:dlutcat.github.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main">
+	<li><a href="/">日志</a></li>
+	<li><a href="/blog/archives">归档</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Python性能分析指南</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-07-30T16:53:00+08:00" pubdate data-updated="true">Jul 30<span>th</span>, 2012</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><h2>主题</h2>
+
+<p>介绍几种用于Python程序性能分析的工具和方法。</p>
+
+<h2>思路</h2>
+
+<p>一般情况下，要分析一段代码的性能，可以从下面几个问题入手：</p>
+
+<ol>
+<li><strong>目前执行效率如何？</strong></li>
+<li><strong>效率瓶颈在哪里？</strong></li>
+<li><strong>占用了多少内存？</strong></li>
+<li><strong>内存消耗在哪里？</strong></li>
+</ol>
+
+
+<p>下面我们用几个工具来一一解答这些疑问。</p>
+
+<h2>Unix命令行工具: <code>time</code></h2>
+
+<p><code>time</code>是几乎所有*nix系统自带的一个工具，我们可以用它来对程序进行初步的分析：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ time python yourprogram.py
+</span><span class='line'>
+</span><span class='line'>real    0m1.028s
+</span><span class='line'>user    0m0.001s
+</span><span class='line'>sys     0m0.003s</span></code></pre></td></tr></table></div></figure>
+
+
+<p>输出的三条数据的具体含义可以参考这里：<a href="http://stackoverflow.com/questions/556405/what-do-real-user-and-sys-mean-in-the-output-of-time1">What do &#8216;real&#8217;, &#8216;user&#8217; and &#8216;sys&#8217; mean in the output of time(1)?</a>。这里给出简单的说明：</p>
+
+<ul>
+<li><code>real</code> - 时钟时间。从程序开始到结束流逝的时间(actual elapsed time)，包括其他进程占用的时间，比如IO等待时间。</li>
+<li><code>user</code> - 内核之外（用户空间）该进程占用时间(cpu time)。</li>
+<li><code>sys</code> - 该进程的内核执行时间(cpu time)</li>
+</ul>
+
+
+<p>如果发现<code>sys</code>和<code>user</code>的时间之和远小于<code>real</code>就说明我们的程序很有可能在IO等待上花费了大量时间。</p>
+
+<h2>自定义Timer类</h2>
+
+<div><script src='https://gist.github.com/3205931.js'></script>
+<noscript><pre><code>import time
+
+class Timer(object):
+    def __init__(self, verbose=False):
+        self.verbose = verbose
+
+    def __enter__(self):
+        self.start = time.time()
+        return self
+
+    def __exit__(self, *args):
+        self.end = time.time()
+        self.secs = self.end - self.start
+        self.msecs = self.secs * 1000  # millisecs
+        if self.verbose:
+            print 'elapsed time: %f ms' % self.msecs
+
+###################
+
+from timer import Timer
+from redis import Redis
+rdb = Redis()
+
+with Timer() as t:
+    rdb.lpush(&quot;foo&quot;, &quot;bar&quot;)
+print &quot;=&gt; elasped lpush: %s s&quot; % t.secs
+
+with Timer as t:
+    rdb.lpop(&quot;foo&quot;)
+print &quot;=&gt; elasped lpop: %s s&quot; % t.secs</code></pre></noscript></div>
+
+
+<p>可以把时间输出到一个性能日志文件，比如profile.log，方便以后分析我们程序的性能瓶颈。</p>
+
+<h2>行执行时间分析：<a href="http://packages.python.org/line_profiler/"><code>line_profiler</code></a></h2>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">dlutcat</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-07-30T16:53:00+08:00" pubdate data-updated="true">Jul 30<span>th</span>, 2012</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/python/'>Python</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://dlutcat.github.com/blog/2012/07/30/pythonxing-neng-fen-xi-zhi-nan/" data-via="dlutcat" data-counturl="http://dlutcat.github.com/blog/2012/07/30/pythonxing-neng-fen-xi-zhi-nan/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2012/07/29/zhong-wen-ri-zhi-zhi-chi-zen-yao-yang/" title="Previous Post: 中文日志支持怎么样">&laquo; 中文日志支持怎么样</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2012/08/05/pythonxian-cheng-he-geventjian-yi-fu-wu-qi-shi-xian-dui-bi/" title="Next Post: Python线程和gevent简易服务器实现对比">Python线程和gevent简易服务器实现对比 &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2013/02/08/linuxzhong-duan-chang-yong-ji-qiao-zong-jie-wei-xin-linuxtipsgui-dang/">Linux终端常用技巧总结-微信LinuxTips归档</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/12/17/chi-kai-xiao-yuan-jin-ru-she-hui-xu-yao-ming-bai-de-ji-jian-shi-qing/">离开校园进入社会需要明白的几件事情</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/11/25/duo-fu-wu-qi-guan-li-zhi-fabric/">多服务器管理之Fabric</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/09/22/wei-shi-yao-pythonhan-shu-ding-yi-zhong-guan-jian-zi-can-shu-bu-tui-jian-she-zhi-mutablede-mo-ren-zhi/">为什么Python函数定义中关键字参数不推荐设置mutable的默认值？</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/09/18/macxia-de-wang-luo-ipzi-dong-qie-huan/">Mac下的网络IP自动切换</a>
+      </li>
+    
+  </ul>
+</section>
+<script type="text/javascript" src="http://www.kantuban.com/outwidget/1365"></script>
+<section>
+  <h1>新浪微博</h1>
+  <ul id="weibo">
+    <li>
+      <iframe
+        width="100%"
+        height="550"
+        class="share_self"
+        frameborder="0"
+        scrolling="no"
+        src="http://widget.weibo.com/weiboshow/index.php?width=0&height=550&ptype=1&speed=0&skin=&isTitle=0&noborder=1&isWeibo=1&isFans=&uid=1645930380&verifier=f8d37ee6">
+      </iframe>
+    </li>
+  </ul>
+</section>
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo">Copyright &copy; 2013
+
+    dlutcat
+
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'simple-coder';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://dlutcat.github.com/blog/2012/07/30/pythonxing-neng-fen-xi-zhi-nan/';
+        var disqus_url = 'http://dlutcat.github.com/blog/2012/07/30/pythonxing-neng-fen-xi-zhi-nan/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,779 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>简单的Coder</title>
+  <meta name="author" content="dlutcat">
+
+  
+  <meta name="description" content="记前 最近项目上线，终于迎来了一个双休日，宅在家里眼瞅着肚子上的赘肉一圈一圈，实在不敢相信当年我是那个“怎么吃都不长肉”的瘦身少年。瘦子没法理解胖子的痛，瘦子终于有了同感。于是乎，待到晚上9点半开始了跑步，拉力器，仰卧起坐等一系列瘦身塑形锻炼。大汗淋漓地冲了一个澡，爽！ 正文 &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://dlutcat.github.com/blog/page/3/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="简单的Coder" type="application/atom+xml">
+  
+  
+
+</head>
+
+<body   >
+  <header role="banner">
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:dlutcat.github.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main">
+	<li><a href="/">日志</a></li>
+	<li><a href="/blog/archives">归档</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div class="blog-index">
+  
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2012/08/05/pythonxian-cheng-he-geventjian-yi-fu-wu-qi-shi-xian-dui-bi/">Python线程和gevent简易服务器实现对比</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-08-05T23:12:00+08:00" pubdate data-updated="true">Aug 5<span>th</span>, 2012</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h3>记前</h3>
+
+<p>最近项目上线，终于迎来了一个双休日，宅在家里眼瞅着肚子上的赘肉一圈一圈，实在不敢相信当年我是那个“怎么吃都不长肉”的瘦身少年。瘦子没法理解胖子的痛，瘦子终于有了同感。于是乎，待到晚上9点半开始了跑步，拉力器，仰卧起坐等一系列瘦身塑形锻炼。大汗淋漓地冲了一个澡，爽！</p>
+
+<h3>正文</h3>
+
+<p>用Python也有两年了，很少在生产中用到线程来设计程序，最近看到两篇不错的文章，准备自己记录一下。原文在这里：</p>
+
+<ul>
+<li><a href="http://blog.pythonisito.com/2012/07/introduction-to-gevent.html">Introduction to Gevent</a></li>
+<li><a href="http://blog.pythonisito.com/2012/07/gevent-threads-and-benchmarks.html">Gevent, Threads, and Benchmarks</a></li>
+</ul>
+
+
+<h3>插曲</h3>
+
+<p>MD，写到这里接到老大地bug报告，修完了一个SB地Bug回来继续。</p>
+
+<h3>单进程单线程服务器(无实用价值)</h3>
+
+<figure class='code'><figcaption><span> (webserver_single_thread.py)</span> <a href='/downloads/code/webserver_single_thread.py'>download</a></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+</pre></td><td class='code'><pre><code class='py'><span class='line'><span class="c">#!/usr/bin/env python</span>
+</span><span class='line'><span class="c"># -*- coding: utf-8 -*-</span>
+</span><span class='line'>
+</span><span class='line'><span class="kn">import</span> <span class="nn">sys</span>
+</span><span class='line'><span class="kn">import</span> <span class="nn">socket</span>
+</span><span class='line'><span class="kn">import</span> <span class="nn">time</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">def</span> <span class="nf">sequential</span><span class="p">(</span><span class="n">port</span><span class="p">):</span>
+</span><span class='line'>    <span class="n">s</span> <span class="o">=</span> <span class="n">socket</span><span class="o">.</span><span class="n">socket</span><span class="p">()</span>
+</span><span class='line'>    <span class="n">s</span><span class="o">.</span><span class="n">bind</span><span class="p">((</span><span class="s">&#39;0.0.0.0&#39;</span><span class="p">,</span> <span class="n">port</span><span class="p">))</span>
+</span><span class='line'>    <span class="n">s</span><span class="o">.</span><span class="n">listen</span><span class="p">(</span><span class="mi">500</span><span class="p">)</span>
+</span><span class='line'>    <span class="k">while</span> <span class="bp">True</span><span class="p">:</span>
+</span><span class='line'>        <span class="n">cli</span><span class="p">,</span> <span class="n">addr</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">accept</span><span class="p">()</span>
+</span><span class='line'>        <span class="n">handle_request</span><span class="p">(</span><span class="n">cli</span><span class="p">,</span> <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">def</span> <span class="nf">handle_request</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">sleep</span><span class="p">):</span>
+</span><span class='line'>    <span class="k">try</span><span class="p">:</span>
+</span><span class='line'>        <span class="n">s</span><span class="o">.</span><span class="n">recv</span><span class="p">(</span><span class="mi">1024</span><span class="p">)</span>
+</span><span class='line'>        <span class="n">sleep</span><span class="p">(</span><span class="mf">0.1</span><span class="p">)</span>
+</span><span class='line'>        <span class="n">s</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="s">&#39;&#39;&#39;http/1.0 200 OK</span>
+</span><span class='line'><span class="s">                  Hello World! &#39;&#39;&#39;</span><span class="p">)</span>
+</span><span class='line'>        <span class="n">s</span><span class="o">.</span><span class="n">shutdown</span><span class="p">(</span><span class="n">socket</span><span class="o">.</span><span class="n">SHUT_WR</span><span class="p">)</span>
+</span><span class='line'>        <span class="k">print</span> <span class="s">&#39;.&#39;</span><span class="p">,</span>
+</span><span class='line'>    <span class="k">except</span> <span class="ne">Exception</span><span class="p">,</span> <span class="n">ex</span><span class="p">:</span>
+</span><span class='line'>        <span class="k">print</span> <span class="n">ex</span>
+</span><span class='line'>    <span class="k">finally</span><span class="p">:</span>
+</span><span class='line'>        <span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">flush</span><span class="p">()</span>
+</span><span class='line'>        <span class="n">s</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">&#39;__main__&#39;</span><span class="p">:</span>
+</span><span class='line'>    <span class="n">sequential</span><span class="p">(</span><span class="mi">4444</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>
+批注：没有人会用单线程做服务器，除非你是像我现在一样用来练习。</p>
+
+<h3>单进程多线程服务器(无实用价值)</h3>
+
+<figure class='code'><figcaption><span> (webserver_multi_threads.py)</span> <a href='/downloads/code/webserver_multi_threads.py'>download</a></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+</pre></td><td class='code'><pre><code class='py'><span class='line'><span class="c">#!/usr/bin/env python</span>
+</span><span class='line'><span class="c"># -*- coding: utf-8 -*-</span>
+</span><span class='line'>
+</span><span class='line'><span class="kn">import</span> <span class="nn">sys</span>
+</span><span class='line'><span class="kn">import</span> <span class="nn">socket</span>
+</span><span class='line'><span class="kn">import</span> <span class="nn">time</span>
+</span><span class='line'><span class="kn">import</span> <span class="nn">threading</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">def</span> <span class="nf">threads</span><span class="p">(</span><span class="n">port</span><span class="p">):</span>
+</span><span class='line'>    <span class="n">s</span> <span class="o">=</span> <span class="n">socket</span><span class="o">.</span><span class="n">socket</span><span class="p">()</span>
+</span><span class='line'>    <span class="n">s</span><span class="o">.</span><span class="n">bind</span><span class="p">((</span><span class="s">&#39;0.0.0.0&#39;</span><span class="p">,</span> <span class="n">port</span><span class="p">))</span>
+</span><span class='line'>    <span class="n">s</span><span class="o">.</span><span class="n">listen</span><span class="p">(</span><span class="mi">500</span><span class="p">)</span>
+</span><span class='line'>    <span class="k">while</span> <span class="bp">True</span><span class="p">:</span>
+</span><span class='line'>        <span class="n">cli</span><span class="p">,</span> <span class="n">addr</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">accept</span><span class="p">()</span>
+</span><span class='line'>        <span class="n">t</span> <span class="o">=</span> <span class="n">threading</span><span class="o">.</span><span class="n">Thread</span><span class="p">(</span><span class="n">target</span><span class="o">=</span><span class="n">handle_request</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="n">cli</span><span class="p">,</span> <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">))</span>
+</span><span class='line'>        <span class="n">t</span><span class="o">.</span><span class="n">daemon</span> <span class="o">=</span> <span class="bp">True</span>
+</span><span class='line'>        <span class="n">t</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">def</span> <span class="nf">handle_request</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">sleep</span><span class="p">):</span>
+</span><span class='line'>    <span class="k">try</span><span class="p">:</span>
+</span><span class='line'>        <span class="n">s</span><span class="o">.</span><span class="n">recv</span><span class="p">(</span><span class="mi">1024</span><span class="p">)</span>
+</span><span class='line'>        <span class="n">sleep</span><span class="p">(</span><span class="mf">0.1</span><span class="p">)</span>
+</span><span class='line'>        <span class="n">s</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="s">&#39;&#39;&#39;http/1.0 200 OK</span>
+</span><span class='line'><span class="s">                  Hello World! &#39;&#39;&#39;</span><span class="p">)</span>
+</span><span class='line'>        <span class="n">s</span><span class="o">.</span><span class="n">shutdown</span><span class="p">(</span><span class="n">socket</span><span class="o">.</span><span class="n">SHUT_WR</span><span class="p">)</span>
+</span><span class='line'>        <span class="k">print</span> <span class="s">&#39;.&#39;</span><span class="p">,</span>
+</span><span class='line'>    <span class="k">except</span> <span class="ne">Exception</span><span class="p">,</span> <span class="n">ex</span><span class="p">:</span>
+</span><span class='line'>        <span class="k">print</span> <span class="n">ex</span>
+</span><span class='line'>    <span class="k">finally</span><span class="p">:</span>
+</span><span class='line'>        <span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">flush</span><span class="p">()</span>
+</span><span class='line'>        <span class="n">s</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">&#39;__main__&#39;</span><span class="p">:</span>
+</span><span class='line'>    <span class="n">threads</span><span class="p">(</span><span class="mi">4444</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>批注：多线程之间的切换也是很耗资源的事情，所以就有了下面的线程池。</p>
+
+<h3>单进程线程池服务器(无实用价值)</h3>
+
+<figure class='code'><figcaption><span> (webserver_thread_pool.py)</span> <a href='/downloads/code/webserver_thread_pool.py'>download</a></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+</pre></td><td class='code'><pre><code class='py'><span class='line'><span class="c">#!/usr/bin/env python</span>
+</span><span class='line'><span class="c"># -*- coding: utf-8 -*-</span>
+</span><span class='line'>
+</span><span class='line'><span class="kn">import</span> <span class="nn">sys</span>
+</span><span class='line'><span class="kn">import</span> <span class="nn">socket</span>
+</span><span class='line'><span class="kn">import</span> <span class="nn">time</span>
+</span><span class='line'><span class="kn">import</span> <span class="nn">threading</span>
+</span><span class='line'><span class="kn">import</span> <span class="nn">Queue</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">def</span> <span class="nf">server</span><span class="p">(</span><span class="n">port</span><span class="p">,</span> <span class="n">N</span><span class="p">):</span>
+</span><span class='line'>    <span class="n">s</span> <span class="o">=</span> <span class="n">socket</span><span class="o">.</span><span class="n">socket</span><span class="p">()</span>
+</span><span class='line'>    <span class="n">s</span><span class="o">.</span><span class="n">bind</span><span class="p">((</span><span class="s">&#39;0.0.0.0&#39;</span><span class="p">,</span> <span class="n">port</span><span class="p">))</span>
+</span><span class='line'>    <span class="n">s</span><span class="o">.</span><span class="n">listen</span><span class="p">(</span><span class="mi">500</span><span class="p">)</span>
+</span><span class='line'>    <span class="n">q</span> <span class="o">=</span> <span class="n">Queue</span><span class="o">.</span><span class="n">Queue</span><span class="p">()</span>
+</span><span class='line'>    <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">N</span><span class="p">):</span>
+</span><span class='line'>        <span class="n">t</span> <span class="o">=</span> <span class="n">threading</span><span class="o">.</span><span class="n">Thread</span><span class="p">(</span><span class="n">target</span><span class="o">=</span><span class="n">thread_worker</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="n">q</span><span class="p">,</span> <span class="p">))</span>
+</span><span class='line'>        <span class="n">t</span><span class="o">.</span><span class="n">daemon</span> <span class="o">=</span> <span class="bp">True</span>
+</span><span class='line'>        <span class="n">t</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+</span><span class='line'>    <span class="k">print</span> <span class="s">&#39;Ready and waiting with </span><span class="si">%d</span><span class="s"> threads on port </span><span class="si">%d</span><span class="s">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">N</span><span class="p">,</span> <span class="n">port</span><span class="p">)</span>
+</span><span class='line'>    <span class="k">while</span> <span class="bp">True</span><span class="p">:</span>
+</span><span class='line'>        <span class="n">cli</span><span class="p">,</span> <span class="n">addr</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">accept</span><span class="p">()</span>
+</span><span class='line'>        <span class="n">q</span><span class="o">.</span><span class="n">put</span><span class="p">(</span><span class="n">cli</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">def</span> <span class="nf">thread_worker</span><span class="p">(</span><span class="n">q</span><span class="p">):</span>
+</span><span class='line'>    <span class="n">sock</span> <span class="o">=</span> <span class="n">q</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
+</span><span class='line'>    <span class="n">handle_request</span><span class="p">(</span><span class="n">sock</span><span class="p">,</span> <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">def</span> <span class="nf">handle_request</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">sleep</span><span class="p">):</span>
+</span><span class='line'>    <span class="k">try</span><span class="p">:</span>
+</span><span class='line'>        <span class="n">s</span><span class="o">.</span><span class="n">recv</span><span class="p">(</span><span class="mi">1024</span><span class="p">)</span>
+</span><span class='line'>        <span class="n">sleep</span><span class="p">(</span><span class="mf">0.1</span><span class="p">)</span>
+</span><span class='line'>        <span class="n">s</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="s">&#39;&#39;&#39;http/1.0 200 OK</span>
+</span><span class='line'><span class="s">                  Hello World! &#39;&#39;&#39;</span><span class="p">)</span>
+</span><span class='line'>        <span class="n">s</span><span class="o">.</span><span class="n">shutdown</span><span class="p">(</span><span class="n">socket</span><span class="o">.</span><span class="n">SHUT_WR</span><span class="p">)</span>
+</span><span class='line'>        <span class="k">print</span> <span class="s">&#39;.&#39;</span><span class="p">,</span>
+</span><span class='line'>    <span class="k">except</span> <span class="ne">Exception</span><span class="p">,</span> <span class="n">ex</span><span class="p">:</span>
+</span><span class='line'>        <span class="k">print</span> <span class="n">ex</span>
+</span><span class='line'>    <span class="k">finally</span><span class="p">:</span>
+</span><span class='line'>        <span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">flush</span><span class="p">()</span>
+</span><span class='line'>        <span class="n">s</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">&#39;__main__&#39;</span><span class="p">:</span>
+</span><span class='line'>    <span class="n">server</span><span class="p">(</span><span class="mi">4444</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>批注：受到Python的GIL的制约。</p>
+
+<h3>单进程gevent服务器(无实用价值)</h3>
+
+<figure class='code'><figcaption><span> (webserver_gevent.py)</span> <a href='/downloads/code/webserver_gevent.py'>download</a></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+</pre></td><td class='code'><pre><code class='py'><span class='line'><span class="c">#!/usr/bin/env python</span>
+</span><span class='line'><span class="c"># -*- coding: utf-8 -*-</span>
+</span><span class='line'>
+</span><span class='line'><span class="kn">import</span> <span class="nn">sys</span>
+</span><span class='line'><span class="kn">import</span> <span class="nn">socket</span>
+</span><span class='line'><span class="kn">import</span> <span class="nn">time</span>
+</span><span class='line'><span class="kn">import</span> <span class="nn">gevent</span>
+</span><span class='line'><span class="kn">from</span> <span class="nn">gevent</span> <span class="kn">import</span> <span class="n">socket</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">def</span> <span class="nf">server</span><span class="p">(</span><span class="n">port</span><span class="p">):</span>
+</span><span class='line'>    <span class="n">s</span> <span class="o">=</span> <span class="n">socket</span><span class="o">.</span><span class="n">socket</span><span class="p">()</span>
+</span><span class='line'>    <span class="n">s</span><span class="o">.</span><span class="n">bind</span><span class="p">((</span><span class="s">&#39;0.0.0.0&#39;</span><span class="p">,</span> <span class="n">port</span><span class="p">))</span>
+</span><span class='line'>    <span class="n">s</span><span class="o">.</span><span class="n">listen</span><span class="p">(</span><span class="mi">500</span><span class="p">)</span>
+</span><span class='line'>    <span class="k">while</span> <span class="bp">True</span><span class="p">:</span>
+</span><span class='line'>        <span class="n">cli</span><span class="p">,</span> <span class="n">addr</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">accept</span><span class="p">()</span>
+</span><span class='line'>        <span class="n">gevent</span><span class="o">.</span><span class="n">spawn</span><span class="p">(</span><span class="n">handle_request</span><span class="p">,</span> <span class="n">cli</span><span class="p">,</span> <span class="n">gevent</span><span class="o">.</span><span class="n">sleep</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">def</span> <span class="nf">handle_request</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">sleep</span><span class="p">):</span>
+</span><span class='line'>    <span class="k">try</span><span class="p">:</span>
+</span><span class='line'>        <span class="n">s</span><span class="o">.</span><span class="n">recv</span><span class="p">(</span><span class="mi">1024</span><span class="p">)</span>
+</span><span class='line'>        <span class="n">sleep</span><span class="p">(</span><span class="mf">0.1</span><span class="p">)</span>
+</span><span class='line'>        <span class="n">s</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="s">&#39;&#39;&#39;http/1.0 200 OK</span>
+</span><span class='line'><span class="s">                  Hello World! &#39;&#39;&#39;</span><span class="p">)</span>
+</span><span class='line'>        <span class="n">s</span><span class="o">.</span><span class="n">shutdown</span><span class="p">(</span><span class="n">socket</span><span class="o">.</span><span class="n">SHUT_WR</span><span class="p">)</span>
+</span><span class='line'>        <span class="k">print</span> <span class="s">&#39;.&#39;</span><span class="p">,</span>
+</span><span class='line'>    <span class="k">except</span> <span class="ne">Exception</span><span class="p">,</span> <span class="n">ex</span><span class="p">:</span>
+</span><span class='line'>        <span class="k">print</span> <span class="n">ex</span>
+</span><span class='line'>    <span class="k">finally</span><span class="p">:</span>
+</span><span class='line'>        <span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">flush</span><span class="p">()</span>
+</span><span class='line'>        <span class="n">s</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">&#39;__main__&#39;</span><span class="p">:</span>
+</span><span class='line'>    <span class="n">server</span><span class="p">(</span><span class="mi">4444</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>批注：研究中。</p>
+
+<h3>gevent协程池服务器(无实用价值)</h3>
+
+<figure class='code'><figcaption><span> (webserver_gevent_pool.py)</span> <a href='/downloads/code/webserver_gevent_pool.py'>download</a></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+</pre></td><td class='code'><pre><code class='py'><span class='line'><span class="c">#!/usr/bin/env python</span>
+</span><span class='line'><span class="c"># -*- coding: utf-8 -*-</span>
+</span><span class='line'>
+</span><span class='line'><span class="kn">import</span> <span class="nn">sys</span>
+</span><span class='line'><span class="kn">import</span> <span class="nn">socket</span>
+</span><span class='line'><span class="kn">import</span> <span class="nn">time</span>
+</span><span class='line'><span class="kn">import</span> <span class="nn">gevent</span>
+</span><span class='line'><span class="kn">from</span> <span class="nn">gevent</span> <span class="kn">import</span> <span class="n">socket</span><span class="p">,</span> <span class="n">sleep</span>
+</span><span class='line'><span class="kn">from</span> <span class="nn">gevent.pool</span> <span class="kn">import</span> <span class="n">Pool</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">def</span> <span class="nf">server</span><span class="p">(</span><span class="n">port</span><span class="p">,</span> <span class="n">N</span><span class="p">):</span>
+</span><span class='line'>    <span class="n">pool</span> <span class="o">=</span> <span class="n">Pool</span><span class="p">(</span><span class="n">N</span><span class="p">)</span>
+</span><span class='line'>    <span class="n">s</span> <span class="o">=</span> <span class="n">socket</span><span class="o">.</span><span class="n">socket</span><span class="p">()</span>
+</span><span class='line'>    <span class="n">s</span><span class="o">.</span><span class="n">bind</span><span class="p">((</span><span class="s">&#39;0.0.0.0&#39;</span><span class="p">,</span> <span class="n">port</span><span class="p">))</span>
+</span><span class='line'>    <span class="n">s</span><span class="o">.</span><span class="n">listen</span><span class="p">(</span><span class="mi">500</span><span class="p">)</span>
+</span><span class='line'>    <span class="k">while</span> <span class="bp">True</span><span class="p">:</span>
+</span><span class='line'>        <span class="n">cli</span><span class="p">,</span> <span class="n">addr</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">accept</span><span class="p">()</span>
+</span><span class='line'>        <span class="n">pool</span><span class="o">.</span><span class="n">spawn</span><span class="p">(</span><span class="n">handle_request</span><span class="p">,</span> <span class="n">cli</span><span class="p">,</span> <span class="n">gevent</span><span class="o">.</span><span class="n">sleep</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">def</span> <span class="nf">handle_request</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">sleep</span><span class="p">):</span>
+</span><span class='line'>    <span class="k">try</span><span class="p">:</span>
+</span><span class='line'>        <span class="n">s</span><span class="o">.</span><span class="n">recv</span><span class="p">(</span><span class="mi">1024</span><span class="p">)</span>
+</span><span class='line'>        <span class="n">sleep</span><span class="p">(</span><span class="mf">0.1</span><span class="p">)</span>
+</span><span class='line'>        <span class="n">s</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="s">&#39;&#39;&#39;http/1.0 200 OK</span>
+</span><span class='line'><span class="s">                  Hello World! &#39;&#39;&#39;</span><span class="p">)</span>
+</span><span class='line'>        <span class="n">s</span><span class="o">.</span><span class="n">shutdown</span><span class="p">(</span><span class="n">socket</span><span class="o">.</span><span class="n">SHUT_WR</span><span class="p">)</span>
+</span><span class='line'>        <span class="k">print</span> <span class="s">&#39;.&#39;</span><span class="p">,</span>
+</span><span class='line'>    <span class="k">except</span> <span class="ne">Exception</span><span class="p">,</span> <span class="n">ex</span><span class="p">:</span>
+</span><span class='line'>        <span class="k">print</span> <span class="n">ex</span>
+</span><span class='line'>    <span class="k">finally</span><span class="p">:</span>
+</span><span class='line'>        <span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">flush</span><span class="p">()</span>
+</span><span class='line'>        <span class="n">s</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">&#39;__main__&#39;</span><span class="p">:</span>
+</span><span class='line'>    <span class="n">server</span><span class="p">(</span><span class="mi">4444</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>批注：研究中。</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2012/07/30/pythonxing-neng-fen-xi-zhi-nan/">Python性能分析指南</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-07-30T16:53:00+08:00" pubdate data-updated="true">Jul 30<span>th</span>, 2012</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h2>主题</h2>
+
+<p>介绍几种用于Python程序性能分析的工具和方法。</p>
+
+<h2>思路</h2>
+
+<p>一般情况下，要分析一段代码的性能，可以从下面几个问题入手：</p>
+
+<ol>
+<li><strong>目前执行效率如何？</strong></li>
+<li><strong>效率瓶颈在哪里？</strong></li>
+<li><strong>占用了多少内存？</strong></li>
+<li><strong>内存消耗在哪里？</strong></li>
+</ol>
+
+
+<p>下面我们用几个工具来一一解答这些疑问。</p>
+
+<h2>Unix命令行工具: <code>time</code></h2>
+
+<p><code>time</code>是几乎所有*nix系统自带的一个工具，我们可以用它来对程序进行初步的分析：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ time python yourprogram.py
+</span><span class='line'>
+</span><span class='line'>real    0m1.028s
+</span><span class='line'>user    0m0.001s
+</span><span class='line'>sys     0m0.003s</span></code></pre></td></tr></table></div></figure>
+
+
+<p>输出的三条数据的具体含义可以参考这里：<a href="http://stackoverflow.com/questions/556405/what-do-real-user-and-sys-mean-in-the-output-of-time1">What do &#8216;real&#8217;, &#8216;user&#8217; and &#8216;sys&#8217; mean in the output of time(1)?</a>。这里给出简单的说明：</p>
+
+<ul>
+<li><code>real</code> - 时钟时间。从程序开始到结束流逝的时间(actual elapsed time)，包括其他进程占用的时间，比如IO等待时间。</li>
+<li><code>user</code> - 内核之外（用户空间）该进程占用时间(cpu time)。</li>
+<li><code>sys</code> - 该进程的内核执行时间(cpu time)</li>
+</ul>
+
+
+<p>如果发现<code>sys</code>和<code>user</code>的时间之和远小于<code>real</code>就说明我们的程序很有可能在IO等待上花费了大量时间。</p>
+
+<h2>自定义Timer类</h2>
+
+<div><script src='https://gist.github.com/3205931.js'></script>
+<noscript><pre><code>import time
+
+class Timer(object):
+    def __init__(self, verbose=False):
+        self.verbose = verbose
+
+    def __enter__(self):
+        self.start = time.time()
+        return self
+
+    def __exit__(self, *args):
+        self.end = time.time()
+        self.secs = self.end - self.start
+        self.msecs = self.secs * 1000  # millisecs
+        if self.verbose:
+            print 'elapsed time: %f ms' % self.msecs
+
+###################
+
+from timer import Timer
+from redis import Redis
+rdb = Redis()
+
+with Timer() as t:
+    rdb.lpush(&quot;foo&quot;, &quot;bar&quot;)
+print &quot;=&gt; elasped lpush: %s s&quot; % t.secs
+
+with Timer as t:
+    rdb.lpop(&quot;foo&quot;)
+print &quot;=&gt; elasped lpop: %s s&quot; % t.secs</code></pre></noscript></div>
+
+
+<p>可以把时间输出到一个性能日志文件，比如profile.log，方便以后分析我们程序的性能瓶颈。</p>
+
+<h2>行执行时间分析：<a href="http://packages.python.org/line_profiler/"><code>line_profiler</code></a></h2>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2012/07/29/zhong-wen-ri-zhi-zhi-chi-zen-yao-yang/">中文日志支持怎么样</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-07-29T23:46:00+08:00" pubdate data-updated="true">Jul 29<span>th</span>, 2012</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>很牛的嘛，中文都转换成拼音了。</p>
+
+<h3>来一段<code>Gist</code></h3>
+
+<div><script src='https://gist.github.com/6001.js'></script>
+<noscript><pre><code>class Tree
+  def Tree.create(&amp;block)
+    Tree.new.instance_eval(&amp;block)
+  end
+  def method_missing(methodname, *args, &amp;block)
+    @root = TreeNode.new(methodname.to_s)
+    @root.instance_eval(&amp;block) if block_given?
+    @root
+  end
+end</code></pre></noscript></div>
+
+
+<h3>测试超链接样式</h3>
+
+<p><a href="http://kantuban.com">看图班</a></p>
+</div>
+  
+  
+
+
+    </article>
+  
+  <div class="pagination">
+    
+      <a class="prev" href="/blog/page/4/">&larr; Older</a>
+    
+    <a href="/blog/archives">Blog Archives</a>
+    
+    <a class="next" href="/blog/page/2/">Newer &rarr;</a>
+    
+  </div>
+</div>
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2013/02/08/linuxzhong-duan-chang-yong-ji-qiao-zong-jie-wei-xin-linuxtipsgui-dang/">Linux终端常用技巧总结-微信LinuxTips归档</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/12/17/chi-kai-xiao-yuan-jin-ru-she-hui-xu-yao-ming-bai-de-ji-jian-shi-qing/">离开校园进入社会需要明白的几件事情</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/11/25/duo-fu-wu-qi-guan-li-zhi-fabric/">多服务器管理之Fabric</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/09/22/wei-shi-yao-pythonhan-shu-ding-yi-zhong-guan-jian-zi-can-shu-bu-tui-jian-she-zhi-mutablede-mo-ren-zhi/">为什么Python函数定义中关键字参数不推荐设置mutable的默认值？</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/09/18/macxia-de-wang-luo-ipzi-dong-qie-huan/">Mac下的网络IP自动切换</a>
+      </li>
+    
+  </ul>
+</section>
+<script type="text/javascript" src="http://www.kantuban.com/outwidget/1365"></script>
+<section>
+  <h1>新浪微博</h1>
+  <ul id="weibo">
+    <li>
+      <iframe
+        width="100%"
+        height="550"
+        class="share_self"
+        frameborder="0"
+        scrolling="no"
+        src="http://widget.weibo.com/weiboshow/index.php?width=0&height=550&ptype=1&speed=0&skin=&isTitle=0&noborder=1&isWeibo=1&isFans=&uid=1645930380&verifier=f8d37ee6">
+      </iframe>
+    </li>
+  </ul>
+</section>
+
+
+  
+</aside>
+
+    </div>
+  </div>
+  <footer role="contentinfo">Copyright &copy; 2013
+
+    dlutcat
+
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'simple-coder';
+      
+        
+        var disqus_script = 'count.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+</body>
+</html>
