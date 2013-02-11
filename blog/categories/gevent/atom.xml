@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Category: gevent | 简单的Coder]]></title>
-  <link href="http://dlutcat.github.com/blog/categories/gevent/atom.xml" rel="self"/>
-  <link href="http://dlutcat.github.com/"/>
-  <updated>2013-02-11T23:01:44+08:00</updated>
-  <id>http://dlutcat.github.com/</id>
+  <link href="http://chenglei.me/blog/categories/gevent/atom.xml" rel="self"/>
+  <link href="http://chenglei.me/"/>
+  <updated>2013-02-11T23:12:49+08:00</updated>
+  <id>http://chenglei.me/</id>
   <author>
     <name><![CDATA[dlutcat]]></name>
     <email><![CDATA[pat.inside@gmail.com]]></email>
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[Python线程和gevent简易服务器实现对比]]></title>
-    <link href="http://dlutcat.github.com/blog/2012/08/05/pythonxian-cheng-he-geventjian-yi-fu-wu-qi-shi-xian-dui-bi/"/>
+    <link href="http://chenglei.me/blog/2012/08/05/pythonxian-cheng-he-geventjian-yi-fu-wu-qi-shi-xian-dui-bi/"/>
     <updated>2012-08-05T23:12:00+08:00</updated>
-    <id>http://dlutcat.github.com/blog/2012/08/05/pythonxian-cheng-he-geventjian-yi-fu-wu-qi-shi-xian-dui-bi</id>
+    <id>http://chenglei.me/blog/2012/08/05/pythonxian-cheng-he-geventjian-yi-fu-wu-qi-shi-xian-dui-bi</id>
     <content type="html"><![CDATA[<h3>记前</h3>
 
 <p>最近项目上线，终于迎来了一个双休日，宅在家里眼瞅着肚子上的赘肉一圈一圈，实在不敢相信当年我是那个“怎么吃都不长肉”的瘦身少年。瘦子没法理解胖子的痛，瘦子终于有了同感。于是乎，待到晚上9点半开始了跑步，拉力器，仰卧起坐等一系列瘦身塑形锻炼。大汗淋漓地冲了一个澡，爽！</p>

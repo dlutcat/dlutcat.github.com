@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Category: Linux | 简单的Coder]]></title>
-  <link href="http://dlutcat.github.com/blog/categories/linux/atom.xml" rel="self"/>
-  <link href="http://dlutcat.github.com/"/>
-  <updated>2013-02-11T23:01:44+08:00</updated>
-  <id>http://dlutcat.github.com/</id>
+  <link href="http://chenglei.me/blog/categories/linux/atom.xml" rel="self"/>
+  <link href="http://chenglei.me/"/>
+  <updated>2013-02-11T23:12:49+08:00</updated>
+  <id>http://chenglei.me/</id>
   <author>
     <name><![CDATA[dlutcat]]></name>
     <email><![CDATA[pat.inside@gmail.com]]></email>
@@ -14,10 +14,10 @@
 
   
   <entry>
-    <title type="html"><![CDATA[Linux终端常用技巧总结-微信LinuxTips归档]]></title>
-    <link href="http://dlutcat.github.com/blog/2013/02/08/linuxzhong-duan-chang-yong-ji-qiao-zong-jie-wei-xin-linuxtipsgui-dang/"/>
+    <title type="html"><![CDATA[微信公众账号LinuxTips归档]]></title>
+    <link href="http://chenglei.me/blog/2013/02/08/linuxzhong-duan-chang-yong-ji-qiao-zong-jie-wei-xin-linuxtipsgui-dang/"/>
     <updated>2013-02-08T21:18:00+08:00</updated>
-    <id>http://dlutcat.github.com/blog/2013/02/08/linuxzhong-duan-chang-yong-ji-qiao-zong-jie-wei-xin-linuxtipsgui-dang</id>
+    <id>http://chenglei.me/blog/2013/02/08/linuxzhong-duan-chang-yong-ji-qiao-zong-jie-wei-xin-linuxtipsgui-dang</id>
     <content type="html"><![CDATA[<h3>由来</h3>
 
 <p>前些天申请了一个微信公众账号<code>LinuxTips</code>，顾名思义，用来推荐一些常用或有用但不太熟知的技巧，多多少少希望能对Linux初学者有一些帮助。连续发了一两周下来发现订阅者越来越多，说明还是有些帮助，所以我准备把这事儿坚持下去。我准备用这篇日志来记录<code>LinuxTips</code>的历史发布，方便大家日后查阅。</p>

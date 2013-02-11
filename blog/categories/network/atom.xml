@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Category: Network | 简单的Coder]]></title>
-  <link href="http://dlutcat.github.com/blog/categories/network/atom.xml" rel="self"/>
-  <link href="http://dlutcat.github.com/"/>
-  <updated>2013-02-11T23:01:44+08:00</updated>
-  <id>http://dlutcat.github.com/</id>
+  <link href="http://chenglei.me/blog/categories/network/atom.xml" rel="self"/>
+  <link href="http://chenglei.me/"/>
+  <updated>2013-02-11T23:12:49+08:00</updated>
+  <id>http://chenglei.me/</id>
   <author>
     <name><![CDATA[dlutcat]]></name>
     <email><![CDATA[pat.inside@gmail.com]]></email>
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[Mac下的网络IP自动切换]]></title>
-    <link href="http://dlutcat.github.com/blog/2012/09/18/macxia-de-wang-luo-ipzi-dong-qie-huan/"/>
+    <link href="http://chenglei.me/blog/2012/09/18/macxia-de-wang-luo-ipzi-dong-qie-huan/"/>
     <updated>2012-09-18T20:45:00+08:00</updated>
-    <id>http://dlutcat.github.com/blog/2012/09/18/macxia-de-wang-luo-ipzi-dong-qie-huan</id>
+    <id>http://chenglei.me/blog/2012/09/18/macxia-de-wang-luo-ipzi-dong-qie-huan</id>
     <content type="html"><![CDATA[<p>用惯了自己的电脑，我喜欢在公司也自带电脑，由于家里和公司的网络环境不同，而且因为某些原因都需要手动设置IP, Subnet, Router和DNS，这样每天晚上回家和早上上班手动设置会很麻烦，就研究了一下Mac下自动设置。在Mac下面有一个命令<code>networksetup</code>，用man查看，它有很多参数，我们这里要用到以下这些参数：</p>
 
 <h4>查看本机地网络设备</h4>

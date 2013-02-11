@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Category: Python | 简单的Coder]]></title>
-  <link href="http://dlutcat.github.com/blog/categories/python/atom.xml" rel="self"/>
-  <link href="http://dlutcat.github.com/"/>
-  <updated>2013-02-11T23:01:44+08:00</updated>
-  <id>http://dlutcat.github.com/</id>
+  <link href="http://chenglei.me/blog/categories/python/atom.xml" rel="self"/>
+  <link href="http://chenglei.me/"/>
+  <updated>2013-02-11T23:12:49+08:00</updated>
+  <id>http://chenglei.me/</id>
   <author>
     <name><![CDATA[dlutcat]]></name>
     <email><![CDATA[pat.inside@gmail.com]]></email>
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[多服务器管理之Fabric]]></title>
-    <link href="http://dlutcat.github.com/blog/2012/11/25/duo-fu-wu-qi-guan-li-zhi-fabric/"/>
+    <link href="http://chenglei.me/blog/2012/11/25/duo-fu-wu-qi-guan-li-zhi-fabric/"/>
     <updated>2012-11-25T15:38:00+08:00</updated>
-    <id>http://dlutcat.github.com/blog/2012/11/25/duo-fu-wu-qi-guan-li-zhi-fabric</id>
+    <id>http://chenglei.me/blog/2012/11/25/duo-fu-wu-qi-guan-li-zhi-fabric</id>
     <content type="html"><![CDATA[<h3>背景</h3>
 
 <p>最近公司服务器从单机扩展到三机，新环境的搭建和部署也采用了新的自动化方式：<a href="http://docs.fabfile.org/en/1.5/">Fabric</a>。</p>
@@ -162,9 +162,9 @@ env.roles = ['product']
   
   <entry>
     <title type="html"><![CDATA[为什么Python函数定义中关键字参数不推荐设置mutable的默认值？]]></title>
-    <link href="http://dlutcat.github.com/blog/2012/09/22/wei-shi-yao-pythonhan-shu-ding-yi-zhong-guan-jian-zi-can-shu-bu-tui-jian-she-zhi-mutablede-mo-ren-zhi/"/>
+    <link href="http://chenglei.me/blog/2012/09/22/wei-shi-yao-pythonhan-shu-ding-yi-zhong-guan-jian-zi-can-shu-bu-tui-jian-she-zhi-mutablede-mo-ren-zhi/"/>
     <updated>2012-09-22T15:55:00+08:00</updated>
-    <id>http://dlutcat.github.com/blog/2012/09/22/wei-shi-yao-pythonhan-shu-ding-yi-zhong-guan-jian-zi-can-shu-bu-tui-jian-she-zhi-mutablede-mo-ren-zhi</id>
+    <id>http://chenglei.me/blog/2012/09/22/wei-shi-yao-pythonhan-shu-ding-yi-zhong-guan-jian-zi-can-shu-bu-tui-jian-she-zhi-mutablede-mo-ren-zhi</id>
     <content type="html"><![CDATA[<p>很多关于Python的<a href="http://www.google.com.hk/search?q=python+best+practices&amp;aq=0&amp;oq=python+best+prac&amp;sugexp=chrome,mod=10&amp;sourceid=chrome&amp;ie=UTF-8">Best Practice</a>中都会提到，在函数定义的时候，关键词参数的默认值不要设置成mutable的类型，比如list, dict。那么具体原因是什么呢？之前一直没有去思考，直到膝盖中了一箭。
 先看下面的例子：</p>
 
@@ -201,9 +201,9 @@ env.roles = ['product']
   
   <entry>
     <title type="html"><![CDATA[跟踪Python嵌套函数调用]]></title>
-    <link href="http://dlutcat.github.com/blog/2012/08/27/gen-zong-pythonqian-tao-han-shu-diao-yong/"/>
+    <link href="http://chenglei.me/blog/2012/08/27/gen-zong-pythonqian-tao-han-shu-diao-yong/"/>
     <updated>2012-08-27T20:05:00+08:00</updated>
-    <id>http://dlutcat.github.com/blog/2012/08/27/gen-zong-pythonqian-tao-han-shu-diao-yong</id>
+    <id>http://chenglei.me/blog/2012/08/27/gen-zong-pythonqian-tao-han-shu-diao-yong</id>
     <content type="html"><![CDATA[<p>今天在浏览Google Reader的时候发现一个好用的工具函数，用来跟踪嵌套调用函数方便debug。<br/>
 原文：<a href="http://eli.thegreenplace.net/2012/08/22/easy-tracing-of-nested-function-calls-in-python/">Easy tracing of nested function calls in Python</a></p>
 
@@ -326,9 +326,9 @@ flatten([1, 2, [3, [4, 5], 6, [7, [9], 12]], 4, [6, 9]])
   
   <entry>
     <title type="html"><![CDATA[Python线程和gevent简易服务器实现对比]]></title>
-    <link href="http://dlutcat.github.com/blog/2012/08/05/pythonxian-cheng-he-geventjian-yi-fu-wu-qi-shi-xian-dui-bi/"/>
+    <link href="http://chenglei.me/blog/2012/08/05/pythonxian-cheng-he-geventjian-yi-fu-wu-qi-shi-xian-dui-bi/"/>
     <updated>2012-08-05T23:12:00+08:00</updated>
-    <id>http://dlutcat.github.com/blog/2012/08/05/pythonxian-cheng-he-geventjian-yi-fu-wu-qi-shi-xian-dui-bi</id>
+    <id>http://chenglei.me/blog/2012/08/05/pythonxian-cheng-he-geventjian-yi-fu-wu-qi-shi-xian-dui-bi</id>
     <content type="html"><![CDATA[<h3>记前</h3>
 
 <p>最近项目上线，终于迎来了一个双休日，宅在家里眼瞅着肚子上的赘肉一圈一圈，实在不敢相信当年我是那个“怎么吃都不长肉”的瘦身少年。瘦子没法理解胖子的痛，瘦子终于有了同感。于是乎，待到晚上9点半开始了跑步，拉力器，仰卧起坐等一系列瘦身塑形锻炼。大汗淋漓地冲了一个澡，爽！</p>
@@ -733,9 +733,9 @@ flatten([1, 2, [3, [4, 5], 6, [7, [9], 12]], 4, [6, 9]])
   
   <entry>
     <title type="html"><![CDATA[Python性能分析指南]]></title>
-    <link href="http://dlutcat.github.com/blog/2012/07/30/pythonxing-neng-fen-xi-zhi-nan/"/>
+    <link href="http://chenglei.me/blog/2012/07/30/pythonxing-neng-fen-xi-zhi-nan/"/>
     <updated>2012-07-30T16:53:00+08:00</updated>
-    <id>http://dlutcat.github.com/blog/2012/07/30/pythonxing-neng-fen-xi-zhi-nan</id>
+    <id>http://chenglei.me/blog/2012/07/30/pythonxing-neng-fen-xi-zhi-nan</id>
     <content type="html"><![CDATA[<h2>主题</h2>
 
 <p>介绍几种用于Python程序性能分析的工具和方法。</p>
