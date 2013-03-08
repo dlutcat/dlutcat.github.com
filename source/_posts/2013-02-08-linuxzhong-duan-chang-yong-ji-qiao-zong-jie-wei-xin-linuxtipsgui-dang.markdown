@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Linux终端常用技巧总结-微信LinuxTips归档"
+title: "微信公众账号LinuxTips归档"
 date: 2013-02-08 21:18
 comments: true
 categories: [Linux]
@@ -14,6 +14,8 @@ categories: [Linux]
 
 * `ls` 或 `help`  查看可用命令
 * `history`  查看历史发布的Tips
+* `about`  关于
+* `m+11位手机号码`  手机号码归属地查询
 
 ### LinuxTips历史归档
 {% gist 4739126 %}
