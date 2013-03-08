@@ -9,10 +9,7 @@
   <meta name="author" content="dlutcat">
 
   
-  <meta name="description" content="首次使用Octopress，不知道怎么样，先用着看看吧。 测试代码摘要 test script1
-2
-3
-class Test(object): def __init__(self, name): self.name = name testdd ">
+  <meta name="description" content="很牛的嘛，中文都转换成拼音了。 来一段Gist class Tree def Tree.create(&amp;block) Tree.new.instance_eval(&amp;block) end def method_missing(methodname, *args, &amp; &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -67,6 +64,61 @@ class Test(object): def __init__(self, name): self.name = name testdd ">
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2012/07/29/zhong-wen-ri-zhi-zhi-chi-zen-yao-yang/">中文日志支持怎么样</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-07-29T23:46:00+08:00" pubdate data-updated="true">Jul 29<span>th</span>, 2012</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>很牛的嘛，中文都转换成拼音了。</p>
+
+<h3>来一段<code>Gist</code></h3>
+
+<div><script src='https://gist.github.com/6001.js'></script>
+<noscript><pre><code>class Tree
+  def Tree.create(&amp;block)
+    Tree.new.instance_eval(&amp;block)
+  end
+  def method_missing(methodname, *args, &amp;block)
+    @root = TreeNode.new(methodname.to_s)
+    @root.instance_eval(&amp;block) if block_given?
+    @root
+  end
+end</code></pre></noscript></div>
+
+
+<h3>测试超链接样式</h3>
+
+<p><a href="http://kantuban.com">看图班</a></p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -134,6 +186,10 @@ class Test(object): def __init__(self, name): self.name = name testdd ">
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2013/03/08/macying-wen-xi-tong-xia-itunesdao-ru-zhong-wen-ge-qu-luan-ma-de-jie-jue-fang-fa/">Mac英文系统下iTunes导入中文歌曲乱码的解决方法</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2013/02/08/linuxzhong-duan-chang-yong-ji-qiao-zong-jie-wei-xin-linuxtipsgui-dang/">微信公众账号LinuxTips归档</a>
       </li>
     
@@ -147,10 +203,6 @@ class Test(object): def __init__(self, name): self.name = name testdd ">
     
       <li class="post">
         <a href="/blog/2012/09/22/wei-shi-yao-pythonhan-shu-ding-yi-zhong-guan-jian-zi-can-shu-bu-tui-jian-she-zhi-mutablede-mo-ren-zhi/">为什么Python函数定义中关键字参数不推荐设置mutable的默认值？</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2012/09/18/macxia-de-wang-luo-ipzi-dong-qie-huan/">Mac下的网络IP自动切换</a>
       </li>
     
   </ul>

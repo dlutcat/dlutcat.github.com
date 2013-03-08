@@ -9,7 +9,7 @@
   <meta name="author" content="dlutcat">
 
   
-  <meta name="description" content="由来 前些天申请了一个微信公众账号LinuxTips，顾名思义，用来推荐一些常用或有用但不太熟知的技巧，多多少少希望能对Linux初学者有一些帮助。连续发了一两周下来发现订阅者越来越多，说明还是有些帮助，所以我准备把这事儿坚持下去。我准备用这篇日志来记录LinuxTips的历史发布， &hellip;">
+  <meta name="description" content="为了命令行的方便，我的Mac一直用的都是英文的系统。今天我往iTunes里导入中文歌曲的时候发现歌曲名，专辑名，作者名全是乱码，网上搜到的解决方案没有几个靠谱的。于是，还是自己用Python写了个脚本来搞定吧。 我的MP3文件的ID3信息编码都是GBK的，把它转成UTF8就OK了。 &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -64,6 +64,57 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/03/08/macying-wen-xi-tong-xia-itunesdao-ru-zhong-wen-ge-qu-luan-ma-de-jie-jue-fang-fa/">Mac英文系统下iTunes导入中文歌曲乱码的解决方法</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-03-08T20:09:00+08:00" pubdate data-updated="true">Mar 8<span>th</span>, 2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>为了命令行的方便，我的Mac一直用的都是英文的系统。今天我往iTunes里导入中文歌曲的时候发现歌曲名，专辑名，作者名全是乱码，网上搜到的解决方案没有几个靠谱的。于是，还是自己用Python写了个脚本来搞定吧。</p>
+
+<p>我的MP3文件的ID3信息编码都是GBK的，把它转成UTF8就OK了。读写ID3信息的库我用的是<a href="https://code.google.com/p/mutagen/">Mutagen</a>，接口简单，示例文档小巧。我在转编码的时候遇到一个难点，就是怎么把下面unicode中的编码decode?</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="n">s</span> <span class="o">=</span> <span class="s">u&quot;COMM==&#39;chi&#39;=www.lizhizhuangbi.com</span><span class="se">\n</span><span class="s">TALB=</span><span class="se">\xb1\xbb\xbd\xfb\xbc\xc9\xb5\xc4\xd3\xce\xcf\xb7\n</span><span class="s">TDRC=2004</span><span class="se">\n</span><span class="s">TIT2=</span><span class="se">\xbf\xa8\xb7\xf2\xbf\xa8\n</span><span class="s">TPE1=</span><span class="se">\xc0\xee\xd6\xbe\n</span><span class="s">TPE2=</span><span class="se">\xc0\xee\xd6\xbe</span><span class="s">&quot;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>看上去原信息是GBK编码，可是怎么decode呢?Mutagen返回的直接就是unicode，没法decode 。最后只能尝试直接读取字符流，然后按照GBK来decode才成功。下面的<code>decode_gbk_from_unicode(s)</code>就是实现逻辑。</p>
+
+<div><script src='https://gist.github.com/5115640.js'></script>
+<noscript><pre><code></code></pre></noscript></div>
+
+
+
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -196,212 +247,6 @@ Ctrl + u/y
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2012/11/25/duo-fu-wu-qi-guan-li-zhi-fabric/">多服务器管理之Fabric</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-11-25T15:38:00+08:00" pubdate data-updated="true">Nov 25<span>th</span>, 2012</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><h3>背景</h3>
-
-<p>最近公司服务器从单机扩展到三机，新环境的搭建和部署也采用了新的自动化方式：<a href="http://docs.fabfile.org/en/1.5/">Fabric</a>。</p>
-
-<h3>什么是Fabric</h3>
-
-<p>用<a href="http://docs.fabfile.org/en/1.5/">Fabric</a>其实就是一套用Python封装了基于SSH的常见操作的库。因此，它的优势显而易见：</p>
-
-<ol>
-<li>你可以用Python代理Shell来做运维工作。</li>
-<li>方便集中式管理多台服务器。</li>
-</ol>
-
-
-<h3>怎样使用Fabric</h3>
-
-<p>有Python基础的程序员对Fabric一点都不会陌生，因为它就是Python。<br/>
-我们先从一个简单的例子开始：</p>
-
-<figure class='code'><figcaption><span>fabfile.py</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="kn">from</span> <span class="nn">fabric.api</span> <span class="kn">import</span> <span class="n">local</span>
-</span><span class='line'>
-</span><span class='line'><span class="k">def</span> <span class="nf">host_type</span><span class="p">():</span>
-</span><span class='line'>    <span class="n">local</span><span class="p">(</span><span class="s">&#39;uname -s&#39;</span><span class="p">)</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'>fab host_type
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>上面例子的便是实用fabric在local环境下执行命令<code>uname</code>，就是这么简单。下面在看一个在remote环境下的操作：</p>
-
-<figure class='code'><figcaption><span>fabfile.py</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="kn">from</span> <span class="nn">fabric.api</span> <span class="kn">import</span> <span class="n">run</span>
-</span><span class='line'>
-</span><span class='line'><span class="n">env</span><span class="o">.</span><span class="n">user</span> <span class="o">=</span> <span class="s">&#39;pat&#39;</span>
-</span><span class='line'><span class="n">env</span><span class="o">.</span><span class="n">key_filename</span> <span class="o">=</span> <span class="s">&#39;~/.ssh/id_rsa&#39;</span>
-</span><span class='line'><span class="n">env</span><span class="o">.</span><span class="n">password</span> <span class="o">=</span> <span class="s">&#39;patpassword&#39;</span>
-</span><span class='line'>
-</span><span class='line'><span class="k">def</span> <span class="nf">host_type</span><span class="p">():</span>
-</span><span class='line'>    <span class="n">run</span><span class="p">(</span><span class="s">&#39;uname -s&#39;</span><span class="p">)</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'>fab host_type
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>注意，这次我们用<code>run</code>代替了<code>local</code>，它的意思是在remote机器上执行某命令。当然，能够从local连接到remote，并且有执行权限才可以执行，这些都是可以在<code>env</code>中指定的。<code>env</code>结论是整个fabric脚本执行中的一个全局变量，<code>env.user</code>，<code>env.key_filename</code>和<code>env.password</code>都是<code>env</code>的保留关键字，分别指明登陆remote的user，密钥以及密码。密钥和密码可以是二选一。密码在使用<code>sudo</code>命令的时候是必须的。<br/>
-如果我们想要管理多台remote服务器的时候该怎么做呢？好，我现在开始介绍。<br/>
-首先，我需要引入Fabric中的一个概念：<strong>role</strong>。你可以把<strong>role</strong>理解成remote的标识，它可以是一个remote，也可以是一组remotes，通常我们在fabfile中是用<code>env.roledefs</code>来定义的，然后通过指定<code>env.roles</code>来决定使用那一个/组roles。</p>
-
-<figure class='code'><figcaption><span>fabfile.py</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-<span class='line-number'>22</span>
-<span class='line-number'>23</span>
-<span class='line-number'>24</span>
-<span class='line-number'>25</span>
-<span class='line-number'>26</span>
-<span class='line-number'>27</span>
-<span class='line-number'>28</span>
-<span class='line-number'>29</span>
-<span class='line-number'>30</span>
-<span class='line-number'>31</span>
-<span class='line-number'>32</span>
-<span class='line-number'>33</span>
-<span class='line-number'>34</span>
-<span class='line-number'>35</span>
-<span class='line-number'>36</span>
-<span class='line-number'>37</span>
-</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="n">env</span><span class="o">.</span><span class="n">roledefs</span> <span class="o">=</span><span class="p">{</span>
-</span><span class='line'>    <span class="s">&#39;local&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s">&#39;localhost&#39;</span><span class="p">],</span>
-</span><span class='line'>    <span class="s">&#39;prd_1&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s">&#39;192.168.0.100&#39;</span><span class="p">],</span>
-</span><span class='line'>    <span class="s">&#39;prd_2&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s">&#39;192.168.0.101&#39;</span><span class="p">],</span>
-</span><span class='line'>    <span class="s">&#39;prd_3&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s">&#39;192.168.0.102&#39;</span><span class="p">],</span>
-</span><span class='line'>    <span class="s">&#39;product&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s">&#39;192.168.0.100&#39;</span><span class="p">,</span>
-</span><span class='line'>            <span class="s">&#39;192.168.0.101&#39;</span><span class="p">,</span>
-</span><span class='line'>            <span class="s">&#39;192.168.0.102&#39;</span><span class="p">,</span>
-</span><span class='line'>            <span class="p">]</span>
-</span><span class='line'><span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'><span class="k">def</span> <span class="nf">prd_1</span><span class="p">():</span>
-</span><span class='line'>    <span class="n">env</span><span class="o">.</span><span class="n">user</span> <span class="o">=</span> <span class="s">&#39;pat&#39;</span>
-</span><span class='line'>    <span class="n">env</span><span class="o">.</span><span class="n">key_filename</span> <span class="o">=</span> <span class="s">&#39;xxxx&#39;</span>
-</span><span class='line'>    <span class="n">env</span><span class="o">.</span><span class="n">password</span> <span class="o">=</span> <span class="s">&#39;patpassword&#39;</span>
-</span><span class='line'>    <span class="n">env</span><span class="o">.</span><span class="n">roles</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;prd1&#39;</span><span class="p">]</span>
-</span><span class='line'>
-</span><span class='line'><span class="k">def</span> <span class="nf">prd_2</span><span class="p">():</span>
-</span><span class='line'>    <span class="n">env</span><span class="o">.</span><span class="n">user</span> <span class="o">=</span> <span class="s">&#39;pat&#39;</span>
-</span><span class='line'>    <span class="n">env</span><span class="o">.</span><span class="n">key_filename</span> <span class="o">=</span> <span class="s">&#39;xxxx&#39;</span>
-</span><span class='line'>    <span class="n">env</span><span class="o">.</span><span class="n">password</span> <span class="o">=</span> <span class="s">&#39;patpassword&#39;</span>
-</span><span class='line'>    <span class="n">env</span><span class="o">.</span><span class="n">roles</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;prd2&#39;</span><span class="p">]</span>
-</span><span class='line'>
-</span><span class='line'><span class="k">def</span> <span class="nf">prd_3</span><span class="p">():</span>
-</span><span class='line'>    <span class="n">env</span><span class="o">.</span><span class="n">user</span> <span class="o">=</span> <span class="s">&#39;pat&#39;</span>
-</span><span class='line'>    <span class="n">env</span><span class="o">.</span><span class="n">key_filename</span> <span class="o">=</span> <span class="s">&#39;xxxxx&#39;</span>
-</span><span class='line'>    <span class="n">env</span><span class="o">.</span><span class="n">password</span> <span class="o">=</span> <span class="s">&#39;patpassword&#39;</span>
-</span><span class='line'>    <span class="n">env</span><span class="o">.</span><span class="n">roles</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;prd3&#39;</span><span class="p">]</span>
-</span><span class='line'>
-</span><span class='line'><span class="k">def</span> <span class="nf">product</span><span class="p">():</span>
-</span><span class='line'>    <span class="n">env</span><span class="o">.</span><span class="n">user</span> <span class="o">=</span> <span class="s">&#39;pat&#39;</span>
-</span><span class='line'>    <span class="n">env</span><span class="o">.</span><span class="n">key_filename</span> <span class="o">=</span> <span class="s">&#39;xxxx&#39;</span>
-</span><span class='line'>    <span class="n">env</span><span class="o">.</span><span class="n">password</span> <span class="o">=</span> <span class="s">&#39;patpassword&#39;</span>
-</span><span class='line'>    <span class="n">env</span><span class="o">.</span><span class="n">roles</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;product&#39;</span><span class="p">]</span>
-</span><span class='line'>
-</span><span class='line'><span class="k">def</span> <span class="nf">host_type</span><span class="p">():</span>
-</span><span class='line'>    <span class="n">run</span><span class="p">(</span><span class="s">&#39;uname -s&#39;</span><span class="p">)</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<figure class='code'><figcaption><span>调用</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="c"># 只在prd_1上执行</span>
-</span><span class='line'>fab prd_1 host_type
-</span><span class='line'>
-</span><span class='line'><span class="c"># 只在prd_2上执行</span>
-</span><span class='line'>fab prd_2 host_type
-</span><span class='line'>
-</span><span class='line'><span class="c"># 同时在三台remote上执行</span>
-</span><span class='line'>fab product host_type
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>看到这里，你是否发现其实<code>fab</code>就是在依次执行后面的方法。嗯，其实道理就是这么简单。</p>
-
-<p>现在，你就可以用Fabric进行自己的集群运维管理了。提示一下，下面两个API不多，先好好了解下Fabric都可以做些什么吧：</p>
-
-<ol>
-<li><a href="http://docs.fabfile.org/en/1.5/#core-api">Core API</a></li>
-<li><a href="http://docs.fabfile.org/en/1.5/#contrib-api">Contrib API</a></li>
-<li>提供一个完整的Fabfile做参考：<a href="https://github.com/samuelclay/NewsBlur/blob/master/fabfile.py">fabfile.py</a></li>
-</ol>
-
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/2/">&larr; Older</a>
@@ -417,6 +262,10 @@ Ctrl + u/y
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2013/03/08/macying-wen-xi-tong-xia-itunesdao-ru-zhong-wen-ge-qu-luan-ma-de-jie-jue-fang-fa/">Mac英文系统下iTunes导入中文歌曲乱码的解决方法</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2013/02/08/linuxzhong-duan-chang-yong-ji-qiao-zong-jie-wei-xin-linuxtipsgui-dang/">微信公众账号LinuxTips归档</a>
       </li>
     
@@ -430,10 +279,6 @@ Ctrl + u/y
     
       <li class="post">
         <a href="/blog/2012/09/22/wei-shi-yao-pythonhan-shu-ding-yi-zhong-guan-jian-zi-can-shu-bu-tui-jian-she-zhi-mutablede-mo-ren-zhi/">为什么Python函数定义中关键字参数不推荐设置mutable的默认值？</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2012/09/18/macxia-de-wang-luo-ipzi-dong-qie-huan/">Mac下的网络IP自动切换</a>
       </li>
     
   </ul>

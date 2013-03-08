@@ -5,11 +5,11 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Category: Mac - 简单的Coder</title>
+  <title>Mac英文系统下iTunes导入中文歌曲乱码的解决方法 - 简单的Coder</title>
   <meta name="author" content="dlutcat">
 
   
-  <meta name="description" content="Category: Mac">
+  <meta name="description" content="为了命令行的方便，我的Mac一直用的都是英文的系统。今天我往iTunes里导入中文歌曲的时候发现歌曲名，专辑名，作者名全是乱码，网上搜到的解决方案没有几个靠谱的。于是，还是自己用Python写了个脚本来搞定吧。 我的MP3文件的ID3信息编码都是GBK的，把它转成UTF8就OK了。 &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -18,7 +18,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://chenglei.meblog/categories/mac/">
+  <link rel="canonical" href="http://chenglei.me/blog/2013/03/08/macying-wen-xi-tong-xia-itunesdao-ru-zhong-wen-ge-qu-luan-ma-de-jie-jue-fang-fa/">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <script src="/javascripts/modernizr-2.0.js"></script>
@@ -63,53 +63,106 @@
   <div id="main">
     <div id="content">
       <div>
-<article role="article">
+<article class="hentry" role="article">
   
   <header>
-    <h1 class="entry-title">Category: Mac</h1>
+    
+      <h1 class="entry-title">Mac英文系统下iTunes导入中文歌曲乱码的解决方法</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-03-08T20:09:00+08:00" pubdate data-updated="true">Mar 8<span>th</span>, 2013</time>
+        
+      </p>
     
   </header>
-  
-  <div id="blog-archives" class="category">
 
 
+<div class="entry-content"><p>为了命令行的方便，我的Mac一直用的都是英文的系统。今天我往iTunes里导入中文歌曲的时候发现歌曲名，专辑名，作者名全是乱码，网上搜到的解决方案没有几个靠谱的。于是，还是自己用Python写了个脚本来搞定吧。</p>
 
-  
-  <h2>2013</h2>
+<p>我的MP3文件的ID3信息编码都是GBK的，把它转成UTF8就OK了。读写ID3信息的库我用的是<a href="https://code.google.com/p/mutagen/">Mutagen</a>，接口简单，示例文档小巧。我在转编码的时候遇到一个难点，就是怎么把下面unicode中的编码decode?</p>
 
-<article>
-  
-<h1><a href="/blog/2013/03/08/macying-wen-xi-tong-xia-itunesdao-ru-zhong-wen-ge-qu-luan-ma-de-jie-jue-fang-fa/">Mac英文系统下iTunes导入中文歌曲乱码的解决方法</a></h1>
-<time datetime="2013-03-08T20:09:00+08:00" pubdate><span class='month'>Mar</span> <span class='day'>08</span> <span class='year'>2013</span></time>
-
-<footer>
-  <span class="categories">posted in <a class='category' href='/blog/categories/mp3/'>MP3</a>, <a class='category' href='/blog/categories/mac/'>Mac</a>, <a class='category' href='/blog/categories/python/'>Python</a>, <a class='category' href='/blog/categories/itunes/'>iTunes</a></span>
-</footer>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="n">s</span> <span class="o">=</span> <span class="s">u&quot;COMM==&#39;chi&#39;=www.lizhizhuangbi.com</span><span class="se">\n</span><span class="s">TALB=</span><span class="se">\xb1\xbb\xbd\xfb\xbc\xc9\xb5\xc4\xd3\xce\xcf\xb7\n</span><span class="s">TDRC=2004</span><span class="se">\n</span><span class="s">TIT2=</span><span class="se">\xbf\xa8\xb7\xf2\xbf\xa8\n</span><span class="s">TPE1=</span><span class="se">\xc0\xee\xd6\xbe\n</span><span class="s">TPE2=</span><span class="se">\xc0\xee\xd6\xbe</span><span class="s">&quot;</span>
+</span></code></pre></td></tr></table></div></figure>
 
 
-</article>
+<p>看上去原信息是GBK编码，可是怎么decode呢?Mutagen返回的直接就是unicode，没法decode 。最后只能尝试直接读取字符流，然后按照GBK来decode才成功。下面的<code>decode_gbk_from_unicode(s)</code>就是实现逻辑。</p>
+
+<div><script src='https://gist.github.com/5115640.js'></script>
+<noscript><pre><code></code></pre></noscript></div>
 
 
-
-  
-  <h2>2012</h2>
-
-<article>
-  
-<h1><a href="/blog/2012/09/18/macxia-de-wang-luo-ipzi-dong-qie-huan/">Mac下的网络IP自动切换</a></h1>
-<time datetime="2012-09-18T20:45:00+08:00" pubdate><span class='month'>Sep</span> <span class='day'>18</span> <span class='year'>2012</span></time>
-
-<footer>
-  <span class="categories">posted in <a class='category' href='/blog/categories/mac/'>Mac</a>, <a class='category' href='/blog/categories/network/'>Network</a></span>
-</footer>
-
-
-</article>
 
 </div>
 
+
+  <footer>
+    <p class="meta">
+      
   
+
+<span class="byline author vcard">Posted by <span class="fn">dlutcat</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-03-08T20:09:00+08:00" pubdate data-updated="true">Mar 8<span>th</span>, 2013</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/mp3/'>MP3</a>, <a class='category' href='/blog/categories/mac/'>Mac</a>, <a class='category' href='/blog/categories/python/'>Python</a>, <a class='category' href='/blog/categories/itunes/'>iTunes</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://chenglei.me/blog/2013/03/08/macying-wen-xi-tong-xia-itunesdao-ru-zhong-wen-ge-qu-luan-ma-de-jie-jue-fang-fa/" data-via="dlutcat" data-counturl="http://chenglei.me/blog/2013/03/08/macying-wen-xi-tong-xia-itunesdao-ru-zhong-wen-ge-qu-luan-ma-de-jie-jue-fang-fa/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2013/02/08/linuxzhong-duan-chang-yong-ji-qiao-zong-jie-wei-xin-linuxtipsgui-dang/" title="Previous Post: 微信公众账号LinuxTips归档">&laquo; 微信公众账号LinuxTips归档</a>
+      
+      
+    </p>
+  </footer>
 </article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
 
 </div>
 
@@ -177,7 +230,10 @@
       var disqus_shortname = 'simple-coder';
       
         
-        var disqus_script = 'count.js';
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://chenglei.me/blog/2013/03/08/macying-wen-xi-tong-xia-itunesdao-ru-zhong-wen-ge-qu-luan-ma-de-jie-jue-fang-fa/';
+        var disqus_url = 'http://chenglei.me/blog/2013/03/08/macying-wen-xi-tong-xia-itunesdao-ru-zhong-wen-ge-qu-luan-ma-de-jie-jue-fang-fa/';
+        var disqus_script = 'embed.js';
       
     (function () {
       var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;

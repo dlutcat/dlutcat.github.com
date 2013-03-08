@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Python | 简单的Coder]]></title>
   <link href="http://chenglei.me/blog/categories/python/atom.xml" rel="self"/>
   <link href="http://chenglei.me/"/>
-  <updated>2013-02-20T12:04:06+08:00</updated>
+  <updated>2013-03-08T21:13:35+08:00</updated>
   <id>http://chenglei.me/</id>
   <author>
     <name><![CDATA[dlutcat]]></name>
@@ -12,6 +12,27 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Mac英文系统下iTunes导入中文歌曲乱码的解决方法]]></title>
+    <link href="http://chenglei.me/blog/2013/03/08/macying-wen-xi-tong-xia-itunesdao-ru-zhong-wen-ge-qu-luan-ma-de-jie-jue-fang-fa/"/>
+    <updated>2013-03-08T20:09:00+08:00</updated>
+    <id>http://chenglei.me/blog/2013/03/08/macying-wen-xi-tong-xia-itunesdao-ru-zhong-wen-ge-qu-luan-ma-de-jie-jue-fang-fa</id>
+    <content type="html"><![CDATA[<p>为了命令行的方便，我的Mac一直用的都是英文的系统。今天我往iTunes里导入中文歌曲的时候发现歌曲名，专辑名，作者名全是乱码，网上搜到的解决方案没有几个靠谱的。于是，还是自己用Python写了个脚本来搞定吧。</p>
+
+<p>我的MP3文件的ID3信息编码都是GBK的，把它转成UTF8就OK了。读写ID3信息的库我用的是<a href="https://code.google.com/p/mutagen/">Mutagen</a>，接口简单，示例文档小巧。我在转编码的时候遇到一个难点，就是怎么把下面unicode中的编码decode?</p>
+
+<p><code>python
+s = u"COMM=='chi'=www.lizhizhuangbi.com\nTALB=\xb1\xbb\xbd\xfb\xbc\xc9\xb5\xc4\xd3\xce\xcf\xb7\nTDRC=2004\nTIT2=\xbf\xa8\xb7\xf2\xbf\xa8\nTPE1=\xc0\xee\xd6\xbe\nTPE2=\xc0\xee\xd6\xbe"
+</code></p>
+
+<p>看上去原信息是GBK编码，可是怎么decode呢?Mutagen返回的直接就是unicode，没法decode 。最后只能尝试直接读取字符流，然后按照GBK来decode才成功。下面的<code>decode_gbk_from_unicode(s)</code>就是实现逻辑。</p>
+
+<p><div><script src='https://gist.github.com/5115640.js'></script>
+<noscript><pre><code></code></pre></noscript></div>
+</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[多服务器管理之Fabric]]></title>
@@ -728,93 +749,6 @@ flatten([1, 2, [3, [4, 5], 6, [7, [9], 12]], 4, [6, 9]])
 </span><span class='line'>    <span class="n">server</span><span class="p">(</span><span class="mi">4444</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
 </span></code></pre></td></tr></table></div></figure></notextile></div>
 批注：研究中。</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Python性能分析指南]]></title>
-    <link href="http://chenglei.me/blog/2012/07/30/pythonxing-neng-fen-xi-zhi-nan/"/>
-    <updated>2012-07-30T16:53:00+08:00</updated>
-    <id>http://chenglei.me/blog/2012/07/30/pythonxing-neng-fen-xi-zhi-nan</id>
-    <content type="html"><![CDATA[<h2>主题</h2>
-
-<p>介绍几种用于Python程序性能分析的工具和方法。</p>
-
-<h2>思路</h2>
-
-<p>一般情况下，要分析一段代码的性能，可以从下面几个问题入手：</p>
-
-<ol>
-<li><strong>目前执行效率如何？</strong></li>
-<li><strong>效率瓶颈在哪里？</strong></li>
-<li><strong>占用了多少内存？</strong></li>
-<li><strong>内存消耗在哪里？</strong></li>
-</ol>
-
-
-<p>下面我们用几个工具来一一解答这些疑问。</p>
-
-<h2>Unix命令行工具: <code>time</code></h2>
-
-<p><code>time</code>是几乎所有*nix系统自带的一个工具，我们可以用它来对程序进行初步的分析：</p>
-
-<p>```
-$ time python yourprogram.py</p>
-
-<p>real    0m1.028s
-user    0m0.001s
-sys     0m0.003s
-```</p>
-
-<p>输出的三条数据的具体含义可以参考这里：<a href="http://stackoverflow.com/questions/556405/what-do-real-user-and-sys-mean-in-the-output-of-time1">What do 'real', 'user' and 'sys' mean in the output of time(1)?</a>。这里给出简单的说明：</p>
-
-<ul>
-<li><code>real</code> - 时钟时间。从程序开始到结束流逝的时间(actual elapsed time)，包括其他进程占用的时间，比如IO等待时间。</li>
-<li><code>user</code> - 内核之外（用户空间）该进程占用时间(cpu time)。</li>
-<li><code>sys</code> - 该进程的内核执行时间(cpu time)</li>
-</ul>
-
-
-<p>如果发现<code>sys</code>和<code>user</code>的时间之和远小于<code>real</code>就说明我们的程序很有可能在IO等待上花费了大量时间。</p>
-
-<h2>自定义Timer类</h2>
-
-<p><div><script src='https://gist.github.com/3205931.js'></script>
-<noscript><pre><code>import time
-
-class Timer(object):
-    def __init__(self, verbose=False):
-        self.verbose = verbose
-
-    def __enter__(self):
-        self.start = time.time()
-        return self
-
-    def __exit__(self, *args):
-        self.end = time.time()
-        self.secs = self.end - self.start
-        self.msecs = self.secs * 1000  # millisecs
-        if self.verbose:
-            print 'elapsed time: %f ms' % self.msecs
-
-###################
-
-from timer import Timer
-from redis import Redis
-rdb = Redis()
-
-with Timer() as t:
-    rdb.lpush(&quot;foo&quot;, &quot;bar&quot;)
-print &quot;=&gt; elasped lpush: %s s&quot; % t.secs
-
-with Timer as t:
-    rdb.lpop(&quot;foo&quot;)
-print &quot;=&gt; elasped lpop: %s s&quot; % t.secs</code></pre></noscript></div>
-</p>
-
-<p>可以把时间输出到一个性能日志文件，比如profile.log，方便以后分析我们程序的性能瓶颈。</p>
-
-<h2>行执行时间分析：<a href="http://packages.python.org/line_profiler/"><code>line_profiler</code></a></h2>
 ]]></content>
   </entry>
   
