@@ -4,7 +4,7 @@
   <title><![CDATA[简单的Coder]]></title>
   <link href="http://chenglei.me/atom.xml" rel="self"/>
   <link href="http://chenglei.me/"/>
-  <updated>2013-03-08T22:13:32+08:00</updated>
+  <updated>2013-04-26T18:21:37+08:00</updated>
   <id>http://chenglei.me/</id>
   <author>
     <name><![CDATA[dlutcat]]></name>
@@ -12,6 +12,20 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Alfred workflow: 什么值得买]]></title>
+    <link href="http://chenglei.me/blog/2013/04/26/alfred-workflow-shi-yao-zhi-de-mai/"/>
+    <updated>2013-04-26T18:08:00+08:00</updated>
+    <id>http://chenglei.me/blog/2013/04/26/alfred-workflow-shi-yao-zhi-de-mai</id>
+    <content type="html"><![CDATA[<p>今天为<a href="http://www.smzdm.com">什么值得买</a>写了一个Alfred的workflow: <a href="https://github.com/dlutcat/alfred-smzdm-workflow">alfred-smzdm-workflow</a>，方便随时查看smzdm最新发布的优惠信息。</p>
+
+<p>下载：<a href="https://github.com/dlutcat/alfred-smzdm-workflow/blob/master/smzdm.alfredworkflow?raw=true">smzdm.alfredworkflow</a><br/>
+源码：<a href="https://github.com/dlutcat/alfred-smzdm-workflow">Github</a><br/>
+截图：<br/>
+<img src="http://img1.kantuban.com/pin/f816f2f8817aa2a698a8f84185f8ac5c" alt="" /></p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Mac英文系统下iTunes导入中文歌曲乱码的解决方法]]></title>

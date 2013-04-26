@@ -9,9 +9,7 @@
   <meta name="author" content="dlutcat">
 
   
-  <meta name="description" content="今天在浏览Google Reader的时候发现一个好用的工具函数，用来跟踪嵌套调用函数方便debug。
-原文：Easy tracing of nested function calls in Python 其实是一个装饰器类： import sys
-from functools import &hellip;">
+  <meta name="description" content="用惯了自己的电脑，我喜欢在公司也自带电脑，由于家里和公司的网络环境不同，而且因为某些原因都需要手动设置IP, Subnet, Router和DNS，这样每天晚上回家和早上上班手动设置会很麻烦，就研究了一下Mac下自动设置。在Mac下面有一个命令networksetup，用man查看，它有很多参数， &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -79,6 +77,230 @@ from functools import &hellip;">
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2012/09/18/macxia-de-wang-luo-ipzi-dong-qie-huan/">Mac下的网络IP自动切换</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-09-18T20:45:00+08:00" pubdate data-updated="true">Sep 18<span>th</span>, 2012</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>用惯了自己的电脑，我喜欢在公司也自带电脑，由于家里和公司的网络环境不同，而且因为某些原因都需要手动设置IP, Subnet, Router和DNS，这样每天晚上回家和早上上班手动设置会很麻烦，就研究了一下Mac下自动设置。在Mac下面有一个命令<code>networksetup</code>，用man查看，它有很多参数，我们这里要用到以下这些参数：</p>
+
+<h4>查看本机地网络设备</h4>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>networksetup -listallnetworkservices
+</span><span class='line'>
+</span><span class='line'>An asterisk <span class="o">(</span>*<span class="o">)</span> denotes that a network service is disabled.
+</span><span class='line'>Bluetooth DUN
+</span><span class='line'>Ethernet
+</span><span class='line'>PPPoE Service
+</span><span class='line'>FireWire
+</span><span class='line'>Wi-Fi
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h4>查看指定网络设备地状态</h4>
+
+<p>例如，查看Wi-Fi的详细状态：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>networksetup -getinfo Wi-Fi
+</span><span class='line'>
+</span><span class='line'>Manual Configuration
+</span><span class='line'>IP address: 192.168.0.129
+</span><span class='line'>Subnet mask: 255.255.255.0
+</span><span class='line'>Router: 192.168.0.1
+</span><span class='line'>IPv6: Automatic
+</span><span class='line'>IPv6 IP address: none
+</span><span class='line'>IPv6 Router: none
+</span><span class='line'>Wi-Fi ID: e6:ce:8e:10:a6:af
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h4>设置手动IP, Subnet, Router</h4>
+
+<p>例如，把IP设置成<code>192.168.2.129</code>, Router设置为<code>192.168.2.1</code>:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>networksetup -setmanual Wi-Fi 192.168.2.129 255.255.255.0 192.168.2.1
+</span><span class='line'>
+</span><span class='line'><span class="nv">$ </span>networksetup -getinfo Wi-Fi
+</span><span class='line'>
+</span><span class='line'>Manual Configuration
+</span><span class='line'>IP address: 192.168.2.129
+</span><span class='line'>Subnet mask: 255.255.255.0
+</span><span class='line'>Router: 192.168.2.1
+</span><span class='line'>IPv6: Automatic
+</span><span class='line'>IPv6 IP address: none
+</span><span class='line'>IPv6 Router: none
+</span><span class='line'>Wi-Fi ID: e6:ce:8e:10:a6:af
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h4>查看和设置DNS</h4>
+
+<p>例如，把DNS从<code>192.169.0.1</code>设置为<code>192.168.2.1</code>:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>networksetup -getdnsservers Wi-Fi
+</span><span class='line'>
+</span><span class='line'>192.168.0.1
+</span><span class='line'>
+</span><span class='line'><span class="nv">$ </span>networksetup -setdnsservers wi-fi 192.168.2.1
+</span><span class='line'>
+</span><span class='line'><span class="nv">$ </span>networksetup -getdnsservers Wi-Fi
+</span><span class='line'>
+</span><span class='line'>192.168.2.1
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h4>实现家里和办公室网络自动切换</h4>
+
+<p>有了以上的命令我们可以在CLI环境下切换了，甚至可以写成切换脚本，比GUI中设置要方便多了。如果想要更懒一点，需要自动切换网络怎么做呢？没问题，我们也可以搞定。思路就是检查当前的wifi热点，如果是家里的就自动设置成家里的配置，反之，设置成办公室地。<br/>
+自动检查wifi热点，我们放在开机启动项来做。 从网上找来这么一个方法，可以在CLI环境下调用<code>airport</code>来扫描wifi热点:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>sudo ln -s /System/Library/PrivateFrameworks/Apple80211.framework/Versions/Current/Resources/airport /usr/bin/airport
+</span><span class='line'>
+</span><span class='line'><span class="nv">$ </span>airport -s
+</span><span class='line'>
+</span><span class='line'>SSID BSSID             RSSI CHANNEL HT CC SECURITY <span class="o">(</span>auth/unicast/group<span class="o">)</span>
+</span><span class='line'>CMCC 30:49:3b:07:15:66 -76  1       N  US NONE
+</span><span class='line'>Tenda c8:3a:35:f4:ad:28 -48  6,+1    Y  CN WPA2<span class="o">(</span>PSK/AES/AES<span class="o">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>这样，我们就可以写一个小脚本，自动检查网络环境并且自动切换了，我的脚本如下：</p>
+
+<div><script src='https://gist.github.com/3743043.js'></script>
+<noscript><pre><code>#!/bin/sh
+
+# happyhouse is my home wifi name
+happyhouse=`airport -s | grep happyhouse | wc -l`
+
+if [ &quot;${happyhouse//[[:space:]]}&quot; = '1' ]; then
+    networksetup -setmanual wi-fi 192.168.2.129 255.255.255.0 192.168.2.1
+    networksetup -setdnsservers wi-fi 192.168.2.1
+fi
+
+if [ &quot;${happyhouse//[[:space:]]}&quot; = '0' ]; then
+    networksetup -setmanual wi-fi 192.168.0.129 255.255.255.0 192.168.0.1
+    networksetup -setdnsservers wi-fi 192.168.0.1
+fi
+
+#networksetup -getinfo wi-fi</code></pre></noscript></div>
+
+
+<h4>把脚本加入自动启动</h4>
+
+<p>Mac的自动启动脚本plist需要存放在：<code>/Library/LaunchDaemons</code></p>
+
+<figure class='code'><figcaption><span>pat.netswitch.plist</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+</pre></td><td class='code'><pre><code class='xml'><span class='line'><span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span>
+</span><span class='line'><span class="cp">&lt;!DOCTYPE plist PUBLIC &quot;-//Apple//DTD PLIST 1.0//EN&quot; &quot;http://www.apple.com/DTDs/PropertyList-1.0.dtd&quot;&gt;</span>
+</span><span class='line'><span class="nt">&lt;plist</span> <span class="na">version=</span><span class="s">&quot;1.0&quot;</span><span class="nt">&gt;</span>
+</span><span class='line'><span class="nt">&lt;dict&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;key&gt;</span>Label<span class="nt">&lt;/key&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;string&gt;</span>pat.netswitch.plist<span class="nt">&lt;/string&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;key&gt;</span>ProgramArguments<span class="nt">&lt;/key&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;array&gt;</span>
+</span><span class='line'>      <span class="nt">&lt;string&gt;</span>/Users/patto/bin/netswitch<span class="nt">&lt;/string&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;/array&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;key&gt;</span>KeepAlive<span class="nt">&lt;/key&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;false/&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;key&gt;</span>RunAtLoad<span class="nt">&lt;/key&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;true/&gt;</span>
+</span><span class='line'><span class="nt">&lt;/dict&gt;</span>
+</span><span class='line'><span class="nt">&lt;/plist&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>这样就大功告成了！</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -680,124 +902,6 @@ flatten([1, 2, [3, [4, 5], 6, [7, [9], 12]], 4, [6, 9]])
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2012/07/30/pythonxing-neng-fen-xi-zhi-nan/">Python性能分析指南</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-07-30T16:53:00+08:00" pubdate data-updated="true">Jul 30<span>th</span>, 2012</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><h2>主题</h2>
-
-<p>介绍几种用于Python程序性能分析的工具和方法。</p>
-
-<h2>思路</h2>
-
-<p>一般情况下，要分析一段代码的性能，可以从下面几个问题入手：</p>
-
-<ol>
-<li><strong>目前执行效率如何？</strong></li>
-<li><strong>效率瓶颈在哪里？</strong></li>
-<li><strong>占用了多少内存？</strong></li>
-<li><strong>内存消耗在哪里？</strong></li>
-</ol>
-
-
-<p>下面我们用几个工具来一一解答这些疑问。</p>
-
-<h2>Unix命令行工具: <code>time</code></h2>
-
-<p><code>time</code>是几乎所有*nix系统自带的一个工具，我们可以用它来对程序进行初步的分析：</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>$ time python yourprogram.py
-</span><span class='line'>
-</span><span class='line'>real    0m1.028s
-</span><span class='line'>user    0m0.001s
-</span><span class='line'>sys     0m0.003s</span></code></pre></td></tr></table></div></figure>
-
-
-<p>输出的三条数据的具体含义可以参考这里：<a href="http://stackoverflow.com/questions/556405/what-do-real-user-and-sys-mean-in-the-output-of-time1">What do &#8216;real&#8217;, &#8216;user&#8217; and &#8216;sys&#8217; mean in the output of time(1)?</a>。这里给出简单的说明：</p>
-
-<ul>
-<li><code>real</code> - 时钟时间。从程序开始到结束流逝的时间(actual elapsed time)，包括其他进程占用的时间，比如IO等待时间。</li>
-<li><code>user</code> - 内核之外（用户空间）该进程占用时间(cpu time)。</li>
-<li><code>sys</code> - 该进程的内核执行时间(cpu time)</li>
-</ul>
-
-
-<p>如果发现<code>sys</code>和<code>user</code>的时间之和远小于<code>real</code>就说明我们的程序很有可能在IO等待上花费了大量时间。</p>
-
-<h2>自定义Timer类</h2>
-
-<div><script src='https://gist.github.com/3205931.js'></script>
-<noscript><pre><code>import time
-
-class Timer(object):
-    def __init__(self, verbose=False):
-        self.verbose = verbose
-
-    def __enter__(self):
-        self.start = time.time()
-        return self
-
-    def __exit__(self, *args):
-        self.end = time.time()
-        self.secs = self.end - self.start
-        self.msecs = self.secs * 1000  # millisecs
-        if self.verbose:
-            print 'elapsed time: %f ms' % self.msecs
-
-###################
-
-from timer import Timer
-from redis import Redis
-rdb = Redis()
-
-with Timer() as t:
-    rdb.lpush(&quot;foo&quot;, &quot;bar&quot;)
-print &quot;=&gt; elasped lpush: %s s&quot; % t.secs
-
-with Timer as t:
-    rdb.lpop(&quot;foo&quot;)
-print &quot;=&gt; elasped lpop: %s s&quot; % t.secs</code></pre></noscript></div>
-
-
-<p>可以把时间输出到一个性能日志文件，比如profile.log，方便以后分析我们程序的性能瓶颈。</p>
-
-<h2>行执行时间分析：<a href="http://packages.python.org/line_profiler/"><code>line_profiler</code></a></h2>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/4/">&larr; Older</a>
@@ -815,6 +919,10 @@ print &quot;=&gt; elasped lpop: %s s&quot; % t.secs</code></pre></noscript></div
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2013/04/26/alfred-workflow-shi-yao-zhi-de-mai/">Alfred workflow: 什么值得买</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2013/03/08/macying-wen-xi-tong-xia-itunesdao-ru-zhong-wen-ge-qu-luan-ma-de-jie-jue-fang-fa/">Mac英文系统下iTunes导入中文歌曲乱码的解决方法</a>
       </li>
     
@@ -828,10 +936,6 @@ print &quot;=&gt; elasped lpop: %s s&quot; % t.secs</code></pre></noscript></div
     
       <li class="post">
         <a href="/blog/2012/11/25/duo-fu-wu-qi-guan-li-zhi-fabric/">多服务器管理之Fabric</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2012/09/22/wei-shi-yao-pythonhan-shu-ding-yi-zhong-guan-jian-zi-can-shu-bu-tui-jian-she-zhi-mutablede-mo-ren-zhi/">为什么Python函数定义中关键字参数不推荐设置mutable的默认值？</a>
       </li>
     
   </ul>
