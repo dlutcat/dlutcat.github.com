@@ -5,14 +5,11 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>about - 简单的Coder</title>
+  <title>重新设置Mysql的root密码 - 简单的Coder</title>
   <meta name="author" content="dlutcat">
 
   
-  <meta name="description" content="About Mar 8th, 2013 A Pythonista, Hacking at 看图班. Email: pat.inside@gmail.com
-Kantuban: 昔昔盐
-Douban: 昔昔盐
-Github: dlutcat Mar 8th, 2013 Tweet Comments &hellip;">
+  <meta name="description" content="昨天帮朋友安装部署Mysql的时候，用mysqladmin给root用户设置了一个16位的随机密码，还没来得及记下来就被突然插进来的事儿打断了，等我回来的时候已经找不到这个密码了。像这样的事情在我身上已经发生过了2次，每次Google『Mysql忘记root密码』都没有找到可行的方案（ &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -21,7 +18,7 @@ Github: dlutcat Mar 8th, 2013 Tweet Comments &hellip;">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://chenglei.me/about/">
+  <link rel="canonical" href="http://chenglei.me/blog/2013/05/02/zhong-xin-she-zhi-mysqlde-rootmi-ma/">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <script src="/javascripts/modernizr-2.0.js"></script>
@@ -79,37 +76,15 @@ Github: dlutcat Mar 8th, 2013 Tweet Comments &hellip;">
   <div id="main">
     <div id="content">
       <div>
-<article role="article">
+<article class="hentry" role="article">
   
   <header>
-    <h1 class="entry-title">About</h1>
-    <p class="meta">
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-03-08T22:02:00+08:00" pubdate data-updated="true">Mar 8<span>th</span>, 2013</time></p>
-  </header>
-  
-  <p>A Pythonista, Hacking at <a href="http://www.kantuban.com">看图班</a>.</p>
-
-<p>Email: pat.inside@gmail.com<br/>
-Kantuban: <a href="http://www.kantuban.com/people/1365">昔昔盐</a><br/>
-Douban: <a href="http://www.douban.com/people/xixiyan/">昔昔盐</a><br/>
-Github: <a href="https://github.com/dlutcat">dlutcat</a></p>
-
-  
-    <footer>
+    
+      <h1 class="entry-title">重新设置Mysql的root密码</h1>
+    
+    
       <p class="meta">
         
-        
 
 
 
@@ -121,21 +96,124 @@ Github: <a href="https://github.com/dlutcat">dlutcat</a></p>
   
 
 
-<time datetime="2013-03-08T22:02:00+08:00" pubdate data-updated="true">Mar 8<span>th</span>, 2013</time>
+<time datetime="2013-05-02T20:07:00+08:00" pubdate data-updated="true">May 2<span>nd</span>, 2013</time>
         
       </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>昨天帮朋友安装部署Mysql的时候，用<code>mysqladmin</code>给root用户设置了一个16位的随机密码，还没来得及记下来就被突然插进来的事儿打断了，等我回来的时候已经找不到这个密码了。像这样的事情在我身上已经发生过了2次，每次Google『Mysql忘记root密码』都没有找到可行的方案（可能是因为Mysql版本和网上这些提到的不一样导致重置失败），所以这次我要记下来一个自己确认可行的方案以供今后参考。</p>
+
+<h2>我的环境版本</h2>
+
+<ul>
+<li>CentOS release 6.3 (Final)</li>
+<li>mysql Ver 14.14 Distrib 5.1.69, for redhat-linux-gnu (x86_64) using readline 5.1</li>
+</ul>
+
+
+<h2>问题描述</h2>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>mysqladmin -u root -p randompassword
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>之后，忘记了<code>randompassword</code>，无法登陆<code>mysql</code>，需要找回root密码。</p>
+
+<h2>解决方案</h2>
+
+<ol>
+<li>修改<code>mysqld</code>的配置文件`/etc/my.cnf&#8217;，在每个section里追加一条设置：「skip-grant-tables 」，比如：</li>
+</ol>
+
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="o">[</span>mysqld<span class="o">]</span>
+</span><span class='line'><span class="nv">datadir</span><span class="o">=</span>/var/lib/mysql
+</span><span class='line'><span class="nv">socket</span><span class="o">=</span>/var/lib/mysql/mysql.sock
+</span><span class='line'>skip-grant-tables
+</span></code></pre></td></tr></table></div></figure>
+
+
+<ol>
+<li>重启<code>mysqld</code>。</li>
+<li>登陆<code>mysql</code>，修改root密码。</li>
+</ol>
+
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>&gt; mysql -u root
+</span><span class='line'>mysql&gt; USE mysql;
+</span><span class='line'>mysql&gt; UPDATE user SET <span class="nv">Password</span><span class="o">=</span>password <span class="o">(</span><span class="s1">&#39;new-password&#39;</span><span class="o">)</span> WHERE <span class="nv">User</span> <span class="o">=</span> <span class="s1">&#39;root&#39;</span>;
+</span><span class='line'>mysql&gt; FLUSH PRIVILEGES;
+</span></code></pre></td></tr></table></div></figure>
+
+
+<ol>
+<li>将<code>/etc/my.cnf</code>更改回来。</li>
+<li>重启<code>mysqld</code>。</li>
+</ol>
+
+
+<p><span style="color: red;">注意: </span>「skip-grant-tables」模式是忽略权限认证的意思，所以在上述<code>步骤1</code>开始前先保证外人无法连接你的<code>mysqld</code>。</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
       
-        <div class="sharing">
   
-  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://chenglei.me/about/index.html" data-via="dlutcat" data-counturl="http://chenglei.me/about/index.html" >Tweet</a>
+
+<span class="byline author vcard">Posted by <span class="fn">dlutcat</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-05-02T20:07:00+08:00" pubdate data-updated="true">May 2<span>nd</span>, 2013</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/linux/'>Linux</a>, <a class='category' href='/blog/categories/mysql-/'>Mysql,</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://chenglei.me/blog/2013/05/02/zhong-xin-she-zhi-mysqlde-rootmi-ma/" data-via="dlutcat" data-counturl="http://chenglei.me/blog/2013/05/02/zhong-xin-she-zhi-mysqlde-rootmi-ma/" >Tweet</a>
   
   
   
 </div>
 
+    
+    <p class="meta">
       
-    </footer>
-  
+        <a class="basic-alignment left" href="/blog/2013/04/26/alfred-workflow-shi-yao-zhi-de-mai/" title="Previous Post: Alfred workflow: 什么值得买">&laquo; Alfred workflow: 什么值得买</a>
+      
+      
+    </p>
+  </footer>
 </article>
 
   <section>
@@ -211,8 +289,8 @@ Github: <a href="https://github.com/dlutcat">dlutcat</a></p>
       
         
         // var disqus_developer = 1;
-        var disqus_identifier = 'http://chenglei.me/about/index.html';
-        var disqus_url = 'http://chenglei.me/about/index.html';
+        var disqus_identifier = 'http://chenglei.me/blog/2013/05/02/zhong-xin-she-zhi-mysqlde-rootmi-ma/';
+        var disqus_url = 'http://chenglei.me/blog/2013/05/02/zhong-xin-she-zhi-mysqlde-rootmi-ma/';
         var disqus_script = 'embed.js';
       
     (function () {

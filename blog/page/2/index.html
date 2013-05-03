@@ -9,7 +9,7 @@
   <meta name="author" content="dlutcat">
 
   
-  <meta name="description" content="前两天从HN的Top10中看到一个Post：9 things I wish someone had told me about life after college，从自己离开大学到现在工作3年的经验来看，这些建议还是很中肯的。 这里自己根据文中建议和自己的感悟归纳出来几点， &hellip;">
+  <meta name="description" content="由来 前些天申请了一个微信公众账号LinuxTips，顾名思义，用来推荐一些常用或有用但不太熟知的技巧，多多少少希望能对Linux初学者有一些帮助。连续发了一两周下来发现订阅者越来越多，说明还是有些帮助，所以我准备把这事儿坚持下去。我准备用这篇日志来记录LinuxTips的历史发布， &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -77,6 +77,87 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/02/08/linuxzhong-duan-chang-yong-ji-qiao-zong-jie-wei-xin-linuxtipsgui-dang/">微信公众账号LinuxTips归档</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-02-08T21:18:00+08:00" pubdate data-updated="true">Feb 8<span>th</span>, 2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h3>由来</h3>
+
+<p>前些天申请了一个微信公众账号<code>LinuxTips</code>，顾名思义，用来推荐一些常用或有用但不太熟知的技巧，多多少少希望能对Linux初学者有一些帮助。连续发了一两周下来发现订阅者越来越多，说明还是有些帮助，所以我准备把这事儿坚持下去。我准备用这篇日志来记录<code>LinuxTips</code>的历史发布，方便大家日后查阅。</p>
+
+<h3>LinuxTips使用指南</h3>
+
+<p>在此之前，我先列一下未来<code>LinuxTips</code>的一些使用技巧和上线时间，一方面是来督促自己认真对待这个事儿，一方面也是为了给大家提供一个简单使用指南，一些简单的操作命令（不定期地添加新的命令）：</p>
+
+<ul>
+<li><code>ls</code> 或 <code>help</code>  查看可用命令</li>
+<li><code>history</code>  查看历史发布的Tips</li>
+<li><code>about</code>  关于</li>
+<li><code>m+11位手机号码</code>  手机号码归属地查询</li>
+</ul>
+
+
+<h3>LinuxTips历史归档</h3>
+
+<div><script src='https://gist.github.com/4739126.js'></script>
+<noscript><pre><code># 以root身份执行上一条命令
+$ sudo!!
+
+# 返回用户主目录
+$ cd
+
+# 返回前一次所在目录
+$ cd -
+
+# Python自带的简易httpserver，可以serve当前目录。方便多平台的文件分享。
+$ python -m SimpleHTTPServer
+
+# 清空文件内容
+$ &gt; file.txt  
+
+# 快速在终端查看ASCII码表
+$ man ascii
+
+# 获取本机的外网IP，该命令需要联网。感谢 http://ifconfig.me/ 
+$ curl ifconfig.me
+
+# 剪切从光标到行首/粘贴上一次剪切的内容
+Ctrl + u/y
+</code></pre></noscript></div>
+
+
+
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -334,77 +415,6 @@
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2012/09/22/wei-shi-yao-pythonhan-shu-ding-yi-zhong-guan-jian-zi-can-shu-bu-tui-jian-she-zhi-mutablede-mo-ren-zhi/">为什么Python函数定义中关键字参数不推荐设置mutable的默认值？</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-09-22T15:55:00+08:00" pubdate data-updated="true">Sep 22<span>nd</span>, 2012</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>很多关于Python的<a href="http://www.google.com.hk/search?q=python+best+practices&amp;aq=0&amp;oq=python+best+prac&amp;sugexp=chrome,mod=10&amp;sourceid=chrome&amp;ie=UTF-8">Best Practice</a>中都会提到，在函数定义的时候，关键词参数的默认值不要设置成mutable的类型，比如list, dict。那么具体原因是什么呢？之前一直没有去思考，直到膝盖中了一箭。
-先看下面的例子：</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="k">def</span> <span class="nf">example</span><span class="p">(</span><span class="n">items</span><span class="o">=</span><span class="p">[]):</span>
-</span><span class='line'>    <span class="n">items</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s">&quot;test&quot;</span><span class="p">)</span>
-</span><span class='line'>    <span class="k">return</span> <span class="n">items</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>调用<code>example()</code>会返回什么呢？第二次，第三次调用又会返回什么呢？</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'>&gt;&gt;&gt; example<span class="o">()</span>
-</span><span class='line'><span class="o">[</span><span class="s1">&#39;test&#39;</span><span class="o">]</span>
-</span><span class='line'>
-</span><span class='line'>&gt;&gt;&gt; example<span class="o">()</span>
-</span><span class='line'><span class="o">[</span><span class="s1">&#39;test&#39;</span>, <span class="s1">&#39;test&#39;</span><span class="o">]</span>
-</span><span class='line'>
-</span><span class='line'>&gt;&gt;&gt; example<span class="o">()</span>
-</span><span class='line'><span class="o">[</span><span class="s1">&#39;test&#39;</span>, <span class="s1">&#39;test&#39;</span>, <span class="s1">&#39;test&#39;</span><span class="o">]</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>是不是觉得结果有些意外？是的，这就是Python函数的定义机制：</p>
-
-<blockquote><p>在生命周期中，函数的声明语句只会执行一次，就是在源码被解释器解释的时候，而不是在被调用的时候。</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/3/">&larr; Older</a>
@@ -422,6 +432,10 @@
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2013/05/02/zhong-xin-she-zhi-mysqlde-rootmi-ma/">重新设置Mysql的root密码</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2013/04/26/alfred-workflow-shi-yao-zhi-de-mai/">Alfred workflow: 什么值得买</a>
       </li>
     
@@ -435,10 +449,6 @@
     
       <li class="post">
         <a href="/blog/2012/12/17/chi-kai-xiao-yuan-jin-ru-she-hui-xu-yao-ming-bai-de-ji-jian-shi-qing/">离开校园进入社会需要明白的几件事情</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2012/11/25/duo-fu-wu-qi-guan-li-zhi-fabric/">多服务器管理之Fabric</a>
       </li>
     
   </ul>

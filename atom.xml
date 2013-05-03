@@ -4,7 +4,7 @@
   <title><![CDATA[简单的Coder]]></title>
   <link href="http://chenglei.me/atom.xml" rel="self"/>
   <link href="http://chenglei.me/"/>
-  <updated>2013-04-26T23:08:47+08:00</updated>
+  <updated>2013-05-03T15:43:07+08:00</updated>
   <id>http://chenglei.me/</id>
   <author>
     <name><![CDATA[dlutcat]]></name>
@@ -12,6 +12,75 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[重新设置Mysql的root密码]]></title>
+    <link href="http://chenglei.me/blog/2013/05/02/zhong-xin-she-zhi-mysqlde-rootmi-ma/"/>
+    <updated>2013-05-02T20:07:00+08:00</updated>
+    <id>http://chenglei.me/blog/2013/05/02/zhong-xin-she-zhi-mysqlde-rootmi-ma</id>
+    <content type="html"><![CDATA[<p>昨天帮朋友安装部署Mysql的时候，用<code>mysqladmin</code>给root用户设置了一个16位的随机密码，还没来得及记下来就被突然插进来的事儿打断了，等我回来的时候已经找不到这个密码了。像这样的事情在我身上已经发生过了2次，每次Google『Mysql忘记root密码』都没有找到可行的方案（可能是因为Mysql版本和网上这些提到的不一样导致重置失败），所以这次我要记下来一个自己确认可行的方案以供今后参考。</p>
+
+<h2>我的环境版本</h2>
+
+<ul>
+<li>CentOS release 6.3 (Final)</li>
+<li>mysql Ver 14.14 Distrib 5.1.69, for redhat-linux-gnu (x86_64) using readline 5.1</li>
+</ul>
+
+
+<h2>问题描述</h2>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>mysqladmin -u root -p randompassword
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>之后，忘记了<code>randompassword</code>，无法登陆<code>mysql</code>，需要找回root密码。</p>
+
+<h2>解决方案</h2>
+
+<ol>
+<li>修改<code>mysqld</code>的配置文件`/etc/my.cnf&#8217;，在每个section里追加一条设置：「skip-grant-tables 」，比如：</li>
+</ol>
+
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="o">[</span>mysqld<span class="o">]</span>
+</span><span class='line'><span class="nv">datadir</span><span class="o">=</span>/var/lib/mysql
+</span><span class='line'><span class="nv">socket</span><span class="o">=</span>/var/lib/mysql/mysql.sock
+</span><span class='line'>skip-grant-tables
+</span></code></pre></td></tr></table></div></figure>
+
+
+<ol>
+<li>重启<code>mysqld</code>。</li>
+<li>登陆<code>mysql</code>，修改root密码。</li>
+</ol>
+
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>&gt; mysql -u root
+</span><span class='line'>mysql&gt; USE mysql;
+</span><span class='line'>mysql&gt; UPDATE user SET <span class="nv">Password</span><span class="o">=</span>password <span class="o">(</span><span class="s1">&#39;new-password&#39;</span><span class="o">)</span> WHERE <span class="nv">User</span> <span class="o">=</span> <span class="s1">&#39;root&#39;</span>;
+</span><span class='line'>mysql&gt; FLUSH PRIVILEGES;
+</span></code></pre></td></tr></table></div></figure>
+
+
+<ol>
+<li>将<code>/etc/my.cnf</code>更改回来。</li>
+<li>重启<code>mysqld</code>。</li>
+</ol>
+
+
+<p><span style="color: red;">注意: </span>「skip-grant-tables」模式是忽略权限认证的意思，所以在上述<code>步骤1</code>开始前先保证外人无法连接你的<code>mysqld</code>。</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Alfred workflow: 什么值得买]]></title>
