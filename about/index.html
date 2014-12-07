@@ -1,246 +1,533 @@
+<!doctype html>
+<html>
+	<head>
+	
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, user-scalable=no, minimal-ui">
+	
+	<title>程垒</title>
+	
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.2.0/css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/octicons/2.0.2/octicons.min.css">
+	
+	<style type="text/css">
+	@import url(
+	https://fonts.googleapis.com/css?family=Lato:400,700
+);
+body {
+	background: #fff;
+	font-family: Lato, sans-serif;
+	margin: 0 0 80px;
+}
+a {
+	color: #2ecc71;
+}
+a:focus,
+a:hover {
+	color: #f1c40f;
+	text-decoration: none;
+}
+p {
+	line-height: 1.5;
+	margin: 0;
+}
+p + p {
+	margin-top: 10px;
+}
+h1,
+h2,
+h3,
+h4 {
+	margin-top: 0
+}
+section {
+	margin-top: 30px;
+}
+li {
+	line-height: 1.8;
+	list-style: none;
+}
+li:before {
+	content: "\f052";
+	float: left;
+	font: 13px Octicons;
+	margin-top: 6px;
+	margin-left: -20px;
+	opacity: .1;
+	position: absolute;
+}
+blockquote {
+	border-left: 5px solid #e7e9ec;
+	font-size: 14px;
+}
+em {
+	color: #95a5a6;
+	font-weight: normal;
+	font-style: normal;
+}
+h4 span:first-child {
+	color: #000;
+	font-weight: bold;
+}
+.container {
+	max-width: 750px;
+	padding: 0 30px;
+}
+.col-sm-6 {
+	margin-bottom: 10px;
+}
+.col-sm-12 h4 {
+	margin-top: 12px; 
+}
+.col-sm-12 + .col-sm-12 {
+	margin-top: 30px;
+}
+#header {
+	background: #f4f6f6;
+	padding: 50px 0;
+	margin-bottom: 30px;
+}
+#header h2 {
+	color: #95a5a6;
+	font-size: 24px;
+}
+#content h3 {
+	color: #f1c40f;
+	font-size: 26px;
+	margin-top: -4px;
+}
+#content aside {
+	text-align: right;
+	padding-right: 30px;
+}
+#profiles .network {
+	text-transform: capitalize;
+}
+#work .position,
+#volunteer .position {
+	font-weight: bold;
+	margin-bottom: 8px;
+}
+#education .area {
+	font-weight: bold;
+}
+#education .area:before {
+	content: "\f0d7";
+	font: 16px Octicons;
+	margin-right: 6px;
+}
+#education .studyType {
+	margin-left: 25px;
+}
+#awards .summary,
+#publications .summary {
+	margin-top: 8px;
+}
+#publications .website a:before {
+	content: attr(href);
+}
 
-<!DOCTYPE html>
-<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
-<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
-<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
-<head>
-  <meta charset="utf-8">
-  <title>about - 简单的Coder</title>
-  <meta name="author" content="dlutcat">
+@media (min-width: 480px) {
+	.strike-through {
+		border-top: 1px solid #f4f6f6;
+		height: 20px;
+		margin-top: 12px;
+		margin-bottom: -2px;
+		position: relative;
+	}
+	.strike-through span,
+	.strike-through a {
+		background: #fff;
+		position: absolute;
+	}
+	.strike-through span:first-child {
+		padding-right: 20px;
+		margin-top: -12px;
+	}
+	.strike-through span + span {
+		font-size: 14px;
+		margin-top: -10px;
+		padding-left: 20px;
+		right: 0;
+	}
+}
+@media (max-width: 768px) {
+	.col-sm-6:last-child {
+		margin-bottom: 0px;
+	}
+	#content aside {
+		margin-bottom: 20px;
+		padding-right: 0;
+		text-align: left;
+	}
+	#publications .website a:before {
+		content: "View publication";
+	}
+}
+@media (max-width: 480px) {
+	h1 {
+		font-size: 26px;
+	}
+	.date {
+		font-size: 14px;
+		margin-bottom: 5px;
+	}
+	.strike-through span:first-child {
+		margin-bottom: 7px;
+	}
+	.strike-through span {
+		display: block;
+	}	
+	#header {
+		margin-bottom: 10px;
+		padding: 40px 0;
+	}
+	#actions {
+		display: none;
+	}
+}
 
-  
-  <meta name="description" content="About Mar 8th, 2013 A Pythonista, Hacking at 看图班. Email: pat.inside@gmail.com
-Kantuban: 昔昔盐
-Douban: 昔昔盐
-Github: dlutcat Mar 8th, 2013 Tweet Comments &hellip;">
-  
+	</style>
+	
+	</head>
+	<body>
+	
+	<header id="header">
+		<div class="container">
+			<div class="row">
+				<div class="col-sm-9 col-sm-push-3">
+					<h1>
+						程垒
+					</h1>
+					<h2>
+						Backend Developer
+					</h2>
+				</div>
+			</div>
+		</div>
+	</header>
+	<div id="content" class="container">
 
-  <!-- http://t.co/dKP3o1e -->
-  <meta name="HandheldFriendly" content="True">
-  <meta name="MobileOptimized" content="320">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+	<section id="contact" class="row">
+		<aside class="col-sm-3">
+			<h3>Contact</h3>
+		</aside>
+		<div class="col-sm-9">
+			<div class="row">
+			<div class="col-sm-6">
+				<strong>Email</strong>
+				<div class="email">pat.inside@gmail.com</div>
+			</div>
+			<div class="col-sm-6">
+				<strong>Phone</strong>
+				<div class="phone">15821445861</div>
+			</div>
+			</div>
+		</div>
+	</section>
+	<section id="about" class="row">
+		<aside class="col-sm-3">
+			<h3>About</h3>
+		</aside>
+		<div class="col-sm-9">
+			<p>1年企业软件开发，4年互联网开发，主要以后端开发为主，也做过前端架构（JavaScript方向）和DevOps。作为核心成员参加过社交问答，在线装修，在线旅游领域的互联网产品研发。痴迷互联网技术和产品，自认为是具有良好产品嗅觉的程序员 :)  ||  个人标签:「伪Geek」，「伪文艺青年」，「体育爱好者」，「外语爱好者」，「日剧/日影迷」，「伪历史爱好者」, 「HackerNews粉」</p>
+		</div>
+	</section>
+	<section id="profiles" class="row">
+		<aside class="col-sm-3">
+			<h3>Profiles</h3>
+		</aside>
+		<div class="col-sm-9">
+			<div class="row">
+				<div class="col-sm-6">
+					<strong class="network">
+						豆瓣
+					</strong>
+					<div class="username">
+						<div class="url">
+							<a href="http://www.douban.com/people/xixiyan/">昔昔盐</a>
+						</div>
+					</div>
+				</div>
+				<div class="col-sm-6">
+					<strong class="network">
+						Quora
+					</strong>
+					<div class="username">
+						<div class="url">
+							<a href="http://www.quora.com/Cheng-Lei-1">Cheng Lei</a>
+						</div>
+					</div>
+				</div>
+				<div class="col-sm-6">
+					<strong class="network">
+						知乎
+					</strong>
+					<div class="username">
+						<div class="url">
+							<a href="http://www.zhihu.com/people/patto">程垒</a>
+						</div>
+					</div>
+				</div>
+				<div class="col-sm-6">
+					<strong class="network">
+						Github
+					</strong>
+					<div class="username">
+						<div class="url">
+							<a href="https://github.com/dlutcat">dlutcat</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
 
-  
-  <link rel="canonical" href="http://chenglei.me/about/">
-  <link href="/favicon.png" rel="icon">
-  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
-  <script src="/javascripts/modernizr-2.0.js"></script>
-  <script src="/javascripts/ender.js"></script>
-  <script src="/javascripts/octopress.js" type="text/javascript"></script>
-  <link href="/atom.xml" rel="alternate" title="简单的Coder" type="application/atom+xml">
-  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
-<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
-<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+	<section id="work" class="row">
+		<aside class="col-sm-3">
+			<h3>Work</h3>
+		</aside>
+		<div class="col-sm-9">
+			<div class="row">
+			<div class="col-sm-12">
+				<h4 class="strike-through">
+					<span>南开创元信息技术有限公司</span>
+					<span class="date">
+						2009-09-01 — 2010-09-01
+					</span>
+				</h4>
+				<div class="position">
+					Software Engineer
+				</div>
+				<div class="summary">
+					<p>使用J2EE平台参与开发一个类似JIRA的任务管理和bug追踪商业系统。主要使用Spring，iBatis以及自主研发的MVC框架（类似Struts2），数据库使用Mysql，消息队列使用ActiveMQ。我主要负责部分模块的数据库设计和前后台的开发。</p>
+				</div>
+			</div>
+			<div class="col-sm-12">
+				<h4 class="strike-through">
+					<span>阿拉丁电子商务有限公司</span>
+					<span class="date">
+						2010-10-01 — 2011-06-01
+					</span>
+				</h4>
+				<div class="position">
+					Web Developer
+				</div>
+				<div class="summary">
+					<p>参与创业开发国内第一个社交问答网站，国内最早的类Quora产品。作为创业团队的核心开发人员负责Web主要模块的前后台的设计和开发，比如：用户关系模块，消息通知模块，问答模块等。</p>
+				</div>
+				<h4>Highlights</h4>
+				<ul class="highlights">
+					<li class="bullet">主要后台技术使用Nginx + Python + Tornado + Redis + Mysql，部分使用Erlang，搜索使用Lucene + Solr。</li>
+					<li class="bullet">前端DOM操作使用jQuery，模块组织仿照豆瓣do.js自己写的微框架。</li>
+					<li class="bullet">版本管理SVN</li>
+				</ul>
+			</div>
+			<div class="col-sm-12">
+				<h4 class="strike-through">
+					<span>福家网络科技有限公司</span>
+					<span class="date">
+						2011-06-01 — 2012-07-01
+					</span>
+				</h4>
+				<div class="position">
+					Web Developer
+				</div>
+				<div class="summary">
+					<p>国内最早的在线设计和装修平台，后转型做在线3D家装设计软件，现天猫「家装DIY」板块。我主要参与2.0版本的完全重构，前端架构，以及部分系统运维。</p>
+				</div>
+				<h4>Highlights</h4>
+				<ul class="highlights">
+					<li class="bullet">Web主站使用Nginx + Python + Django + Memcached + Postgres的技术框架，在线聊天系统基于ejabberd + RabbitMQ搭建。</li>
+					<li class="bullet">前端jQuery + 自己编写的框架（类似YUI）+ Require.js</li>
+					<li class="bullet">版本管理Mercrial</li>
+				</ul>
+			</div>
+			<div class="col-sm-12">
+				<h4 class="strike-through">
+					<span>看图班旅行相册</span>
+					<span class="date">
+						2012-07-01 — 2013-09-01
+					</span>
+				</h4>
+				<div class="position">
+					Web Developer
+				</div>
+				<div class="summary">
+					<p>由前携程网SVP创办的旅行图片分享网站，后转型为「周末找好玩」，继而被携程收购。我主要参与Web产品的研发，以及部分CI工具搭建和开发。</p>
+				</div>
+				<h4>Highlights</h4>
+				<ul class="highlights">
+					<li class="bullet">Nginx + Python + Gunicorn + Webpy/Tornado + Gevent + Redis + Mysql.  RPC通信使用Thrift.</li>
+					<li class="bullet">版本管理Git</li>
+				</ul>
+			</div>
+			<div class="col-sm-12">
+				<h4 class="strike-through">
+					<span>携程旅行网</span>
+					<span class="date">
+						2013-10-01 — 2014-12-31
+					</span>
+				</h4>
+				<div class="position">
+					Development Manager
+				</div>
+				<div class="summary">
+					<p>随着看图班被携程收购，我加入了携程攻略社区部门，作为开发经理主导度假频道下「周末游」频道的设计和开发，以及开发团队的管理，并很好的完成了第一个版本发布。由于携程大的技术环境影响，技术选型受限于Windows +  .Net平台，使用.Net MVC框架和Memcached，以及Mysql。
+后随原看图班CTO加入携程的一个新部门-主题游，作为核心开发成员，完成携程高尔夫Web和App的上线和多版本迭代。</p>
+				</div>
+				<h4>Highlights</h4>
+				<ul class="highlights">
+					<li class="bullet">Web表现层和逻辑层使用.Net MVC，数据服务层使用SpringMVC + Hibernate，通协协议规范Restful，缓存Redis，数据库Mysql(Master + Slave)</li>
+					<li class="bullet">版本管理Git + TFS(.Net系)</li>
+				</ul>
+			</div>
+			</div>
+		</div>
+	</section>
 
-  
-  <script type="text/javascript">
-    var _gaq = _gaq || [];
-    _gaq.push(['_setAccount', 'UA-39137609-1']);
-    _gaq.push(['_trackPageview']);
+	
+	<section id="education" class="row">
+		<aside class="col-sm-3">
+			<h3>Education</h3>
+		</aside>
+		<div class="col-sm-9">
+			<div class="row">
+			<div class="col-sm-12">
+				<h4 class="strike-through">
+					<span>大连理工大学</span>
+					<span class="date">
+						2005-09-01 — 2009-07-06
+					</span>
+				</h4>
+				<div class="area">
+					软件工程
+				</div>
+				<div class="studyType">
+					本科
+				</div>
+			</div>
+			</div>
+		</div>
+	</section>
+	
+	
+	
+	<section id="skills" class="row">
+		<aside class="col-sm-3">
+			<h3>Skills</h3>
+		</aside>
+		<div class="col-sm-9">
+			<div class="row">
+			<div class="col-sm-6">
+				<div class="name">
+					<h4>Web开发</h4>
+				</div>
+				<ul class="keywords">
+					<li>Python</li>
+					<li>Java</li>
+					<li>JavaScript</li>
+					<li>Golang</li>
+					<li>Http</li>
+					<li>Restful</li>
+					<li>Data Structures and Algorithm</li>
+				</ul>
+			</div>
+			<div class="col-sm-6">
+				<div class="name">
+					<h4>DevOps</h4>
+				</div>
+				<ul class="keywords">
+					<li>Linux</li>
+					<li>Shell</li>
+					<li>Git</li>
+					<li>Mysql</li>
+					<li>Memcache</li>
+					<li>Redis</li>
+				</ul>
+			</div>
+			</div>
+		</div>
+	</section>
 
-    (function() {
-      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-    })();
-  </script>
+	<section id="languages" class="row">
+		<aside class="col-sm-3">
+			<h3>Languages</h3>
+		</aside>
+		<div class="col-sm-9">
+			<div class="row">
+			<div class="col-sm-6">
+				<div class="language">
+					<strong>英语</strong>
+				</div>
+				<div class="fluency">
+					六级
+				</div>
+			</div>
+			<div class="col-sm-6">
+				<div class="language">
+					<strong>日语</strong>
+				</div>
+				<div class="fluency">
+					二级
+				</div>
+			</div>
+			</div>
+		</div>
+	</section>
 
+	<section id="interests" class="row">
+		<aside class="col-sm-3">
+			<h3>Interests</h3>
+		</aside>
+		<div class="col-sm-9">
+			<div class="row">
+			<div class="col-sm-6">
+				<div class="name">
+					<h4>专业领域</h4>
+				</div>
+				<ul class="keywords">
+					<li>高并发</li>
+					<li>DevOps</li>
+					<li>数据可视化</li>
+				</ul>
+			</div>
+			<div class="col-sm-6">
+				<div class="name">
+					<h4>体育</h4>
+				</div>
+				<ul class="keywords">
+					<li>游泳</li>
+					<li>跑步</li>
+					<li>街头篮球/足球/羽毛球/乒乓球</li>
+					<li>英超</li>
+				</ul>
+			</div>
+			<div class="col-sm-6">
+				<div class="name">
+					<h4>影视</h4>
+				</div>
+				<ul class="keywords">
+					<li>日剧/日影/日漫</li>
+					<li>美剧</li>
+				</ul>
+			</div>
+			<div class="col-sm-6">
+				<div class="name">
+					<h4>阅读</h4>
+				</div>
+				<ul class="keywords">
+					<li>历史</li>
+					<li>科学</li>
+					<li>治愈</li>
+				</ul>
+			</div>
+			</div>
+		</div>
+	</section>
+	
 
-</head>
-
-<body   >
-  <header role="banner"><hgroup>
-  <h1><a href="/">简单的Coder</a></h1>
-  
-    <h2>Code is my life, that's it.</h2>
-  
-</hgroup>
-
-</header>
-  <nav role="navigation"><ul class="subscription" data-subscription="rss">
-  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
-  
-</ul>
-  
-<form action="http://google.com/search" method="get">
-  <fieldset role="search">
-    <input type="hidden" name="q" value="site:chenglei.me" />
-    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
-  </fieldset>
-</form>
-  
-<ul class="main-navigation">
-  <li><a href="/">首页</a></li>
-  <li><a href="/blog/archives">归档</a></li>
-  <li><a href="/about">关于</a></li>
-</ul>
-
-</nav>
-  <div id="main">
-    <div id="content">
-      <div>
-<article role="article">
-  
-  <header>
-    <h1 class="entry-title">About</h1>
-    <p class="meta">
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-03-08T22:02:00+08:00" pubdate data-updated="true">Mar 8<span>th</span>, 2013</time></p>
-  </header>
-  
-  <p>A Pythonista, Hacking at <a href="http://www.kantuban.com">看图班</a>.</p>
-
-<p>Email: pat.inside@gmail.com<br/>
-Kantuban: <a href="http://www.kantuban.com/people/1365">昔昔盐</a><br/>
-Douban: <a href="http://www.douban.com/people/xixiyan/">昔昔盐</a><br/>
-Github: <a href="https://github.com/dlutcat">dlutcat</a></p>
-
-  
-    <footer>
-      <p class="meta">
-        
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-03-08T22:02:00+08:00" pubdate data-updated="true">Mar 8<span>th</span>, 2013</time>
-        
-      </p>
-      
-        <div class="sharing">
-  
-  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://chenglei.me/about/index.html" data-via="dlutcat" data-counturl="http://chenglei.me/about/index.html" >Tweet</a>
-  
-  
-  
-</div>
-
-      
-    </footer>
-  
-</article>
-
-  <section>
-    <h1>Comments</h1>
-    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-</div>
-  </section>
-
-</div>
-
-<aside class="sidebar">
-  
-    <section>
-  <h1>Recent Posts</h1>
-  <ul id="recent_posts">
-    
-      <li class="post">
-        <a href="/blog/2013/05/02/zhong-xin-she-zhi-mysqlde-rootmi-ma/">重新设置Mysql的root密码</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2013/04/26/alfred-workflow-shi-yao-zhi-de-mai/">Alfred workflow: 什么值得买</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2013/03/08/macying-wen-xi-tong-xia-itunesdao-ru-zhong-wen-ge-qu-luan-ma-de-jie-jue-fang-fa/">Mac英文系统下iTunes导入中文歌曲乱码的解决方法</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2013/02/08/linuxzhong-duan-chang-yong-ji-qiao-zong-jie-wei-xin-linuxtipsgui-dang/">微信公众账号LinuxTips归档</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2012/12/17/chi-kai-xiao-yuan-jin-ru-she-hui-xu-yao-ming-bai-de-ji-jian-shi-qing/">离开校园进入社会需要明白的几件事情</a>
-      </li>
-    
-  </ul>
-</section>
-<script type="text/javascript" src="http://www.kantuban.com/outwidget/1365"></script>
-<section>
-  <h1>新浪微博</h1>
-  <ul id="weibo">
-    <li>
-      <iframe
-        width="100%"
-        height="550"
-        class="share_self"
-        frameborder="0"
-        scrolling="no"
-        src="http://widget.weibo.com/weiboshow/index.php?width=0&height=550&ptype=1&speed=0&skin=&isTitle=0&noborder=1&isWeibo=1&isFans=&uid=1645930380&verifier=f8d37ee6">
-      </iframe>
-    </li>
-  </ul>
-</section>
-
-
-  
-</aside>
-
-
-    </div>
-  </div>
-  <footer role="contentinfo"><p>
-  Copyright &copy; 2013 - dlutcat -
-  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a>. Design by <a href="http://octopressthemes.com">Octopress Themes</a>. Background image by <a href="http://www.flickr.com/photos/rhysasplundh/">Rhys Asplundh</a></span>
-</p>
-
-</footer>
-  
-
-<script type="text/javascript">
-      var disqus_shortname = 'simple-coder';
-      
-        
-        // var disqus_developer = 1;
-        var disqus_identifier = 'http://chenglei.me/about/index.html';
-        var disqus_url = 'http://chenglei.me/about/index.html';
-        var disqus_script = 'embed.js';
-      
-    (function () {
-      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
-      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-    }());
-</script>
-
-
-
-
-
-
-
-  <script type="text/javascript">
-    (function(){
-      var twitterWidgets = document.createElement('script');
-      twitterWidgets.type = 'text/javascript';
-      twitterWidgets.async = true;
-      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
-      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
-    })();
-  </script>
-
-
-
-
-
-</body>
+	</div>
+	
+	</body>
 </html>
